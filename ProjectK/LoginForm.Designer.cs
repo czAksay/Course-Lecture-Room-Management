@@ -229,6 +229,8 @@
             this.btnCheckConnection.Text = "Проверить соединение";
             this.btnCheckConnection.UseVisualStyleBackColor = false;
             this.btnCheckConnection.Click += new System.EventHandler(this.BtnCheckConnection_Click);
+            this.btnCheckConnection.MouseEnter += new System.EventHandler(this.BtnCheckConnection_MouseEnter);
+            this.btnCheckConnection.MouseLeave += new System.EventHandler(this.BtnCheckConnection_MouseLeave);
             // 
             // tbServerPort
             // 
@@ -238,6 +240,8 @@
             this.tbServerPort.Size = new System.Drawing.Size(270, 27);
             this.tbServerPort.TabIndex = 3;
             this.tbServerPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbServerPort.MouseEnter += new System.EventHandler(this.TbServerPort_MouseEnter);
+            this.tbServerPort.MouseLeave += new System.EventHandler(this.TbServerPort_MouseLeave);
             // 
             // label4
             // 
@@ -257,6 +261,8 @@
             this.tbServerIp.Size = new System.Drawing.Size(270, 27);
             this.tbServerIp.TabIndex = 1;
             this.tbServerIp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbServerIp.MouseEnter += new System.EventHandler(this.TbServerIp_MouseEnter);
+            this.tbServerIp.MouseLeave += new System.EventHandler(this.TbServerIp_MouseLeave);
             // 
             // label5
             // 
@@ -321,8 +327,8 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.trgLoginConnect);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pnlLogin);
             this.Controls.Add(this.pnlConnect);
+            this.Controls.Add(this.pnlLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;

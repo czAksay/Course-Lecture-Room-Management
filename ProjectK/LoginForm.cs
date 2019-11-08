@@ -225,5 +225,35 @@ namespace ProjectK
             else
                 tbPassword.PasswordChar = '*';
         }
+
+        private void TbServerIp_MouseEnter(object sender, EventArgs e)
+        {
+            messageDisplay1.SetText("Введите локальный IP-адрес сервера или localhost.");
+        }
+
+        private void TbServerIp_MouseLeave(object sender, EventArgs e)
+        {
+            messageDisplay1.Clear();
+        }
+
+        private void TbServerPort_MouseEnter(object sender, EventArgs e)
+        {
+            messageDisplay1.SetText("Введите порт сервера.");
+        }
+
+        private void TbServerPort_MouseLeave(object sender, EventArgs e)
+        {
+            messageDisplay1.Clear();
+        }
+
+        private void BtnCheckConnection_MouseEnter(object sender, EventArgs e)
+        {
+            messageDisplay1.SetText("Проверить соединие с сервером на основании введенных Вами данных.");
+        }
+
+        private void BtnCheckConnection_MouseLeave(object sender, EventArgs e)
+        {
+            messageDisplay1.Clear();
+        }
     }
 }

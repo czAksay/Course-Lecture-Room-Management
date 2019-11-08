@@ -47,9 +47,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.computerExplorer1 = new ProjectK.ComputerExplorer();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.flpButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flpComputers
@@ -196,7 +198,7 @@
             this.lblHello.Name = "lblHello";
             this.lblHello.Size = new System.Drawing.Size(503, 40);
             this.lblHello.TabIndex = 11;
-            this.lblHello.Text = "Здравствуйте, Евхламидий.";
+            this.lblHello.Text = "Здравствуйте, никто.";
             this.lblHello.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnComputerFilter
@@ -216,7 +218,7 @@
             // 
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::ProjectK.Properties.Resources.mjhbgffffuu;
-            this.pictureBox1.Location = new System.Drawing.Point(522, 341);
+            this.pictureBox1.Location = new System.Drawing.Point(11, 10);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(423, 223);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -225,8 +227,9 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.BackColor = System.Drawing.Color.White;
             this.pictureBox2.Image = global::ProjectK.Properties.Resources.close;
-            this.pictureBox2.Location = new System.Drawing.Point(900, 342);
+            this.pictureBox2.Location = new System.Drawing.Point(391, 10);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(42, 44);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -236,10 +239,13 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Yellow;
+            this.panel1.Controls.Add(this.pictureBox2);
+            this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(512, 332);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(444, 242);
             this.panel1.TabIndex = 15;
+            this.panel1.Visible = false;
             // 
             // timer1
             // 
@@ -255,14 +261,18 @@
             this.computerExplorer1.Size = new System.Drawing.Size(594, 499);
             this.computerExplorer1.TabIndex = 12;
             // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 7000;
+            this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(959, 576);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.flpButtons);
             this.Controls.Add(this.btnComputerFilter);
             this.Controls.Add(this.btnRefreshComputers);
@@ -281,6 +291,7 @@
             this.flpButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -306,5 +317,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
     }
 }

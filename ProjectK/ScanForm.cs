@@ -18,28 +18,26 @@ namespace ProjectK
 {
     public partial class ScanForm : Form
     {
-        bool isWorking;
         public ScanForm()
         {
             InitializeComponent();
-            isWorking = false;
             lblState.Text = "Ожидание.";
             computerExplorer.SetComputer(currentComputer);
             CreateComputer();
             //StartScan();
         }
 
-        private void ScanForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (isWorking)
-            {
-                var result = MessageBox.Show("Процесс сканирования не завершен. Вы уверены, что хотите отменить его?", "Подождите", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if  (result == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
-        }
+        //private void ScanForm_FormClosing(object sender, FormClosingEventArgs e)
+        //{
+        //    if (isWorking)
+        //    {
+        //        var result = MessageBox.Show("Процесс сканирования не завершен. Вы уверены, что хотите отменить его?", "Подождите", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        //        if  (result == DialogResult.No)
+        //        {
+        //            e.Cancel = true;
+        //        }
+        //    }
+        //}
 
         private void CreateComputer()
         {
@@ -51,7 +49,6 @@ namespace ProjectK
 
         private void BtnStartScan_Click(object sender, EventArgs e)
         {
-            isWorking = true;
             computerExplorer.Clear();
             FillSoftware();
             FillHardware();
@@ -105,7 +102,6 @@ namespace ProjectK
 
         private void FinishScan()
         {
-            isWorking = false;
             btnSaveToTxt.Enabled = true;
             MessageBox.Show("Сканирование успешно завершено.", "Завершение", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -146,6 +142,7 @@ namespace ProjectK
 
         private void BtnBack_Click(object sender, EventArgs e)
         {
+            this.Dispose(true);
             this.Close();
         }
     }

@@ -26,6 +26,19 @@ namespace ProjectK
             computer = c;
             c.onSoftwareAdded += DrawNewSoftware;
             c.onHardwareAdded += DrawNewHardware;
+            flpComputerHardware.Controls.Clear();
+            flpComputerSoftware.Controls.Clear();
+            DrawNewHardware(c.Cpu);
+            DrawNewHardware(c.Soundboard);
+            DrawNewHardware(c.Motherboard);
+            List<Hardware> hs = new List<Hardware>();
+            hs.AddRange(c.Ram);
+            hs.AddRange(c.Hdd);
+            hs.AddRange(c.Gpu);
+            foreach (Hardware h in hs)
+                DrawNewHardware(h);
+            foreach (Software s in c.Softwares)
+                DrawNewSoftware(s);
         }
 
         private void PanelChanged()
@@ -46,25 +59,38 @@ namespace ProjectK
 
         private void DrawNewSoftware(Software software)
         {
-            Label l = new Label();
-            l.Font = new Font("Segoe UI Light", 11);
-            l.AutoSize = true;
-            l.Text = software.Name;
-            l.BorderStyle = BorderStyle.FixedSingle;
-            flpComputerSoftware.Controls.Add(l);
-            flpComputerSoftware.Update();
+            if (software == null)
+                return;
+            //Label l = new Label();
+            //l.Font = new Font("Segoe UI Light", 11);
+            //l.AutoSize = true;
+            //l.Text = software.Name;
+            //l.BorderStyle = BorderStyle.FixedSingle;
+            //flpComputerSoftware.Controls.Add(l);
+            SoftwareControl sc = new SoftwareControl(software);
+            sc.Width = flpComputerHardware.Width - 25;
+            flpComputerSoftware.Controls.Add(sc);
+
             lblCount.Text = "Количество: " + flpComputerSoftware.Controls.Count;
+            flpComputerSoftware.Update();
             this.Update();
         }
 
         private void DrawNewHardware(Hardware hardware)
         {
-            Label l = new Label();
-            l.Font = new Font("Segoe UI Light", 11);
-            l.AutoSize = true;
-            l.Text = hardware.Model;
-            l.BorderStyle = BorderStyle.FixedSingle;
-            flpComputerHardware.Controls.Add(l);
+            if (hardware == null)
+                return;
+            //Label l = new Label();
+            //l.Font = new Font("Segoe UI Light", 11);
+            //l.AutoSize = true;
+            //l.Text = hardware.Model;
+            //l.BorderStyle = BorderStyle.FixedSingle;
+            //flpComputerHardware.Controls.Add(l);
+
+            HardwareControl hc = new HardwareControl(hardware);
+            hc.Width = flpComputerHardware.Width - 25;
+            flpComputerHardware.Controls.Add(hc);
+
             flpComputerHardware.Update();
             this.Update();
         }

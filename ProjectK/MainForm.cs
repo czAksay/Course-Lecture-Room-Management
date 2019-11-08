@@ -125,5 +125,10 @@ namespace ProjectK
             Random r = new Random();
             panel1.BackColor = cls[r.Next(3)];
         }
+
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            panel1.Show();
+        }
     }
 }

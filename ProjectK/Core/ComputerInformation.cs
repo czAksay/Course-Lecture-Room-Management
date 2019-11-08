@@ -53,9 +53,9 @@ namespace ProjectK
             return macAddress;
         }
 
-        public CPU GetCpu()
+        public Hardware GetCpu()
         {
-            CPU cpu;
+            Hardware cpu;
             ManagementObjectSearcher mSearchObj = new ManagementObjectSearcher("SELECT * FROM Win32_Processor");
             ManagementObjectCollection objCollection = mSearchObj.Get();
             foreach (ManagementObject mObject in objCollection)
@@ -64,8 +64,9 @@ namespace ProjectK
                 {
                     if (property.Name == "Name")
                     {
-                        cpu = new CPU();
+                        cpu = new Hardware();
                         cpu.Model = property.Value.ToString();
+                        cpu.Type = HardwareType.CPU;
                         return cpu;
                     }
                 }
@@ -73,31 +74,33 @@ namespace ProjectK
             throw new Exception("CPU Search Error!");
         }
 
-        public Motherboard GetMotherboard()
+        public Hardware GetMotherboard()
         {
-            Motherboard mb;
+            Hardware mb;
             ManagementObjectSearcher mSearchObj = new ManagementObjectSearcher("SELECT * FROM Win32_BaseBoard");
             ManagementObjectCollection objCollection = mSearchObj.Get();
             foreach (ManagementObject mObject in objCollection)
             {
-                mb = new Motherboard();
+                mb = new Hardware();
                 mb.Model = mObject.Properties["Manufacturer"].Value.ToString() + " " + mObject.Properties["Product"].Value.ToString();
+                mb.Type = HardwareType.Motherboard;
                 return mb;
             }
             throw new Exception("Motherboard Search Error!");
         }
 
-        public List<HDD> GetHdds()
+        public List<Hardware> GetHdds()
         {
-            List<HDD> hdd = new List<HDD>();
+            List<Hardware> hdd = new List<Hardware>();
             ManagementObjectSearcher mSearchObj = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
             ManagementObjectCollection objCollection = mSearchObj.Get();
             foreach (ManagementObject mObject in objCollection)
             {
                 if (mObject.Properties["InterfaceType"].Value.ToString() != "USB")
                 {
-                    HDD _hdd = new HDD();
+                    Hardware _hdd = new Hardware();
                     _hdd.Model = mObject.Properties["Caption"].Value.ToString();
+                    _hdd.Type = HardwareType.HDD;
                     String size = mObject.Properties["Size"].Value.ToString();
                     long size_b = Int64.Parse(size) / (1024 * 1024 * 1024);
                     _hdd.Memory = (int)size_b;
@@ -107,46 +110,49 @@ namespace ProjectK
             return hdd;
         }
 
-        public List<RAM> GetRams()
+        public List<Hardware> GetRams()
         {
-            List<RAM> ram = new List<RAM>();
+            List<Hardware> ram = new List<Hardware>();
             ManagementObjectSearcher mSearchObj = new ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMemory");
             ManagementObjectCollection objCollection = mSearchObj.Get();
             foreach (ManagementObject mObject in objCollection)
             {
-                RAM _ram = new RAM();
+                Hardware _ram = new Hardware();
                 _ram.Model = mObject.Properties["Manufacturer"].Value.ToString() + " " + mObject.Properties["PartNumber"].Value.ToString();
                 String size = mObject.Properties["Capacity"].Value.ToString();
                 long size_b = Int64.Parse(size) / (1024*1024*1024);
+                _ram.Type = HardwareType.RAM;
                 _ram.Memory = (int)size_b;
                 ram.Add(_ram);
             }
             return ram;
         }
 
-        public Soundboard GetSoundboard()
+        public Hardware GetSoundboard()
         {
-            Soundboard sb;
+            Hardware sb;
             ManagementObjectSearcher mSearchObj = new ManagementObjectSearcher("SELECT * FROM Win32_SoundDevice");
             ManagementObjectCollection objCollection = mSearchObj.Get();
             foreach (ManagementObject mObject in objCollection)
             {
-                sb = new Soundboard();
+                sb = new Hardware();
                 sb.Model = mObject.Properties["Caption"].Value.ToString();
+                sb.Type = HardwareType.Soundboard;
                 return sb;
             }
             throw new Exception("Soundboard Search Error!");
         }
 
-        public List<GPU> GetGpus()
+        public List<Hardware> GetGpus()
         {
-            List<GPU> gpu = new List<GPU>();
+            List<Hardware> gpu = new List<Hardware>();
             ManagementObjectSearcher mSearchObj = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
             ManagementObjectCollection objCollection = mSearchObj.Get();
             foreach (ManagementObject mObject in objCollection)
             {
-                GPU _gpu = new GPU();
+                Hardware _gpu = new Hardware();
                 _gpu.Model = mObject.Properties["Name"].Value.ToString();
+                _gpu.Type = HardwareType.GPU;
                 gpu.Add(_gpu);
             }
             return gpu;
@@ -178,7 +184,6 @@ namespace ProjectK
             String parameter = "DisplayName";
 
             string displayName;
-
             using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", false))
             {
                 foreach (String keyName in key.GetSubKeyNames())

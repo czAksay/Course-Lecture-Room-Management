@@ -18,21 +18,16 @@ namespace ProjectK
         Color mouseEnterColor;
         List<Software> programs;
 
-        CPU cpu;
-        List<GPU> gpu;
-        List<RAM> ram;
-        List<HDD> hdd;
-        Motherboard motherboard;
-        Soundboard soundboard;
-        PowerSupply powerSupply;
+        Hardware cpu, motherboard, soundboard;
+        List<Hardware> gpu, ram, hdd;
 
-        CPU Cpu { get { return cpu; } }
-        List<GPU> Gpu { get { return gpu; } }
-        List<RAM> Ram { get { return ram; } }
-        List<HDD> Hdd { get { return hdd; } }
-        Motherboard Motherboard { get { return motherboard; } }
-        Soundboard Soundboard { get { return soundboard; } }
-        PowerSupply PowerSupply { get { return powerSupply; } }
+        public Hardware Cpu { get => cpu;  }
+        public Hardware Motherboard { get => motherboard;  }
+        public Hardware Soundboard { get => soundboard; }
+        public List<Hardware> Gpu { get => gpu;  }
+        public List<Hardware> Ram { get => ram; }
+        public List<Hardware> Hdd { get => hdd; }
+        public List<Software> Softwares { get => programs; }
 
 
         public delegate void SelectHandler(Computer computer);
@@ -91,9 +86,9 @@ namespace ProjectK
             }
             mouseEnterColor = Color.FromArgb(240, 240, 240);
             _MAC = "A1:B2:C3:D4";
-            hdd = new List<HDD>();
-            ram = new List<RAM>();
-            gpu = new List<GPU>();
+            hdd = new List<Hardware>();
+            ram = new List<Hardware>();
+            gpu = new List<Hardware>();
         }
 
         private void ControlsEvents(Control control)
@@ -137,34 +132,16 @@ namespace ProjectK
             if (hardware == null)
                 throw new Exception("Hardware is null!");
 
-            if (hardware is CPU)
+            switch (hardware.Type)
             {
-                cpu = (CPU)hardware;
+                case HardwareType.CPU: cpu = hardware; break;
+                case HardwareType.GPU: gpu.Add(hardware); break;
+                case HardwareType.RAM: ram.Add(hardware); break;
+                case HardwareType.HDD: hdd.Add(hardware); break;
+                case HardwareType.Motherboard: motherboard = hardware; break;
+                case HardwareType.Soundboard: soundboard = hardware; break;
             }
-            else if (hardware is GPU)
-            {
-                gpu.Add((GPU)hardware);
-            }
-            else if (hardware is RAM)
-            {
-                ram.Add((RAM)hardware);
-            }
-            else if (hardware is HDD)
-            {
-                hdd.Add((HDD)hardware);
-            }
-            else if (hardware is Motherboard)
-            {
-                motherboard = (Motherboard)hardware;
-            }
-            else if (hardware is Soundboard)
-            {
-                soundboard = (Soundboard)hardware;
-            }
-            else if (hardware is PowerSupply)
-            {
-                powerSupply = (PowerSupply)hardware;
-            }
+
 
             if (onHardwareAdded != null)
                 onHardwareAdded(hardware);

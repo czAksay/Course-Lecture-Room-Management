@@ -106,11 +106,20 @@
     <Compile Include="Controls\ControlTrigger.Designer.cs">
       <DependentUpon>ControlTrigger.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hardware\CPU.cs" />
+    <Compile Include="Controls\HardwareControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\HardwareControl.Designer.cs">
+      <DependentUpon>HardwareControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\DataManager.cs" />
-    <Compile Include="Hardware\Hardware.cs" />
-    <Compile Include="Hardware\GPU.cs" />
-    <Compile Include="Hardware\HDD.cs" />
+    <Compile Include="Controls\SoftwareControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SoftwareControl.Designer.cs">
+      <DependentUpon>SoftwareControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SoftwareHardware\Hardware.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,8 +138,6 @@
     <Compile Include="Controls\MessageDisplay.Designer.cs">
       <DependentUpon>MessageDisplay.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hardware\Motherboard.cs" />
-    <Compile Include="Hardware\PowerSupply.cs" />
     <Compile Include="Core\ComputerInformation.cs" />
     <Compile Include="NumberAssign.cs">
       <SubType>Form</SubType>
@@ -141,15 +148,13 @@
     <Compile Include="Pgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Software\Software.cs" />
-    <Compile Include="Hardware\RAM.cs" />
+    <Compile Include="SoftwareHardware\Software.cs" />
     <Compile Include="ScanForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ScanForm.Designer.cs">
       <DependentUpon>ScanForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hardware\Soundboard.cs" />
     <Compile Include="Core\UserRole.cs" />
     <EmbeddedResource Include="Controls\ComputerExplorer.resx">
       <DependentUpon>ComputerExplorer.cs</DependentUpon>
@@ -162,6 +167,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ControlTrigger.resx">
       <DependentUpon>ControlTrigger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\HardwareControl.resx">
+      <DependentUpon>HardwareControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SoftwareControl.resx">
+      <DependentUpon>SoftwareControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -234,6 +245,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\eye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Hardware\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\soft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cpu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gpu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\motherboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ram.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\soundboard.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

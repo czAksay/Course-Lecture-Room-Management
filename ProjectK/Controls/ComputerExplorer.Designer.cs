@@ -80,8 +80,8 @@
             // 
             this.trgHardSowt._BackColor1 = System.Drawing.Color.WhiteSmoke;
             this.trgHardSowt._BackColor2 = System.Drawing.Color.WhiteSmoke;
-            this.trgHardSowt._Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.trgHardSowt._Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.trgHardSowt._Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.trgHardSowt._Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(47)))), ((int)(((byte)(182)))), ((int)(((byte)(57)))));
             this.trgHardSowt._CurrentState = true;
             this.trgHardSowt._Text1 = "ПО";
             this.trgHardSowt._Text2 = "Комплектующие";

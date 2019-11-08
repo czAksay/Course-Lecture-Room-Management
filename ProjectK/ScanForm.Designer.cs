@@ -147,7 +147,6 @@
             this.Name = "ScanForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Сканирование системы";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScanForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
