@@ -13,10 +13,11 @@ namespace ProjectK
     public partial class Computer : UserControl
     {
         String ip;
-        int number;
+        String name;
         String mac;
         Color mouseEnterColor;
         List<Software> programs;
+        public String os;
 
         Hardware cpu, motherboard, soundboard;
         List<Hardware> gpu, ram, hdd;
@@ -37,17 +38,12 @@ namespace ProjectK
         public delegate void HardwareHandler(Hardware hardware);
         public event HardwareHandler onHardwareAdded;
 
-        [Description("Номер компьютера"), Category("Data")]
-        public int _Number
+        [Description("Имя компьютера"), Category("Data")]
+        public String _Name
         {
-            get { return number; }
-            set { number = value;
-                String a_n = "";
-                if (number < 0)
-                    a_n = " N/I";
-                else
-                    a_n = number.ToString();
-                    lblNumber.Text = "Компьютер №" + a_n; }
+            get { return name; }
+            set { name = value;
+                lblNumber.Text = "Компьютер " + name; }
         }
 
         [Description("MAC компьютера"), Category("Data")]
@@ -71,14 +67,21 @@ namespace ProjectK
             set { ip = value; lblIp.Text = "IP: " + ip; }
         }
 
+        [Description("ОС компьютера"), Category("Data")]
+        public String _Os
+        {
+            get { return os; }
+            set { os = value; lblOs.Text = "ОС: " + os; lblOs.Visible = true; lblIp.Font = lblOs.Font; lblMac.Font = lblOs.Font; lblNumber.Font = new Font(lblNumber.Font.FontFamily, 10, FontStyle.Bold); }
+        }
 
-        public Computer() : this(0, "0.0.0.0") { }
 
-        public Computer(int _number, String _ip)
+        public Computer() : this("PC-NoName", "0.0.0.0") { }
+
+        public Computer(String _name, String _ip)
         {
             InitializeComponent();
             programs = new List<Software>();
-            _Number = _number;
+            _Name = _name;
             _Ip = _ip;
             foreach (Control c in this.Controls)
             {

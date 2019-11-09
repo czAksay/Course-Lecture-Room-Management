@@ -33,11 +33,11 @@
             // 
             // computerNumberInput1
             // 
-            this.computerNumberInput1._Number = 0;
+            this.computerNumberInput1._Number = "";
             this.computerNumberInput1.BackColor = System.Drawing.Color.White;
             this.computerNumberInput1.Location = new System.Drawing.Point(22, 15);
             this.computerNumberInput1.Name = "computerNumberInput1";
-            this.computerNumberInput1.Size = new System.Drawing.Size(299, 145);
+            this.computerNumberInput1.Size = new System.Drawing.Size(299, 162);
             this.computerNumberInput1.TabIndex = 0;
             // 
             // NumberAssign
@@ -45,11 +45,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(345, 174);
+            this.ClientSize = new System.Drawing.Size(345, 189);
             this.Controls.Add(this.computerNumberInput1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "NumberAssign";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Введите номер";
             this.ResumeLayout(false);
 

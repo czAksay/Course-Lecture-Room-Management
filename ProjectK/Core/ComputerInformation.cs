@@ -17,6 +17,19 @@ namespace ProjectK
     {
         public ComputerInformation() { }
 
+        public String GetOs()
+        {
+            var name = (from x in new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem").Get().Cast<ManagementObject>()
+                        select x.GetPropertyValue("Caption")).FirstOrDefault();
+            return name != null ? name.ToString() : "Unknown";
+        }
+
+        public String GetName(String mac)
+        {
+            //вернуть имя компа
+            return System.Environment.MachineName;
+        }
+
         public String GetIp()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -157,26 +170,6 @@ namespace ProjectK
             }
             return gpu;
         }
-
-        //public PowerSupply GetPowerSupply()
-        //{
-        //    PowerSupply ps;
-        //    ManagementObjectSearcher mSearchObj = new ManagementObjectSearcher("SELECT * FROM Win32_SoundDevice");
-        //    ManagementObjectCollection objCollection = mSearchObj.Get();
-        //    foreach (ManagementObject mObject in objCollection)
-        //    {
-        //        foreach (PropertyData property in mObject.Properties)
-        //        {
-        //            if (property.Name == "ProductName")
-        //            {
-        //                ps = new PowerSupply();
-        //                ps.Model = property.Value.ToString();
-        //                return ps;
-        //            }
-        //        }
-        //    }
-        //    throw new Exception("Soundboard Search Error!");
-        //}
 
         public List<String> GetSoftwareCollection()
         {

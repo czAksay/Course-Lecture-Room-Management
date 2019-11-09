@@ -39,7 +39,7 @@
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnApply.BackColor = System.Drawing.Color.White;
             this.btnApply.Font = new System.Drawing.Font("Segoe UI Light", 12F);
-            this.btnApply.Location = new System.Drawing.Point(6, 97);
+            this.btnApply.Location = new System.Drawing.Point(6, 117);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(168, 37);
             this.btnApply.TabIndex = 5;
@@ -52,7 +52,7 @@
             this.tbNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbNumber.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbNumber.Location = new System.Drawing.Point(99, 43);
+            this.tbNumber.Location = new System.Drawing.Point(99, 60);
             this.tbNumber.Name = "tbNumber";
             this.tbNumber.Size = new System.Drawing.Size(101, 26);
             this.tbNumber.TabIndex = 6;
@@ -61,24 +61,23 @@
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI Light", 13F);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI Light", 12F);
             this.lblTitle.Location = new System.Drawing.Point(1, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(234, 25);
+            this.lblTitle.Size = new System.Drawing.Size(287, 48);
             this.lblTitle.TabIndex = 7;
-            this.lblTitle.Text = "Введите номер компьютера:";
+            this.lblTitle.Text = "Введите номер аудитории, в которой находится данный компьютер:";
             // 
             // lblError
             // 
             this.lblError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 11F);
             this.lblError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.lblError.Location = new System.Drawing.Point(54, 70);
+            this.lblError.Location = new System.Drawing.Point(54, 89);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(234, 25);
             this.lblError.TabIndex = 8;
-            this.lblError.Text = "Введите числовое значение!";
+            this.lblError.Text = "Требуется ввести значение!";
             this.lblError.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ComputerNumberInput
@@ -91,7 +90,7 @@
             this.Controls.Add(this.tbNumber);
             this.Controls.Add(this.btnApply);
             this.Name = "ComputerNumberInput";
-            this.Size = new System.Drawing.Size(291, 141);
+            this.Size = new System.Drawing.Size(291, 161);
             this.ResumeLayout(false);
             this.PerformLayout();
 

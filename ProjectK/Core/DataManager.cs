@@ -9,17 +9,19 @@ namespace ProjectK
 {
     static class DataManager
     {
+        public static SettingsAP.Settings st;
+
         public static List<Computer> GetComputerList()
         {
             List<Computer> computers = new List<Computer>()
             {
-                new Computer(1, "192.168.0.1"),
-                new Computer(2, "192.168.0.2"),
-                new Computer(3, "192.168.0.3"),
-                new Computer(4, "192.168.0.4"),
-                new Computer(5, "192.168.0.5"),
-                new Computer(6, "192.168.0.6"),
-                new Computer(7, "192.168.0.7")
+                new Computer("PC-1", "192.168.0.1"),
+                new Computer("PC-2", "192.168.0.2"),
+                new Computer("PC-3", "192.168.0.3"),
+                new Computer("PC-4", "192.168.0.4"),
+                new Computer("PC-5", "192.168.0.5"),
+                new Computer("PC-6", "192.168.0.6"),
+                new Computer("PC-7", "192.168.0.7")
             };
             return computers;
         }

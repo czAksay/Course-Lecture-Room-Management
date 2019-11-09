@@ -57,27 +57,51 @@ namespace ProjectK
 
         static public bool SetUniversityDbConnection(String ip, String port, String role)
         {
-            //change
-            return SetConnection(ip, port, "user_check", "u1s2e3r4", "usersdb");
+            return SetConnection(ip, port, "admin", "a1d2m3i4n5", "universitydb");
         }
 
         static public String GetUserRole(String login, String password)
         {
-            _chkDataReader();
             String hashedpass = DataManager.getHashSha256(password);
-            NpgsqlDataReader reader = Execute($"SELECT role FROM users WHERE password = '{hashedpass}' AND login = '{login}'");
-            if (!reader.Read())
+            Execute($"SELECT role FROM users WHERE password = '{hashedpass}' AND login = '{login}'");
+            if (!dataReader.Read())
                 return "";
             else
-                return reader[0].ToString();
+                return dataReader[0].ToString();
         }
 
-        static public NpgsqlDataReader Execute(String command)
+        static public void Execute(String command)
         {
             _chkDataReader();
             cmd = new NpgsqlCommand(command, connection);
-            cmd.AllResultTypesAreUnknown = true;
-            return dataReader = cmd.ExecuteReader();
+            cmd.AllResultTypesAreUnknown = false;
+            dataReader = cmd.ExecuteReader();
+        }
+
+        //static public int GetComputerNumber(String mac)
+        //{
+        //    NpgsqlDataReader reader = Execute($"SELECT serial_number FROM computer WHERE mac = CAST ('{mac}' AS macaddr);");
+        //    if (!reader.Read())
+        //        return -1;
+        //    else
+        //        return Int32.Parse(reader[0].ToString());
+        //}
+
+        static public void AddComputerAndOs(Computer computer)
+        {
+            Execute($"SELECT AddOrUpdatePc ( CAST('{computer._MAC}' AS macaddr), CAST('{computer._Ip}' AS inet), '{computer._Name}', '{computer._Os}' )");
+            dataReader.Read();
+            int a = (int)dataReader[0];
+            int b = 2;
+        }
+
+        static public bool CheckAuditoryNumber(String number)
+        {
+            Execute($"SELECT count(*)=1 FROM room WHERE lower(number) = '{number.ToLower()}';");
+            dataReader.Read();
+            //String aaaaa = dataReader[0].ToString();
+            bool res = (bool)dataReader[0];
+            return res;
         }
     }
 }

@@ -12,35 +12,33 @@ namespace ProjectK.Controls
 {
     public partial class ComputerNumberInput : UserControl
     {
-        private int number;
+        private String number;
         private bool error;
-        public delegate void NumberDelegate(int number);
+        public delegate void NumberDelegate(String number);
         public event NumberDelegate onNumberApply;
         [Description("Номер компьютера"), Category("Data")]
-        public int _Number
+        public String _Number
         {
             get { return number; }
-            set { number = value; tbNumber.Text = number.ToString(); }
+            set { number = value; tbNumber.Text = number; }
         }
 
         public ComputerNumberInput()
         {
             InitializeComponent();
             error = true;
-            number = 0;
+            number = "";
         }
 
         private void TbNumber_TextChanged(object sender, EventArgs e)
         {
-            int num;
-            bool parsed = Int32.TryParse(tbNumber.Text, out num);
-            if (tbNumber.Text == "" || !parsed || num < 0)
+            if (tbNumber.Text == "" || tbNumber.Text.Count(x => x == ' ') == tbNumber.Text.Length)
                 error = true;
             else
             {
-                number = num;
                 error = false;
             }
+            number = tbNumber.Text;
             
             lblError.Visible = error;
             btnApply.Enabled = !error;

@@ -13,13 +13,13 @@ namespace ProjectK
 {
     public partial class LoginForm : Form
     {
-        Settings st;
         public LoginForm()
         {
             InitializeComponent();
-            st = new Settings();
-            st.EndOfLineType = Settings.EOLType.CRLF;
-            st.SetDefaults("server:localhost\r\nport:5432");
+            DataManager.st = new Settings();
+            Properties.Settings.Default.Reset();
+            DataManager.st.EndOfLineType = Settings.EOLType.CRLF;
+            DataManager.st.SetDefaults("server:localhost\r\nport:5432\r\nauditory_number:null");
         }
 
         private void btnSignIn_MouseEnter(object sender, EventArgs e)
@@ -70,14 +70,14 @@ namespace ProjectK
                 MessageBox.Show("Неизвестная роль пользователя! Обратитесь к системному администратору!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            String ip = st.GetValue("server");
-            String port = st.GetValue("port");
+            String ip = DataManager.st.GetValue("server");
+            String port = DataManager.st.GetValue("port");
             if (!Pgs.SetUniversityDbConnection(ip, port, account_role))
             {
                 MessageBox.Show("Неизвестная ошибка подключения к серверу. Обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            User.Auronom = false;
+            User.Autonom = false;
             this.Hide();
             MainForm mf = new MainForm(this);
             mf.Show();
@@ -85,7 +85,7 @@ namespace ProjectK
 
         private void BtnGuest_Click(object sender, EventArgs e)
         {
-            User.Auronom = false;
+            User.Autonom = false;
             if (!Pgs.CheckConnection())
             {
                 var result = MessageBox.Show("Внимание! Отсутствует соединение с базой данных. Вы все еще можете пользоваться некоторыми функциями программы, однако для ее эффективного использования необходимо восстановить соединение. Продолжить работу в автономном режиме?", "Ошибка подключения", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -95,7 +95,7 @@ namespace ProjectK
                 }
                 else
                 {
-                    User.Auronom = true;
+                    User.Autonom = true;
                 }
             }
             User.Role = UserRole.Guest;
@@ -156,6 +156,7 @@ namespace ProjectK
         {
             tbLogin.Clear();
             tbPassword.Clear();
+            Pgs.SetUsersDbConnection(tbServerIp.Text, tbServerPort.Text);
         }
 
         private void ChangePanel()
@@ -176,8 +177,8 @@ namespace ProjectK
         {
             trgLoginConnect.onTriggered += ChangePanel;
             String ip, port;
-            ip = st.GetValue("server");
-            port = st.GetValue("port");
+            ip = DataManager.st.GetValue("server");
+            port = DataManager.st.GetValue("port");
             tbServerIp.Text = ip;
             tbServerPort.Text = port;
             if (String.IsNullOrEmpty(ip) || String.IsNullOrEmpty(port) || !Pgs.SetUsersDbConnection(ip, port))
@@ -202,8 +203,8 @@ namespace ProjectK
             else
             {
                 MessageBox.Show("Соединение с сервером БД настроено!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                st.SetValue("server", tbServerIp.Text);
-                st.SetValue("port", tbServerPort.Text);
+                DataManager.st.SetValue("server", tbServerIp.Text);
+                DataManager.st.SetValue("port", tbServerPort.Text);
                 Properties.Settings.Default.Save();
                 trgLoginConnect._Color2 = Color.FromArgb(15, 240, 30);
             }

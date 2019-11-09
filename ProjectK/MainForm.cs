@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ProjectK
 {
@@ -20,13 +21,13 @@ namespace ProjectK
             lf = _lf;
             closeApplication = true;
             toolTipButtons.SetToolTip(btnScan, "Начать сканирование ПО и железа на компьютере.");
-            toolTipButtons.SetToolTip(btnSettings, "Перейти к настойкам приложения.");
+            toolTipButtons.SetToolTip(btnSettings, "Открыть конфигурационный файл приложения.");
             toolTipButtons.SetToolTip(btnSignOut, "Выйти из учетной записи и перейти к окну авторизации.");
             toolTipButtons.SetToolTip(btnDatabase, "Просмотр записей базы данных.");
             toolTipButtons.SetToolTip(btnReport, "Отправить заявку о неисправности.");
             if (User.Role == UserRole.Guest)
             {
-                String auto_mode = User.Auronom ? " (offline)" : "";
+                String auto_mode = User.Autonom ? " (offline)" : "";
                 lblHello.Text = "Здравствуйте, Гость" + auto_mode + ".";
             }
             else
@@ -43,7 +44,7 @@ namespace ProjectK
 
         private void btnRefreshComputers_Click(object sender, EventArgs e)
         {
-            if (User.Auronom)
+            if (User.Autonom)
             {
                 MessageBox.Show(User.AutonomWarning, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -105,7 +106,7 @@ namespace ProjectK
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (User.Auronom)
+            if (User.Autonom)
             {
                 Label l = new Label();
                 l.TextAlign = ContentAlignment.MiddleCenter;
@@ -119,16 +120,16 @@ namespace ProjectK
                 btnRefreshComputers_Click(null, null);
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
+        private void BtnSettings_Click(object sender, EventArgs e)
         {
-            Color[] cls = { Color.Red, Color.Black, Color.Yellow };
-            Random r = new Random();
-            panel1.BackColor = cls[r.Next(3)];
-        }
-
-        private void Timer2_Tick(object sender, EventArgs e)
-        {
-            panel1.Show();
+            try
+            {
+                Process.Start("settings.ini");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error: " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

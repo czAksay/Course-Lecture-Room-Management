@@ -12,6 +12,8 @@ namespace ProjectK
 {
     public partial class NumberAssign : Form
     {
+        String number;
+        public String Number { get => number; }
         public NumberAssign()
         {
             InitializeComponent();
@@ -19,10 +21,9 @@ namespace ProjectK
             computerNumberInput1.onNumberApply += NumberApplied;
         }
 
-        private void NumberApplied (int number)
+        private void NumberApplied (String number)
         {
-            Properties.Settings.Default.computerNumber = number;
-            Properties.Settings.Default.Save();
+            this.number = number;
             this.DialogResult = DialogResult.OK;
         }
     }

@@ -113,12 +113,13 @@
             this.currentComputer._Ip = "0.0.0.0";
             this.currentComputer._MAC = "A1:B2:C3:D4";
             this.currentComputer._MouseEnterColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.currentComputer._Number = 0;
+            this.currentComputer._Name = "HOMEPC";
+            this.currentComputer._Os = null;
             this.currentComputer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.currentComputer.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.currentComputer.Location = new System.Drawing.Point(400, 12);
+            this.currentComputer.Location = new System.Drawing.Point(400, 10);
             this.currentComputer.Name = "currentComputer";
-            this.currentComputer.Size = new System.Drawing.Size(372, 70);
+            this.currentComputer.Size = new System.Drawing.Size(372, 73);
             this.currentComputer.TabIndex = 9;
             // 
             // computerExplorer

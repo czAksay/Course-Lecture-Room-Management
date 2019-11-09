@@ -34,6 +34,7 @@
             this.lblNumber = new System.Windows.Forms.Label();
             this.lblIp = new System.Windows.Forms.Label();
             this.lblMac = new System.Windows.Forms.Label();
+            this.lblOs = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.tableMain.SuspendLayout();
             this.flowText.SuspendLayout();
@@ -68,6 +69,7 @@
             // flowText
             // 
             this.flowText.Controls.Add(this.lblNumber);
+            this.flowText.Controls.Add(this.lblOs);
             this.flowText.Controls.Add(this.lblIp);
             this.flowText.Controls.Add(this.lblMac);
             this.flowText.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -80,10 +82,10 @@
             // lblNumber
             // 
             this.lblNumber.AutoSize = true;
-            this.lblNumber.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Bold);
+            this.lblNumber.Font = new System.Drawing.Font("Segoe UI Light", 11F, System.Drawing.FontStyle.Bold);
             this.lblNumber.Location = new System.Drawing.Point(3, 0);
             this.lblNumber.Name = "lblNumber";
-            this.lblNumber.Size = new System.Drawing.Size(130, 21);
+            this.lblNumber.Size = new System.Drawing.Size(125, 20);
             this.lblNumber.TabIndex = 0;
             this.lblNumber.Text = "Компьютер №0";
             // 
@@ -91,7 +93,7 @@
             // 
             this.lblIp.AutoSize = true;
             this.lblIp.Font = new System.Drawing.Font("Segoe UI Light", 11F);
-            this.lblIp.Location = new System.Drawing.Point(3, 21);
+            this.lblIp.Location = new System.Drawing.Point(3, 35);
             this.lblIp.Name = "lblIp";
             this.lblIp.Size = new System.Drawing.Size(68, 20);
             this.lblIp.TabIndex = 1;
@@ -101,11 +103,22 @@
             // 
             this.lblMac.AutoSize = true;
             this.lblMac.Font = new System.Drawing.Font("Segoe UI Light", 11F);
-            this.lblMac.Location = new System.Drawing.Point(3, 41);
+            this.lblMac.Location = new System.Drawing.Point(134, 0);
             this.lblMac.Name = "lblMac";
             this.lblMac.Size = new System.Drawing.Size(120, 20);
             this.lblMac.TabIndex = 2;
             this.lblMac.Text = "MAC: AB:CD:12:34";
+            // 
+            // lblOs
+            // 
+            this.lblOs.AutoSize = true;
+            this.lblOs.Font = new System.Drawing.Font("Segoe UI Light", 9F);
+            this.lblOs.Location = new System.Drawing.Point(3, 20);
+            this.lblOs.Name = "lblOs";
+            this.lblOs.Size = new System.Drawing.Size(28, 15);
+            this.lblOs.TabIndex = 3;
+            this.lblOs.Text = "OS: ";
+            this.lblOs.Visible = false;
             // 
             // Computer
             // 
@@ -135,5 +148,6 @@
         private System.Windows.Forms.Label lblNumber;
         private System.Windows.Forms.Label lblIp;
         private System.Windows.Forms.Label lblMac;
+        private System.Windows.Forms.Label lblOs;
     }
 }

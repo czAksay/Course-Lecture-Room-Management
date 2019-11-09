@@ -13,6 +13,7 @@ using Microsoft.Win32;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.Devices;
 using System.Management;
+using System.Diagnostics;
 
 namespace ProjectK
 {
@@ -24,27 +25,17 @@ namespace ProjectK
             lblState.Text = "Ожидание.";
             computerExplorer.SetComputer(currentComputer);
             CreateComputer();
+            currentComputer.onComputerSelect += (computer) => Process.Start("control.exe", "System"); 
             //StartScan();
         }
 
-        //private void ScanForm_FormClosing(object sender, FormClosingEventArgs e)
-        //{
-        //    if (isWorking)
-        //    {
-        //        var result = MessageBox.Show("Процесс сканирования не завершен. Вы уверены, что хотите отменить его?", "Подождите", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-        //        if  (result == DialogResult.No)
-        //        {
-        //            e.Cancel = true;
-        //        }
-        //    }
-        //}
-
         private void CreateComputer()
         {
-            currentComputer._Number = Properties.Settings.Default.computerNumber;
             ComputerInformation nw = new ComputerInformation();
-            currentComputer._Ip = nw.GetIp();
             currentComputer._MAC = nw.GetMACAddress();
+            currentComputer._Name = nw.GetName(currentComputer._MAC);
+            currentComputer._Ip = nw.GetIp();
+            currentComputer._Os = nw.GetOs();
         }
 
         private void BtnStartScan_Click(object sender, EventArgs e)
@@ -53,51 +44,33 @@ namespace ProjectK
             FillSoftware();
             FillHardware();
 
-            if (User.Auronom)
+            if (User.Autonom)
             {
                 MessageBox.Show(User.AutonomWarning + "\nДанные не были отправлены на сервер.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 FinishScan();
                 return;
             }
-            if (Properties.Settings.Default.computerNumber == -1)
+            String audit_num = DataManager.st.GetValue("auditory_number");
+            if (audit_num == "null" || Pgs.CheckAuditoryNumber(audit_num))
             {
-                if (User.Role != UserRole.Admin)
+                if (!AskAudiotyNumber())
                 {
-                    MessageBox.Show("Данному компьютеру не был назначен номер. Для отправки данных на сервер, необходимо чтобы компьютеру был присвоен номер. Пожалуйста, свяжитесь с администратором или подождите, пока он сам не вспомнит об этом.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Данные не могут быть отправлены на сервер без указания номера аудитории.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     FinishScan();
                     return;
                 }
-                else
-                {
-                    var result = MessageBox.Show("Данному компьютеру не был назначен номер.Для отправки данных на сервер, необходимо чтобы компьютеру был присвоен номер. Хотите сделать это прямо сейчас?", "Уведомление", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (result == DialogResult.No)
-                    {
-                        FinishScan();
-                        return;
-                    }
-                    else
-                    {
-                        NumberAssign na = new NumberAssign();
-                        result = na.ShowDialog();
-                        if (result == DialogResult.Cancel)
-                        {
-                            MessageBox.Show("Номер не был присвоен. Данные не будут отправлены на сервер.", "Отмена", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (result == DialogResult.OK)
-                        {
-                            currentComputer._Number = Properties.Settings.Default.computerNumber;
-                            SendComputerToDb();
-                        }
-                    }
-                }
             }
-
+            SendComputerToDb();
             FinishScan();
         }
 
         private void SendComputerToDb()
         {
-
+            Pgs.AddComputerAndOs(currentComputer);
+            //сначала удали все старые софты для текущей ос
+            //Pgs.AddSoftwareToComputer(currentComputer);
+            //сначала удали все старые харды 
+            //Pgs.HardwareSoftwareToComputer(currentComputer);
         }
 
         private void FinishScan()
@@ -125,12 +98,7 @@ namespace ProjectK
 
             currentComputer.AddHardware(ci.GetCpu());
             currentComputer.AddHardware(ci.GetMotherboard());
-            currentComputer.AddHardware(ci.GetSoundboard());
             foreach (Hardware h in ci.GetGpus())
-            {
-                currentComputer.AddHardware(h);
-            }
-            foreach (Hardware h in ci.GetHdds())
             {
                 currentComputer.AddHardware(h);
             }
@@ -138,12 +106,52 @@ namespace ProjectK
             {
                 currentComputer.AddHardware(h);
             }
+            foreach (Hardware h in ci.GetHdds())
+            {
+                currentComputer.AddHardware(h);
+            }
+            currentComputer.AddHardware(ci.GetSoundboard());
         }
 
         private void BtnBack_Click(object sender, EventArgs e)
         {
             this.Dispose(true);
             this.Close();
+        }
+
+        private bool AskAudiotyNumber()
+        {
+            if (User.Role == UserRole.Guest)
+            {
+                MessageBox.Show("Компьютер не привязан к какой-либо аудитории. Это не позволит отправить данные компьютера на сервер. Учетная запись \"Гость\" не может назначать компьютер к аудитории. Обратитесь к администратору.", "Уведомление", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                return false;
+            }
+            var result = MessageBox.Show("Компьютер не привязан к какой-либо аудитории. Это не позволит отправить данные компьютера на сервер. Вы желаете указать номер аудитории прямо сейчас?", "Уведомление", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.No)
+            {
+                return false;
+            }
+            else
+            {
+                NumberAssign na = new NumberAssign();
+                result = na.ShowDialog();
+                String number = na.Number;
+                if (result == DialogResult.OK)
+                {
+                    if (Pgs.CheckAuditoryNumber(number))
+                    {
+                        DataManager.st.SetValue("auditory_number", number);
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Данной аудитории нет в базе данных. Пожалуйста, проверьте правильность данных или обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                else
+                    return false;
+            }
         }
     }
 }
