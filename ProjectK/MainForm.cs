@@ -49,7 +49,9 @@ namespace ProjectK
                 MessageBox.Show(User.AutonomWarning, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            List<Computer> computers = DataManager.GetComputerList();
+            List<Computer> computers = Pgs.GetNetworkComputerList();
+            computerExplorer1.Clear();
+            flpComputers.Controls.Clear();
             foreach (Computer c in computers)
             {
                 c.Width = flpComputers.Width - 25;
@@ -60,11 +62,8 @@ namespace ProjectK
 
         private void ComputerSelected(Computer computer)
         {
-            Label l = new Label();
-            Computer c = computer;
-            l.Font = lblTitle.Font;
-            l.AutoSize = true;
-            l.Text = "";
+            if (computerExplorer1.SelectedComputer != computer)
+                computerExplorer1.SetComputer(computer);
         }
 
         private void BtnComputerFilter_Click(object sender, EventArgs e)

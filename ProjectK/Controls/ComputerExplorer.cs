@@ -19,6 +19,8 @@ namespace ProjectK
             trgHardSowt.onTriggered += PanelChanged;
         }
 
+        public Computer SelectedComputer { get { return computer; } }
+
         public void SetComputer(Computer c)
         {
             if (c == null)
@@ -29,12 +31,12 @@ namespace ProjectK
             flpComputerHardware.Controls.Clear();
             flpComputerSoftware.Controls.Clear();
             DrawNewHardware(c.Cpu);
-            DrawNewHardware(c.Soundboard);
             DrawNewHardware(c.Motherboard);
             List<Hardware> hs = new List<Hardware>();
             hs.AddRange(c.Ram);
-            hs.AddRange(c.Hdd);
             hs.AddRange(c.Gpu);
+            hs.AddRange(c.Hdd);
+            DrawNewHardware(c.Soundboard);
             foreach (Hardware h in hs)
                 DrawNewHardware(h);
             foreach (Software s in c.Softwares)

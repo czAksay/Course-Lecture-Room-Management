@@ -11,21 +11,6 @@ namespace ProjectK
     {
         public static SettingsAP.Settings st;
 
-        public static List<Computer> GetComputerList()
-        {
-            List<Computer> computers = new List<Computer>()
-            {
-                new Computer("PC-1", "192.168.0.1"),
-                new Computer("PC-2", "192.168.0.2"),
-                new Computer("PC-3", "192.168.0.3"),
-                new Computer("PC-4", "192.168.0.4"),
-                new Computer("PC-5", "192.168.0.5"),
-                new Computer("PC-6", "192.168.0.6"),
-                new Computer("PC-7", "192.168.0.7")
-            };
-            return computers;
-        }
-
         public static string getHashSha256(string text)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(text);
@@ -37,6 +22,52 @@ namespace ProjectK
                 hashString += String.Format("{0:x2}", x);
             }
             return hashString;
+        }
+
+        public static string GetSoftwareString(List<Software> softwares)
+        {
+            if (softwares.Count == 0)
+                throw new Exception("Не найдено ни одной программы на компьютере!");
+            String str = "";
+            for(int i = 0; i < softwares.Count; i++)
+            {
+                Software s = softwares[i];
+                s.Name = s.Name.Replace('\'', ' ');
+                s.ExePath = s.ExePath.Replace('\'', ' ');
+                str += $"['{s.Name}', '{s.ExePath}']";
+                if (i != softwares.Count - 1)
+                    str += ", ";
+            }
+            return str;
+        }
+
+        public static string GetHardwareString(List<Hardware> hardwares)
+        {
+            if (hardwares.Count == 0)
+                throw new Exception("Не найдено ни одного оборудования на компьютере!");
+            String str = "";
+            for (int i = 0; i < hardwares.Count; i++)
+            {
+                Hardware h = hardwares[i];
+                String type = "", capacity = "";
+                switch (h.Type)
+                {
+                    case HardwareType.RAM:
+                        capacity = "'" + h.Memory.ToString() + "'";
+                        break;
+                    case HardwareType.HDD:
+                        capacity = "'" + h.Memory.ToString() + "'";
+                        break;
+                    default:
+                        capacity = "NULL";
+                        break;
+                }
+                type = h.Type.ToString();
+                str += $"['{h.Model}', '{type}', {capacity}]";
+                if (i != hardwares.Count - 1)
+                    str += ", ";
+            }
+            return str;
         }
     }
 }

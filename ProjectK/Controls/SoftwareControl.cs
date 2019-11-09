@@ -21,8 +21,6 @@ namespace ProjectK
         public SoftwareControl(Software software) : this()
         {
             this.software = software;
-            //Location = 4; 4
-            pbHardwareIcon.Image = Properties.Resources.soft;
             lblName.Text = software.Name;
             toolTip1.SetToolTip(lblName, lblName.Text);
         }

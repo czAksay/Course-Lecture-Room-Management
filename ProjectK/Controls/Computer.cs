@@ -29,7 +29,18 @@ namespace ProjectK
         public List<Hardware> Ram { get => ram; }
         public List<Hardware> Hdd { get => hdd; }
         public List<Software> Softwares { get => programs; }
-
+        public String _AuditNumber { get; set; }
+        public List<Hardware> Hardwares { get
+            {
+                List<Hardware> hs = new List<Hardware>();
+                hs.Add(cpu);
+                hs.Add(motherboard);
+                hs.AddRange(ram);
+                hs.AddRange(gpu);
+                hs.AddRange(hdd);
+                hs.Add(soundboard);
+                return hs;
+                    } }
 
         public delegate void SelectHandler(Computer computer);
         public event SelectHandler onComputerSelect;
@@ -142,7 +153,7 @@ namespace ProjectK
                 case HardwareType.RAM: ram.Add(hardware); break;
                 case HardwareType.HDD: hdd.Add(hardware); break;
                 case HardwareType.Motherboard: motherboard = hardware; break;
-                case HardwareType.Soundboard: soundboard = hardware; break;
+                case HardwareType.Soundcard: soundboard = hardware; break;
             }
 
 

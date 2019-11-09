@@ -87,7 +87,6 @@
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(70, 70);
             this.btnBack.TabIndex = 10;
-            this.btnBack.Text = "<";
             this.btnBack.UseVisualStyleBackColor = false;
             this.btnBack.Click += new System.EventHandler(this.BtnBack_Click);
             // 
@@ -110,6 +109,7 @@
             // 
             // currentComputer
             // 
+            this.currentComputer._AuditNumber = null;
             this.currentComputer._Ip = "0.0.0.0";
             this.currentComputer._MAC = "A1:B2:C3:D4";
             this.currentComputer._MouseEnterColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
@@ -143,6 +143,7 @@
             this.Controls.Add(this.computerExplorer);
             this.Controls.Add(this.btnStartScan);
             this.Controls.Add(this.lblState);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ScanForm";

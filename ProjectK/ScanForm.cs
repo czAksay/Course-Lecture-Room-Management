@@ -14,19 +14,60 @@ using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.Devices;
 using System.Management;
 using System.Diagnostics;
+using System.Threading;
 
 namespace ProjectK
 {
     public partial class ScanForm : Form
     {
+        String audnum;
         public ScanForm()
         {
             InitializeComponent();
             lblState.Text = "Ожидание.";
-            computerExplorer.SetComputer(currentComputer);
             CreateComputer();
-            currentComputer.onComputerSelect += (computer) => Process.Start("control.exe", "System"); 
+            currentComputer.onComputerSelect += (computer) => Process.Start("control.exe", "System");
+            computerExplorer.SetComputer(currentComputer);
             //StartScan();
+        }
+
+        private void BtnStartScan_Click(object sender, EventArgs e)
+        {
+            computerExplorer.Clear();
+            FillSoftware();
+            FillHardware();
+
+            if (User.Autonom)
+            {
+                CanselScan(User.AutonomWarning + "\nДанные не были отправлены на сервер.");
+                return;
+            }
+
+            if (Pgs.CheckComputerExist(currentComputer._MAC, out audnum))
+            {
+                SendComputerToDb();
+                return;
+            }
+            
+            if (User.Role != UserRole.Admin)
+            {
+                CanselScan("Данный компьютер не привязан к какой-либо аудитории. Назначить компьютеру аудиторию может только администратор. Пожалуйста, сообщите ему о проблеме.");
+                return;
+            }
+
+            if (!AskAudiotyNumber(out audnum))
+            {
+                CanselScan("Данные не могут быть отправлены на сервер без указания номера аудитории.");
+                return;
+            }
+
+            SendComputerToDb();
+        }
+
+        private void CanselScan(String message)
+        {
+            MessageBox.Show(message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            FinishScan();
         }
 
         private void CreateComputer()
@@ -38,39 +79,21 @@ namespace ProjectK
             currentComputer._Os = nw.GetOs();
         }
 
-        private void BtnStartScan_Click(object sender, EventArgs e)
-        {
-            computerExplorer.Clear();
-            FillSoftware();
-            FillHardware();
-
-            if (User.Autonom)
-            {
-                MessageBox.Show(User.AutonomWarning + "\nДанные не были отправлены на сервер.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                FinishScan();
-                return;
-            }
-            String audit_num = DataManager.st.GetValue("auditory_number");
-            if (audit_num == "null" || Pgs.CheckAuditoryNumber(audit_num))
-            {
-                if (!AskAudiotyNumber())
-                {
-                    MessageBox.Show("Данные не могут быть отправлены на сервер без указания номера аудитории.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    FinishScan();
-                    return;
-                }
-            }
-            SendComputerToDb();
-            FinishScan();
-        }
-
         private void SendComputerToDb()
         {
-            Pgs.AddComputerAndOs(currentComputer);
-            //сначала удали все старые софты для текущей ос
-            //Pgs.AddSoftwareToComputer(currentComputer);
-            //сначала удали все старые харды 
-            //Pgs.HardwareSoftwareToComputer(currentComputer);
+            currentComputer._AuditNumber = audnum;
+            try
+            {
+                Pgs.AddComputerAndOs(currentComputer);
+                Pgs.AddSoftwareToComputer(currentComputer);
+                Pgs.HardwareSoftwareToComputer(currentComputer);
+            }
+            catch(Exception ex)
+            {
+                CanselScan("Ошибка при попытке отправить данные на сервер:\n" + ex.Message);
+                return;
+            }
+            FinishScan();
         }
 
         private void FinishScan()
@@ -82,12 +105,10 @@ namespace ProjectK
         private void FillSoftware()
         {
             ComputerInformation ci = new ComputerInformation();
-            List<string> soft = ci.GetSoftwareCollection();
-            foreach (String s in soft)
+            List<Software> soft = ci.GetSoftwareCollection();
+            foreach (Software s in soft)
             {
-                Software software = new Software();
-                software.Name = s;
-                currentComputer.AddSoftware(software);
+                currentComputer.AddSoftware(s);
             }
         }
 
@@ -119,39 +140,23 @@ namespace ProjectK
             this.Close();
         }
 
-        private bool AskAudiotyNumber()
+        private bool AskAudiotyNumber(out String number)
         {
-            if (User.Role == UserRole.Guest)
+            NumberAssign na = new NumberAssign();
+            number = "";
+            var result = na.ShowDialog();
+            while (result == DialogResult.OK && !Pgs.CheckAuditoryNumber(na.Number))
             {
-                MessageBox.Show("Компьютер не привязан к какой-либо аудитории. Это не позволит отправить данные компьютера на сервер. Учетная запись \"Гость\" не может назначать компьютер к аудитории. Обратитесь к администратору.", "Уведомление", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                return false;
+                MessageBox.Show("Аудитории с таким номером нет в базе данных. Пожалуйста, проверьте правильность введенных данных или обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                result = na.ShowDialog();
             }
-            var result = MessageBox.Show("Компьютер не привязан к какой-либо аудитории. Это не позволит отправить данные компьютера на сервер. Вы желаете указать номер аудитории прямо сейчас?", "Уведомление", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.No)
+            if (result == DialogResult.OK)
             {
-                return false;
+                number = na.Number;
+                return true;
             }
             else
-            {
-                NumberAssign na = new NumberAssign();
-                result = na.ShowDialog();
-                String number = na.Number;
-                if (result == DialogResult.OK)
-                {
-                    if (Pgs.CheckAuditoryNumber(number))
-                    {
-                        DataManager.st.SetValue("auditory_number", number);
-                        return true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Данной аудитории нет в базе данных. Пожалуйста, проверьте правильность данных или обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-                else
-                    return false;
-            }
+                return false;
         }
     }
 }

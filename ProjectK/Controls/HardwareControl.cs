@@ -44,7 +44,7 @@ namespace ProjectK
                     lblTitle.Text = "Жесткий диск";
                     lblModel.Text = hardware.Model + " (" + hardware.Memory + "Гб)";
                     break;
-                case HardwareType.Soundboard:
+                case HardwareType.Soundcard:
                     pbHardwareIcon.Image = Properties.Resources.soundboard;
                     lblTitle.Text = "Звуковая плата";
                     lblModel.Text = hardware.Model;

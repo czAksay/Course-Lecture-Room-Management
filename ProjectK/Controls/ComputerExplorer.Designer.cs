@@ -99,6 +99,7 @@
             this.Controls.Add(this.flpComputerSoftware);
             this.Controls.Add(this.trgHardSowt);
             this.Controls.Add(this.flpComputerHardware);
+            this.DoubleBuffered = true;
             this.Name = "ComputerExplorer";
             this.Size = new System.Drawing.Size(486, 519);
             this.ResumeLayout(false);

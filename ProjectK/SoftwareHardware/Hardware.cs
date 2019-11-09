@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectK
 {
-    public enum HardwareType { CPU, RAM, GPU, HDD, Soundboard, Motherboard};
+    public enum HardwareType { CPU, RAM, GPU, HDD, Soundcard, Motherboard};
     public class Hardware
     {
         public String Model { get; set; }

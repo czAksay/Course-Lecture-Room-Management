@@ -150,7 +150,7 @@ namespace ProjectK
             {
                 sb = new Hardware();
                 sb.Model = mObject.Properties["Caption"].Value.ToString();
-                sb.Type = HardwareType.Soundboard;
+                sb.Type = HardwareType.Soundcard;
                 return sb;
             }
             throw new Exception("Soundboard Search Error!");
@@ -171,22 +171,25 @@ namespace ProjectK
             return gpu;
         }
 
-        public List<String> GetSoftwareCollection()
+        public List<Software> GetSoftwareCollection()
         {
-            List<string> view = new List<string>();
+            List<Software> view = new List<Software>();
             String parameter = "DisplayName";
+            String parameterLoc = "InstallLocation";
 
             string displayName;
+            string installLocation;
             using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", false))
             {
                 foreach (String keyName in key.GetSubKeyNames())
                 {
                     RegistryKey subkey = key.OpenSubKey(keyName);
                     displayName = subkey.GetValue(parameter) as string;
+                    installLocation = subkey.GetValue(parameterLoc) as string;
                     if (string.IsNullOrEmpty(displayName))
                         continue;
 
-                    view.Add(displayName);
+                    view.Add(new Software { Name = displayName, ExePath = !string.IsNullOrEmpty(installLocation) ? installLocation + "\\" + displayName + ".exe" : "" });
                 }
             }
 
@@ -198,10 +201,11 @@ namespace ProjectK
                 {
                     RegistryKey subkey = key.OpenSubKey(keyName);
                     displayName = subkey.GetValue(parameter) as string;
+                    installLocation = subkey.GetValue(parameterLoc) as string;
                     if (string.IsNullOrEmpty(displayName))
                         continue;
 
-                    view.Add(displayName);
+                    view.Add(new Software { Name = displayName, ExePath = !string.IsNullOrEmpty(installLocation) ? installLocation + "\\" + displayName + ".exe" : "" });
                 }
             }
 
@@ -212,10 +216,11 @@ namespace ProjectK
                 {
                     RegistryKey subkey = key.OpenSubKey(keyName);
                     displayName = subkey.GetValue(parameter) as string;
+                    installLocation = subkey.GetValue(parameterLoc) as string;
                     if (string.IsNullOrEmpty(displayName))
                         continue;
 
-                    view.Add(displayName);
+                    view.Add(new Software { Name = displayName, ExePath = !string.IsNullOrEmpty(installLocation) ? installLocation + "\\" + displayName + ".exe" : "" });
                 }
             }
 
@@ -225,14 +230,21 @@ namespace ProjectK
                 {
                     RegistryKey subkey = key.OpenSubKey(keyName);
                     displayName = subkey.GetValue(parameter) as string;
+                    installLocation = subkey.GetValue(parameterLoc) as string;
                     if (string.IsNullOrEmpty(displayName))
                         continue;
 
-                    view.Add(displayName);
+                    view.Add(new Software { Name = displayName, ExePath = !string.IsNullOrEmpty(installLocation) ? installLocation + "\\" + displayName + ".exe" : "" });
                 }
             }
 
-            List<string> distinct = view.Distinct().ToList();
+            //List<Software> distinct = view.Distinct().ToList();
+            var DistinctItems = view.GroupBy(x => x.Name).Select(y => y.First());
+            List<Software> distinct = new List<Software>();
+            foreach (var item in DistinctItems)
+            {
+                distinct.Add(item);
+            }
             return distinct;
         }
     }

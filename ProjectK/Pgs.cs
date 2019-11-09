@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
+using System.Windows.Forms;
 
 namespace ProjectK
 {
@@ -87,21 +88,82 @@ namespace ProjectK
         //        return Int32.Parse(reader[0].ToString());
         //}
 
-        static public void AddComputerAndOs(Computer computer)
+        static public void AddComputerAndOs(Computer c)
         {
-            Execute($"SELECT AddOrUpdatePc ( CAST('{computer._MAC}' AS macaddr), CAST('{computer._Ip}' AS inet), '{computer._Name}', '{computer._Os}' )");
-            dataReader.Read();
-            int a = (int)dataReader[0];
-            int b = 2;
+            Execute($"SELECT AddOrUpdatePc ('{c._Name}', CAST('{c._Ip}' AS inet), CAST('{c._MAC}' AS macaddr), '{c._AuditNumber}', '{c._Os}', 'Windows');");
         }
 
+        //Проверяет, имеется ли номер аудитории в базе.
         static public bool CheckAuditoryNumber(String number)
         {
-            Execute($"SELECT count(*)=1 FROM room WHERE lower(number) = '{number.ToLower()}';");
+            Execute($"SELECT count(*)=1 FROM room WHERE lower(number) = lower('{number}');");
             dataReader.Read();
-            //String aaaaa = dataReader[0].ToString();
-            bool res = (bool)dataReader[0];
-            return res;
+            return (bool)dataReader[0];
+        }
+
+        //Проверяет, имеется ли компьютер с таким MAC адресом в БД.
+        static public bool CheckComputerExist(String mac, out String audit_number)
+        {
+            Execute($"SELECT audit_id FROM computer WHERE mac = CAST('{mac}' AS macaddr);");
+            audit_number = "";
+            if (!dataReader.Read())
+                return false;
+            Execute($"SELECT number FROM room WHERE id = {(short)dataReader[0]};");
+            dataReader.Read();
+            audit_number = dataReader[0].ToString();
+            return true;
+        }
+
+        static public void AddSoftwareToComputer(Computer c)
+        {
+            String soft_string = DataManager.GetSoftwareString(c.Softwares);
+            Execute($"SELECT AddSoftwareToPc('{c._Name}', ARRAY[{soft_string}], '{c._Os}' );");
+        }
+
+        static public void HardwareSoftwareToComputer(Computer c)
+        {
+            String hard_string = DataManager.GetHardwareString(c.Hardwares);
+            Execute($"SELECT AddHardwareToPc('{c._Name}', ARRAY[{hard_string}]);");
+        }
+
+        public static List<Computer> GetNetworkComputerList()
+        {
+            List<Computer> computers = new List<Computer>();
+            Execute($"SELECT * FROM computer;");
+            while (dataReader.Read())
+            {
+                Computer c = new Computer()
+                {
+                    _Name = dataReader[0].ToString(),
+                    _AuditNumber = dataReader[2].ToString(),
+                    _Ip = dataReader[3].ToString(),
+                    _MAC = dataReader[4].ToString()
+                };
+                computers.Add(c);
+            }
+            foreach(Computer c in computers)
+            {
+                Execute($"SELECT s.name FROM os_and_software oos JOIN computer c ON c.computer_name = oos.computer_name JOIN software s ON s.id=oos.program_id WHERE c.computer_name='{c._Name}';");
+                while(dataReader.Read())
+                {
+                    Software s = new Software() { Name = dataReader[0].ToString() };
+                    c.AddSoftware(s);
+                }
+                Execute($"SELECT cp.* FROM component_in_computer cc JOIN component_parts cp ON cp.id=cc.component_id WHERE computer_name = '{c._Name}';");
+                HardwareType ht;
+                while (dataReader.Read())
+                {
+                    Enum.TryParse(dataReader[2].ToString(), out ht);
+                    Hardware h = new Hardware()
+                    {
+                        Model = dataReader[1].ToString(),
+                        Type = ht,
+                        Memory = dataReader[3].ToString() == "" ? 0 : (short)dataReader[3]
+                    };
+                    c.AddHardware(h);
+                }
+            }
+            return computers;
         }
     }
 }
