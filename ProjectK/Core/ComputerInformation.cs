@@ -75,13 +75,10 @@ namespace ProjectK
             {
                 foreach (PropertyData property in mObject.Properties)
                 {
-                    if (property.Name == "Name")
-                    {
-                        cpu = new Hardware();
-                        cpu.Model = property.Value.ToString();
-                        cpu.Type = HardwareType.CPU;
-                        return cpu;
-                    }
+                    cpu = new Hardware();
+                    cpu.Model = mObject.Properties["Name"].Value.ToString();
+                    cpu.Type = HardwareType.CPU;
+                    return cpu;
                 }
             }
             throw new Exception("CPU Search Error!");
@@ -92,10 +89,13 @@ namespace ProjectK
             Hardware mb;
             ManagementObjectSearcher mSearchObj = new ManagementObjectSearcher("SELECT * FROM Win32_BaseBoard");
             ManagementObjectCollection objCollection = mSearchObj.Get();
+            String manufact, product;
             foreach (ManagementObject mObject in objCollection)
             {
                 mb = new Hardware();
-                mb.Model = mObject.Properties["Manufacturer"].Value.ToString() + " " + mObject.Properties["Product"].Value.ToString();
+                manufact = mObject.Properties["Manufacturer"].Value == null ? "" : mObject.Properties["Manufacturer"].Value.ToString();
+                product = mObject.Properties["Product"].Value == null ? "" : mObject.Properties["Product"].Value.ToString();
+                mb.Model = manufact + " " + product;
                 mb.Type = HardwareType.Motherboard;
                 return mb;
             }

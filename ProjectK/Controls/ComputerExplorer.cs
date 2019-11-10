@@ -63,18 +63,13 @@ namespace ProjectK
         {
             if (software == null)
                 return;
-            //Label l = new Label();
-            //l.Font = new Font("Segoe UI Light", 11);
-            //l.AutoSize = true;
-            //l.Text = software.Name;
-            //l.BorderStyle = BorderStyle.FixedSingle;
-            //flpComputerSoftware.Controls.Add(l);
+
             SoftwareControl sc = new SoftwareControl(software);
             sc.Width = flpComputerHardware.Width - 25;
             flpComputerSoftware.Controls.Add(sc);
 
             lblCount.Text = "Количество: " + flpComputerSoftware.Controls.Count;
-            flpComputerSoftware.Update();
+            //flpComputerSoftware.Update();
             this.Update();
         }
 
@@ -82,12 +77,6 @@ namespace ProjectK
         {
             if (hardware == null)
                 return;
-            //Label l = new Label();
-            //l.Font = new Font("Segoe UI Light", 11);
-            //l.AutoSize = true;
-            //l.Text = hardware.Model;
-            //l.BorderStyle = BorderStyle.FixedSingle;
-            //flpComputerHardware.Controls.Add(l);
 
             HardwareControl hc = new HardwareControl(hardware);
             hc.Width = flpComputerHardware.Width - 25;

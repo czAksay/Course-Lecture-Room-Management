@@ -34,6 +34,13 @@ namespace ProjectK
                 lblHello.Text = $"Здравствуйте, {User.Name} ({User.Role})";
             toolTipButtons.SetToolTip(lblTitle, lblTitle.Text);
             toolTipButtons.SetToolTip(btnExit, "Закрыть приложение.");
+            trgCurrentPc.onTriggered += PcViewChanged;
+        }
+
+        private void PcViewChanged()
+        {
+            rtbPcInfo.Visible = trgCurrentPc._CurrentState;
+            computerExplorer1.Visible = !trgCurrentPc._CurrentState;
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -63,7 +70,10 @@ namespace ProjectK
         private void ComputerSelected(Computer computer)
         {
             if (computerExplorer1.SelectedComputer != computer)
+            {
                 computerExplorer1.SetComputer(computer);
+                rtbPcInfo.Text = $"{computer._Name}\n{computer._Ip}\n{computer._MAC}\n{computer._AuditNumber}";
+            }
         }
 
         private void BtnComputerFilter_Click(object sender, EventArgs e)
@@ -94,6 +104,7 @@ namespace ProjectK
             //}
             ScanForm sf = new ScanForm();
             sf.ShowDialog();
+            btnRefreshComputers_Click(null, null);
         }
 
         private void BtnExit_Click(object sender, EventArgs e)
@@ -109,7 +120,7 @@ namespace ProjectK
             {
                 Label l = new Label();
                 l.TextAlign = ContentAlignment.MiddleCenter;
-                l.Width = flpComputers.Width - 5;
+                l.Width = flpComputers.Width - 15;
                 l.Height = 40;
                 l.Font = btnRefreshComputers.Font;
                 l.Text = "Автономный режим";

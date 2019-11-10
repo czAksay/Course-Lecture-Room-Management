@@ -42,6 +42,8 @@
             this.lblHello = new System.Windows.Forms.Label();
             this.toolTipButtons = new System.Windows.Forms.ToolTip(this.components);
             this.btnComputerFilter = new System.Windows.Forms.Button();
+            this.rtbPcInfo = new System.Windows.Forms.RichTextBox();
+            this.trgCurrentPc = new ProjectK.ControlTrigger();
             this.computerExplorer1 = new ProjectK.ComputerExplorer();
             this.flpButtons.SuspendLayout();
             this.SuspendLayout();
@@ -207,6 +209,31 @@
             this.btnComputerFilter.UseVisualStyleBackColor = false;
             this.btnComputerFilter.Click += new System.EventHandler(this.BtnComputerFilter_Click);
             // 
+            // rtbPcInfo
+            // 
+            this.rtbPcInfo.BackColor = System.Drawing.Color.White;
+            this.rtbPcInfo.Font = new System.Drawing.Font("Segoe UI Light", 13F);
+            this.rtbPcInfo.Location = new System.Drawing.Point(351, 65);
+            this.rtbPcInfo.Name = "rtbPcInfo";
+            this.rtbPcInfo.ReadOnly = true;
+            this.rtbPcInfo.Size = new System.Drawing.Size(593, 499);
+            this.rtbPcInfo.TabIndex = 14;
+            this.rtbPcInfo.Text = "";
+            // 
+            // trgCurrentPc
+            // 
+            this.trgCurrentPc._BackColor1 = System.Drawing.Color.White;
+            this.trgCurrentPc._BackColor2 = System.Drawing.Color.White;
+            this.trgCurrentPc._Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.trgCurrentPc._Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.trgCurrentPc._CurrentState = true;
+            this.trgCurrentPc._Text1 = "Информаиця";
+            this.trgCurrentPc._Text2 = "Подробности";
+            this.trgCurrentPc.Location = new System.Drawing.Point(777, 28);
+            this.trgCurrentPc.Name = "trgCurrentPc";
+            this.trgCurrentPc.Size = new System.Drawing.Size(167, 32);
+            this.trgCurrentPc.TabIndex = 13;
+            // 
             // computerExplorer1
             // 
             this.computerExplorer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
@@ -214,6 +241,7 @@
             this.computerExplorer1.Name = "computerExplorer1";
             this.computerExplorer1.Size = new System.Drawing.Size(594, 499);
             this.computerExplorer1.TabIndex = 12;
+            this.computerExplorer1.Visible = false;
             // 
             // MainForm
             // 
@@ -221,12 +249,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(959, 576);
+            this.Controls.Add(this.trgCurrentPc);
             this.Controls.Add(this.flpButtons);
             this.Controls.Add(this.btnComputerFilter);
             this.Controls.Add(this.btnRefreshComputers);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.flpComputers);
             this.Controls.Add(this.lblHello);
+            this.Controls.Add(this.rtbPcInfo);
             this.Controls.Add(this.computerExplorer1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -258,5 +288,7 @@
         private System.Windows.Forms.Button btnReport;
         private ComputerExplorer computerExplorer1;
         private System.Windows.Forms.Button btnExit;
+        private ControlTrigger trgCurrentPc;
+        private System.Windows.Forms.RichTextBox rtbPcInfo;
     }
 }

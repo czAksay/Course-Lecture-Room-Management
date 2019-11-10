@@ -33,7 +33,9 @@ namespace ProjectK
             {
                 Software s = softwares[i];
                 s.Name = s.Name.Replace('\'', ' ');
+                s.Name = RemoveSpaces(s.Name);
                 s.ExePath = s.ExePath.Replace('\'', ' ');
+                s.ExePath = RemoveSpaces(s.ExePath);
                 str += $"['{s.Name}', '{s.ExePath}']";
                 if (i != softwares.Count - 1)
                     str += ", ";
@@ -49,6 +51,7 @@ namespace ProjectK
             for (int i = 0; i < hardwares.Count; i++)
             {
                 Hardware h = hardwares[i];
+                h.Model = RemoveSpaces(h.Model);
                 String type = "", capacity = "";
                 switch (h.Type)
                 {
@@ -67,6 +70,15 @@ namespace ProjectK
                 if (i != hardwares.Count - 1)
                     str += ", ";
             }
+            return str;
+        }
+
+        public static string RemoveSpaces(String str)
+        {
+            while (str.Length != 0 && str[0] == ' ')
+                str = str.Remove(0, 1);
+            while (str.Length != 0 && str[str.Length - 1] == ' ')
+                str = str.Remove(str.Length - 1, 1);
             return str;
         }
     }

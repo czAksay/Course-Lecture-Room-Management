@@ -34,8 +34,16 @@ namespace ProjectK
         private void BtnStartScan_Click(object sender, EventArgs e)
         {
             computerExplorer.Clear();
-            FillSoftware();
-            FillHardware();
+            try
+            {
+                FillSoftware();
+                FillHardware();
+            }
+            catch(Exception ex)
+            {
+                CanselScan("Ошибка при сканировании:\n" + ex.Message +"\nСканирование прервано.");
+                return;
+            }
 
             if (User.Autonom)
             {
