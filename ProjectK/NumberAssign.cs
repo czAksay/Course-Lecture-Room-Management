@@ -19,6 +19,11 @@ namespace ProjectK
             InitializeComponent();
             this.DialogResult = DialogResult.Cancel;
             computerNumberInput1.onNumberApply += NumberApplied;
+
+            if (DataManager.st.GetValue("auditory_number") != "null")
+            {
+                computerNumberInput1._Number = DataManager.st.GetValue("auditory_number");
+            }
         }
 
         private void NumberApplied (String number)

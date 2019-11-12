@@ -15,6 +15,7 @@ using Microsoft.VisualBasic.Devices;
 using System.Management;
 using System.Diagnostics;
 using System.Threading;
+using System.IO;
 
 namespace ProjectK
 {
@@ -63,10 +64,14 @@ namespace ProjectK
                 return;
             }
 
-            if (!AskAudiotyNumber(out audnum))
+            audnum = DataManager.st.GetValue("auditory_number");
+            if (audnum == "null" || !Pgs.CheckAuditoryNumber(audnum))
             {
-                CanselScan("Данные не могут быть отправлены на сервер без указания номера аудитории.");
-                return;
+                if (!AskAudiotyNumber(out audnum))
+                {
+                    CanselScan("Данные не могут быть отправлены на сервер без указания номера аудитории.");
+                    return;
+                }
             }
 
             SendComputerToDb();
@@ -161,10 +166,64 @@ namespace ProjectK
             if (result == DialogResult.OK)
             {
                 number = na.Number;
+                DataManager.st.SetValue("auditory_number", number);
                 return true;
             }
             else
                 return false;
+        }
+
+        private void BtnSaveToTxt_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var result = saveFileDialog1.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false);
+                    sw.WriteLine(currentComputer._Name);
+                    sw.WriteLine("IP: " + currentComputer._Ip);
+                    sw.WriteLine("MAC: " + currentComputer._MAC);
+                    sw.WriteLine("##############################");
+                    sw.WriteLine("Список программ: ");
+                    foreach (Software s in currentComputer.Softwares)
+                    {
+                        sw.WriteLine(s.Name);
+                    }
+                    sw.WriteLine("##############################");
+                    sw.WriteLine("Список комплектующих: ");
+                    foreach (Hardware h in currentComputer.Hardwares)
+                    {
+                        String wrt = "";
+                        wrt += $"{h.Model} [{h.Type.ToString()}]";
+                        if (h.Type == HardwareType.RAM || h.Type == HardwareType.HDD)
+                            wrt += $" ({h.Memory}Гб)";
+                        sw.WriteLine(wrt);
+                    }
+                    sw.Close();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Ошибка сохранения отчета:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            MessageBox.Show("Успешно сохранено по пути:\n" + saveFileDialog1.FileName + ".", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void BtnChangeAuditoryNumber_Click(object sender, EventArgs e)
+        {
+            if (User.Role != UserRole.Admin)
+            {
+                MessageBox.Show("Невозможно изменить номер аудитории компьютера. Обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            String num;
+            if (!AskAudiotyNumber(out num))
+            {
+                MessageBox.Show("Номер аудитории не был назначен.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            MessageBox.Show("Успешно.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace ProjectK
     {
         LoginForm lf;
         bool closeApplication;
+
         public MainForm(LoginForm _lf)
         {
             InitializeComponent();
@@ -96,15 +97,8 @@ namespace ProjectK
 
         private void BtnScan_Click(object sender, EventArgs e)
         {
-            //var result = MessageBox.Show("Вы уверены, что хотите провести сканирование? Это может занять некоторое время.", "Сканирование", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //if (result == DialogResult.Yes)
-            //{
-            //    ScanForm sf = new ScanForm();
-            //    sf.ShowDialog();
-            //}
             ScanForm sf = new ScanForm();
             sf.ShowDialog();
-            btnRefreshComputers_Click(null, null);
         }
 
         private void BtnExit_Click(object sender, EventArgs e)

@@ -33,6 +33,8 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnSaveToTxt = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.btnChangeAuditoryNumber = new System.Windows.Forms.Button();
             this.currentComputer = new ProjectK.Computer();
             this.computerExplorer = new ProjectK.ComputerExplorer();
             this.SuspendLayout();
@@ -106,6 +108,30 @@
             this.btnSaveToTxt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSaveToTxt.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSaveToTxt.UseVisualStyleBackColor = false;
+            this.btnSaveToTxt.Click += new System.EventHandler(this.BtnSaveToTxt_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.FileName = "scan_result";
+            this.saveFileDialog1.Filter = "Текстовые файлы|*.txt";
+            this.saveFileDialog1.InitialDirectory = "C:\\";
+            // 
+            // btnChangeAuditoryNumber
+            // 
+            this.btnChangeAuditoryNumber.BackColor = System.Drawing.Color.White;
+            this.btnChangeAuditoryNumber.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnChangeAuditoryNumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangeAuditoryNumber.Font = new System.Drawing.Font("Segoe UI Light", 12F);
+            this.btnChangeAuditoryNumber.Location = new System.Drawing.Point(12, 247);
+            this.btnChangeAuditoryNumber.Name = "btnChangeAuditoryNumber";
+            this.btnChangeAuditoryNumber.Size = new System.Drawing.Size(171, 53);
+            this.btnChangeAuditoryNumber.TabIndex = 12;
+            this.btnChangeAuditoryNumber.Text = "> Изменить \r\nномер аудитории";
+            this.btnChangeAuditoryNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnChangeAuditoryNumber.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnChangeAuditoryNumber.UseVisualStyleBackColor = false;
+            this.btnChangeAuditoryNumber.Click += new System.EventHandler(this.BtnChangeAuditoryNumber_Click);
             // 
             // currentComputer
             // 
@@ -136,6 +162,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(784, 500);
+            this.Controls.Add(this.btnChangeAuditoryNumber);
             this.Controls.Add(this.btnSaveToTxt);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.currentComputer);
@@ -163,5 +190,7 @@
         private Computer currentComputer;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnSaveToTxt;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button btnChangeAuditoryNumber;
     }
 }

@@ -126,6 +126,18 @@ namespace ProjectK
             Execute($"SELECT AddHardwareToPc('{c._Name}', ARRAY[{hard_string}]);");
         }
 
+        private static string AddMacPoints(String mac)
+        {
+            string new_mac = "";
+            for(int i = 0; i < mac.Length; i++)
+            {
+                if (i != 0 && i % 2 == 0)
+                    new_mac += ":";
+                new_mac += mac[i];
+            }
+            return new_mac;
+        }
+
         public static List<Computer> GetNetworkComputerList()
         {
             List<Computer> computers = new List<Computer>();
@@ -139,6 +151,7 @@ namespace ProjectK
                     _Ip = dataReader[3].ToString(),
                     _MAC = dataReader[4].ToString()
                 };
+                c._MAC = AddMacPoints(c._MAC);
                 computers.Add(c);
             }
             foreach(Computer c in computers)
