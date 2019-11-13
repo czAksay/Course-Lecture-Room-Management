@@ -17,7 +17,7 @@ using System.Text.RegularExpressions;
 
 namespace ProjectK
 {
-    class ComputerInformation
+    public class ComputerInformation
     {
         String fileText = "";
         static String cpuzFolder = "hardwarescan\\";

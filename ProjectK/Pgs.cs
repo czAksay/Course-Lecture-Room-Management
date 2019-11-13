@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace ProjectK
 {
-    static class Pgs
+    public static class Pgs
     {
         static NpgsqlConnection connection;
         static NpgsqlCommand cmd;

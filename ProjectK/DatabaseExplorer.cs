@@ -28,12 +28,19 @@ namespace ProjectK
 
         private void RefreshDb()
         {
-            NpgsqlDataAdapter da = Pgs.GetDataAdapter(cbSelect.SelectedIndex);
-            ds.Reset();
-            da.Fill(ds);
-            dt = ds.Tables[0];
-            dataGridView1.DataSource = dt;
-            SetFont();
+            try
+            {
+                NpgsqlDataAdapter da = Pgs.GetDataAdapter(cbSelect.SelectedIndex);
+                ds.Reset();
+                da.Fill(ds);
+                dt = ds.Tables[0];
+                dataGridView1.DataSource = dt;
+                SetFont();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void SetFont()

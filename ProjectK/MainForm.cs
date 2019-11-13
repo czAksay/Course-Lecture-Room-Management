@@ -62,9 +62,18 @@ namespace ProjectK
             flpComputers.Controls.Clear();
             foreach (Computer c in computers)
             {
-                c.Width = flpComputers.Width - 25;
                 c.onComputerSelect += ComputerSelected;
                 flpComputers.Controls.Add(c);
+            }
+            ResizeComputers();
+        }
+
+        private void ResizeComputers()
+        {
+            foreach(Computer c in flpComputers.Controls.OfType<Computer>())
+            {
+                int minus = flpComputers.VerticalScroll.Visible ? 25 : 8;
+                c.Width = flpComputers.Width - minus;
             }
         }
 

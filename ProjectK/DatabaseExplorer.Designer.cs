@@ -49,7 +49,7 @@
             "ОС",
             "Оборудование",
             "Аудитории"});
-            this.cbSelect.Location = new System.Drawing.Point(12, 24);
+            this.cbSelect.Location = new System.Drawing.Point(12, 20);
             this.cbSelect.Name = "cbSelect";
             this.cbSelect.Size = new System.Drawing.Size(233, 28);
             this.cbSelect.TabIndex = 0;
@@ -63,9 +63,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 62);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 59);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(744, 409);
+            this.dataGridView1.Size = new System.Drawing.Size(744, 413);
             this.dataGridView1.TabIndex = 1;
             // 
             // btnRefresh
@@ -73,7 +73,7 @@
             this.btnRefresh.BackColor = System.Drawing.Color.White;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI Light", 11F);
-            this.btnRefresh.Location = new System.Drawing.Point(251, 23);
+            this.btnRefresh.Location = new System.Drawing.Point(251, 19);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(122, 30);
             this.btnRefresh.TabIndex = 6;
