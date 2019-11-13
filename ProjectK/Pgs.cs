@@ -58,7 +58,7 @@ namespace ProjectK
 
         static public bool SetUniversityDbConnection(String ip, String port, String role)
         {
-            return SetConnection(ip, port, "admin", "a1d2m3i4n5", "universitydb");
+            return SetConnection(ip, port, "admin", "a1d2m3i4n5", "universitydb2");
         }
 
         static public String GetUserRole(String login, String password)
@@ -71,7 +71,7 @@ namespace ProjectK
                 return dataReader[0].ToString();
         }
 
-        static public void Execute(String command)
+        static private void Execute(String command)
         {
             _chkDataReader();
             cmd = new NpgsqlCommand(command, connection);
@@ -79,14 +79,12 @@ namespace ProjectK
             dataReader = cmd.ExecuteReader();
         }
 
-        //static public int GetComputerNumber(String mac)
-        //{
-        //    NpgsqlDataReader reader = Execute($"SELECT serial_number FROM computer WHERE mac = CAST ('{mac}' AS macaddr);");
-        //    if (!reader.Read())
-        //        return -1;
-        //    else
-        //        return Int32.Parse(reader[0].ToString());
-        //}
+        static private NpgsqlDataAdapter ExecuteDataAdapter(String command)
+        {
+            _chkDataReader();
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(command, connection);
+            return da;
+        }
 
         static public void AddComputerAndOs(Computer c)
         {
@@ -120,22 +118,10 @@ namespace ProjectK
             Execute($"SELECT AddSoftwareToPc('{c._Name}', ARRAY[{soft_string}], '{c._Os}' );");
         }
 
-        static public void HardwareSoftwareToComputer(Computer c)
+        static public void AddHardwareToComputer(Computer c)
         {
             String hard_string = DataManager.GetHardwareString(c.Hardwares);
             Execute($"SELECT AddHardwareToPc('{c._Name}', ARRAY[{hard_string}]);");
-        }
-
-        private static string AddMacPoints(String mac)
-        {
-            string new_mac = "";
-            for(int i = 0; i < mac.Length; i++)
-            {
-                if (i != 0 && i % 2 == 0)
-                    new_mac += ":";
-                new_mac += mac[i];
-            }
-            return new_mac;
         }
 
         public static List<Computer> GetNetworkComputerList()
@@ -151,7 +137,7 @@ namespace ProjectK
                     _Ip = dataReader[3].ToString(),
                     _MAC = dataReader[4].ToString()
                 };
-                c._MAC = AddMacPoints(c._MAC);
+                c._MAC = DataManager.AddMacPoints(c._MAC);
                 computers.Add(c);
             }
             foreach(Computer c in computers)
@@ -177,6 +163,39 @@ namespace ProjectK
                 }
             }
             return computers;
+        }
+
+        public static NpgsqlDataAdapter GetDataAdapter(int tableIndex)
+        {
+            String cmd = "";
+            switch(tableIndex)
+            {
+                case 0:
+                    cmd = "SELECT course_name \"Название курса\" FROM course";
+                    break;
+                case 1:
+                    cmd = "SELECT second_name \"Фамилия\", first_name \"Имя\", patronymic \"Отчество\", c.name \"Кафедра\" FROM teacher t JOIN cathedra c ON c.id=t.cathedra_id";
+                    break;
+                case 2:
+                    cmd = "SELECT * FROM course_and_software";
+                    break;
+                case 3:
+                    cmd = "SELECT computer_name \"Имя компьютера\", serial_number \"Серийный номер\", r.number \"Номер аудитории\", ip \"IP\", mac \"MAC\", status \"Статус\" FROM computer c JOIN room r ON r.id=c.audit_id";
+                    break;
+                case 4:
+                    cmd = "SELECT name \"Название\" FROM software";
+                    break;
+                case 5:
+                    cmd = "SELECT name \"Название\", type \"Семейство\", serial_os \"Серийный номер\" FROM os";
+                    break;
+                case 6:
+                    cmd = "SELECT model \"Модель\", type \"Тип\", capacity \"Объем\" FROM component_parts";
+                    break;
+                case 7:
+                    cmd = "SELECT number \"Номер\" FROM room";
+                    break;
+            }
+            return ExecuteDataAdapter(cmd);
         }
     }
 }

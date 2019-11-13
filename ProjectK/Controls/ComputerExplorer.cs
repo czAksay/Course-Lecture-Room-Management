@@ -123,7 +123,8 @@ namespace ProjectK
 
             SoftwareControl sc = new SoftwareControl(software);
             sc.Width = flpComputerHardware.Width - 25;
-            flpComputerSoftware.Controls.Add(sc);
+            //flpComputerSoftware.Controls.Add(sc);
+            AddControlToFlow(flpComputerSoftware, sc);
 
             //flpComputerSoftware.Update();
             this.Update();

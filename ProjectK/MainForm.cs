@@ -135,5 +135,11 @@ namespace ProjectK
                 MessageBox.Show("Error: " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void BtnDatabase_Click(object sender, EventArgs e)
+        {
+            DatabaseExplorer de = new DatabaseExplorer();
+            de.ShowDialog();
+        }
     }
 }

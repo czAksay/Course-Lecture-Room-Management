@@ -119,6 +119,12 @@
     <Compile Include="Controls\SoftwareControl.Designer.cs">
       <DependentUpon>SoftwareControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatabaseExplorer.Designer.cs">
+      <DependentUpon>DatabaseExplorer.cs</DependentUpon>
+    </Compile>
     <Compile Include="SoftwareHardware\Hardware.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -173,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\SoftwareControl.resx">
       <DependentUpon>SoftwareControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DatabaseExplorer.resx">
+      <DependentUpon>DatabaseExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -269,6 +278,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\soundboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\right.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

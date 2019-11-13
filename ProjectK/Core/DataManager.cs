@@ -48,11 +48,16 @@ namespace ProjectK
             if (hardwares.Count == 0)
                 throw new Exception("Не найдено ни одного оборудования на компьютере!");
             String str = "";
+            int reallyAdded = 0;
             for (int i = 0; i < hardwares.Count; i++)
             {
                 Hardware h = hardwares[i];
+                if (h == null)
+                    continue;
+                if (reallyAdded > 0)
+                    str += ", ";
                 h.Model = RemoveSpaces(h.Model);
-                String type = "", capacity = "";
+                String capacity = "";
                 switch (h.Type)
                 {
                     case HardwareType.RAM:
@@ -65,10 +70,10 @@ namespace ProjectK
                         capacity = "NULL";
                         break;
                 }
-                type = h.Type.ToString();
+                String type = h.Type.ToString();
                 str += $"['{h.Model}', '{type}', {capacity}]";
-                if (i != hardwares.Count - 1)
-                    str += ", ";
+                reallyAdded++;
+                
             }
             return str;
         }
@@ -80,6 +85,18 @@ namespace ProjectK
             while (str.Length != 0 && str[str.Length - 1] == ' ')
                 str = str.Remove(str.Length - 1, 1);
             return str;
+        }
+
+        public static string AddMacPoints(String mac)
+        {
+            string new_mac = "";
+            for (int i = 0; i < mac.Length; i++)
+            {
+                if (i != 0 && i % 2 == 0)
+                    new_mac += ":";
+                new_mac += mac[i];
+            }
+            return new_mac;
         }
     }
 }

@@ -29,20 +29,34 @@
         private void InitializeComponent()
         {
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.pbArrow = new System.Windows.Forms.PictureBox();
             this.btnText = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbArrow)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMain
             // 
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlMain.Controls.Add(this.pbArrow);
             this.pnlMain.Controls.Add(this.btnText);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(167, 32);
             this.pnlMain.TabIndex = 0;
+            // 
+            // pbArrow
+            // 
+            this.pbArrow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbArrow.Image = global::ProjectK.Properties.Resources.right;
+            this.pbArrow.Location = new System.Drawing.Point(132, 0);
+            this.pbArrow.Name = "pbArrow";
+            this.pbArrow.Size = new System.Drawing.Size(33, 30);
+            this.pbArrow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbArrow.TabIndex = 1;
+            this.pbArrow.TabStop = false;
             // 
             // btnText
             // 
@@ -52,7 +66,7 @@
             this.btnText.Font = new System.Drawing.Font("Segoe UI Light", 11F);
             this.btnText.Location = new System.Drawing.Point(0, 0);
             this.btnText.Name = "btnText";
-            this.btnText.Size = new System.Drawing.Size(138, 30);
+            this.btnText.Size = new System.Drawing.Size(132, 30);
             this.btnText.TabIndex = 0;
             this.btnText.TabStop = false;
             this.btnText.Text = "Текст";
@@ -67,6 +81,7 @@
             this.Name = "ControlTrigger";
             this.Size = new System.Drawing.Size(167, 32);
             this.pnlMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbArrow)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -75,5 +90,6 @@
 
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Button btnText;
+        private System.Windows.Forms.PictureBox pbArrow;
     }
 }

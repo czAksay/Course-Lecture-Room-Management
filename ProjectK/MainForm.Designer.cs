@@ -110,6 +110,7 @@
             this.btnDatabase.Size = new System.Drawing.Size(50, 50);
             this.btnDatabase.TabIndex = 9;
             this.btnDatabase.UseVisualStyleBackColor = false;
+            this.btnDatabase.Click += new System.EventHandler(this.BtnDatabase_Click);
             // 
             // btnReport
             // 

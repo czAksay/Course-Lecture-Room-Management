@@ -76,6 +76,7 @@ namespace ProjectK
                 btnText.BackColor = color1;
                 btnText.Dock = DockStyle.Left;
                 pnlMain.BackColor = backcolor1;
+                pbArrow.Image = Properties.Resources.right;
             }
             else
             {
@@ -83,6 +84,7 @@ namespace ProjectK
                 btnText.BackColor = color2;
                 btnText.Dock = DockStyle.Right;
                 pnlMain.BackColor = backcolor2;
+                pbArrow.Image = Properties.Resources.left;
             }
             if (onTriggered != null)
                 onTriggered();

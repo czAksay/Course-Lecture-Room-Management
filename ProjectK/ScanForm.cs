@@ -37,7 +37,9 @@ namespace ProjectK
             computerExplorer.Clear();
             try
             {
+                Notify("Извлечение ПО");
                 FillSoftware();
+                Notify("Извлечение комплектующих");
                 FillHardware();
             }
             catch(Exception ex)
@@ -67,6 +69,8 @@ namespace ProjectK
             audnum = DataManager.st.GetValue("auditory_number");
             if (audnum == "null" || !Pgs.CheckAuditoryNumber(audnum))
             {
+                Notify("Назначение аудитории");
+                MessageBox.Show("Данному компьютеру необходимо назначить аудиторию, в которой он находится. Укажите это в следующем окне.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (!AskAudiotyNumber(out audnum))
                 {
                     CanselScan("Данные не могут быть отправлены на сервер без указания номера аудитории.");
@@ -80,6 +84,7 @@ namespace ProjectK
         private void CanselScan(String message)
         {
             MessageBox.Show(message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Notify("Завершение сканирования");
             FinishScan();
         }
 
@@ -87,7 +92,7 @@ namespace ProjectK
         {
             ComputerInformation nw = new ComputerInformation();
             currentComputer._MAC = nw.GetMACAddress();
-            currentComputer._Name = nw.GetName(currentComputer._MAC);
+            currentComputer._Name = nw.GetName();
             currentComputer._Ip = nw.GetIp();
             currentComputer._Os = nw.GetOs();
         }
@@ -97,9 +102,12 @@ namespace ProjectK
             currentComputer._AuditNumber = audnum;
             try
             {
+                Notify("Отправка данных о компьютере");
                 Pgs.AddComputerAndOs(currentComputer);
+                Notify("Отправка ПО компьютера");
                 Pgs.AddSoftwareToComputer(currentComputer);
-                Pgs.HardwareSoftwareToComputer(currentComputer);
+                Notify("Отправка комплектующих компьютера");
+                Pgs.AddHardwareToComputer(currentComputer);
             }
             catch(Exception ex)
             {
@@ -112,6 +120,7 @@ namespace ProjectK
         private void FinishScan()
         {
             btnSaveToTxt.Enabled = true;
+            Notify("Готово");
             MessageBox.Show("Сканирование успешно завершено.", "Завершение", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -129,7 +138,7 @@ namespace ProjectK
         {
             List<string> view = new List<string>();
             ComputerInformation ci = new ComputerInformation();
-
+            ci.ScanFromCpuZ();
             currentComputer.AddHardware(ci.GetCpu());
             currentComputer.AddHardware(ci.GetMotherboard());
             foreach (Hardware h in ci.GetGpus())
@@ -144,7 +153,6 @@ namespace ProjectK
             {
                 currentComputer.AddHardware(h);
             }
-            currentComputer.AddHardware(ci.GetSoundboard());
         }
 
         private void BtnBack_Click(object sender, EventArgs e)
@@ -224,6 +232,24 @@ namespace ProjectK
                 return;
             }
             MessageBox.Show("Успешно.", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void Notify(String message)
+        {
+            lblState.Text = message;
+            lblState.Update();
+        }
+
+        private void ScanForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Notify("Закрытие...");
+            for(int i = this.Controls.Count - 1; i>=0; i--)
+            {
+                if (this.Controls[i].Name != "lblState")
+                {
+                    this.Controls.Remove(this.Controls[i]);
+                }
+            }
         }
     }
 }
