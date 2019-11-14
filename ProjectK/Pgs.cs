@@ -58,7 +58,7 @@ namespace ProjectK
 
         static public bool SetUniversityDbConnection(String ip, String port, String role)
         {
-            return SetConnection(ip, port, "admin", "a1d2m3i4n5", "universitydb2");
+            return SetConnection(ip, port, role.ToLower(), User.GetPassword, "universitydb2");
         }
 
         static public String GetUserRole(String login, String password)
