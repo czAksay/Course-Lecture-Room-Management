@@ -14,7 +14,7 @@ namespace ProjectK_Server1
             DataManager.st = new Settings();
             Properties.Settings.Default.Reset();
             DataManager.st.EndOfLineType = Settings.EOLType.CRLF;
-            DataManager.st.SetDefaults("server:localhost\r\nport:5432\r\nauditory_number:null\nwebstore:null");
+            DataManager.st.SetDefaults("server:localhost\r\nport:5432\r\nauditory_number:null\r\nwebstore:null");
         }
 
         private void BtnSignIn_Click(object sender, EventArgs e)

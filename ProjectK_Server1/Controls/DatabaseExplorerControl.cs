@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
+using System.Diagnostics;
 
 namespace ProjectK_Server1
 {
@@ -23,12 +24,18 @@ namespace ProjectK_Server1
             "projector_in_room", "request_for_repair", "request_for_software_installation", "room", "rrsc_er_in_room", "software",
             "teacher", "users", };
 
+        String[] tables_localed = { "Бытовая техника", "Бытовая техника в аудитории", "Кабель", "Кабеля в аудитории", "Кафедра", "Компоненты в компьютере",
+            "Компонент ПК", "Компьютер", "Курс", "Курс и ПО", "Клавиатура/Мышь", "Клавиатуры/мыши в аудитории", "Монитор",
+            "Мониторы у компьютеров", "Сетевые устройства в аудитории", "Сетевое устройство", "ОС", "Программы на компьютере", "Принтер/Сканер", "Проектор",
+            "Проектор в аудитории", "Запрос на ремонт", "Запрос на установку ПО", "Аудитория", "Принтеры/Сканеры в аудитории", "ПО",
+            "Преподаватели", "Пользователи", };
+
 
         public DatabaseExplorerControl()
         {
             InitializeComponent();
             cbDbTable.Items.Clear();
-            foreach (String t in tables)
+            foreach (String t in tables_localed)
             {
                 cbDbTable.Items.Add(t);
             }
@@ -38,13 +45,14 @@ namespace ProjectK_Server1
 
         public void RefreshGrid()
         {
-            //String connectStr = "Server=localhost; Port=5432; User Id=postgres; Password=12345; Database=test;";
-            string command = "SELECT * FROM " + cbDbTable.Text;
+            string command = "SELECT * FROM " + tables[cbDbTable.SelectedIndex];
             da = Pgs.GetDataAdapter(command);
             ds.Reset();
             da.Fill(ds);
             dt = ds.Tables[0];
             dataGridView1.DataSource = dt;
+
+            Debug.WriteLine(ds.Tables.Count);
         }
 
         private void CbDbTable_SelectedIndexChanged(object sender, EventArgs e)
@@ -58,6 +66,7 @@ namespace ProjectK_Server1
             {
                 NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(da);
                 da.Update(ds);
+                Debug.WriteLine(ds.Tables.Count);
                 MessageBox.Show("Успешно.", "Хорошо", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(Exception ex)

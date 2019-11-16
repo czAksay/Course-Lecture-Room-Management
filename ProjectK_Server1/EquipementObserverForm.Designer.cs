@@ -44,6 +44,9 @@
             // 
             // flpEquips
             // 
+            this.flpEquips.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flpEquips.AutoScroll = true;
             this.flpEquips.BackColor = System.Drawing.Color.Snow;
             this.flpEquips.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
@@ -62,6 +65,7 @@
             this.Controls.Add(this.flpEquips);
             this.Controls.Add(this.lblTitle);
             this.Name = "EquipementObserverForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "EquipementObserverForm";
             this.ResumeLayout(false);
             this.PerformLayout();

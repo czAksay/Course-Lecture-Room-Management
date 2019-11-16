@@ -13,7 +13,7 @@ namespace ProjectK
         static NpgsqlConnection connection;
         static NpgsqlCommand cmd;
         static NpgsqlDataReader dataReader;
-        static readonly String databaseName = "universitydb3";
+        static readonly String databaseName = "universitydb";
 
         static private void _chkConnection()
         {

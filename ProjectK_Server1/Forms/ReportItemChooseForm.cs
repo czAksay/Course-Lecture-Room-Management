@@ -27,7 +27,7 @@ namespace ProjectK_Server1
                     lblTitle.Text += "программу";
                     break;
                 case ReportType.ComponentRepair:
-                    items = Pgs.GetAllComponentsInAuditory();
+                    items = Pgs.GetAllPcComponents();
                     lblTitle.Text += "компонент";
                     break;
                 case ReportType.EquipRepair:
@@ -45,22 +45,22 @@ namespace ProjectK_Server1
             switch(cbEquipType.SelectedIndex)
             {
                 case 0:
-                    items = Pgs.GetCabelsInAuditory();
+                    items = Pgs.GetCabels();
                     break;
                 case 1:
-                    items = Pgs.GetNetEquipInAuditory();
+                    items = Pgs.GetNetEquip();
                     break;
                 case 2:
-                    items = Pgs.GetProectorsInAuditory();
+                    items = Pgs.GetProectors();
                     break;
                 case 3:
-                    items = Pgs.GetBitovayaTehnikaInAuditory();
+                    items = Pgs.GetBitovayaTehnika();
                     break;
                 case 4:
-                    items = Pgs.GetPrinterScannerInAuditory();
+                    items = Pgs.GetPrinterScanner();
                     break;
                 case 5:
-                    items = Pgs.GetKeyboardMousesInAuditory();
+                    items = Pgs.GetKeyboardMouses();
                     break;
             }
         }

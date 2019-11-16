@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ProjectK_Server1
 {
@@ -77,7 +78,7 @@ namespace ProjectK_Server1
                 Application.Exit();
         }
 
-        private async void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             ComputerInformation ci = new ComputerInformation();
             currentComputer = new Computer()
@@ -175,9 +176,31 @@ namespace ProjectK_Server1
                 this.Controls.Remove(rpc);
         }
 
-        private void btnRefreshComputers_Click(object sender, EventArgs e)
+        private void BtnRefreshComputers_Click_1(object sender, EventArgs e)
         {
+            EquipementObserverForm eo = new EquipementObserverForm();
+            eo.ShowDialog();
+            eo.Dispose();
+        }
 
+        private void btnOpenWebStor_Click(object sender, EventArgs e)
+        {
+            String path = DataManager.st.GetValue("webstore");
+            if (Directory.Exists(path))
+            {
+                Process.Start("explorer.exe", path);
+            }
+            else
+            {
+                if (MessageBox.Show("Путь к сетевому диску не установлен или не верен. Желаете ввести путь?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    InputFolderPath ifp = new InputFolderPath();
+                    if (ifp.ShowDialog() == DialogResult.OK && Directory.Exists(ifp.Path))
+                    {
+                        Process.Start("explorer.exe", path);
+                    }
+                }
+            }
         }
     }
 }

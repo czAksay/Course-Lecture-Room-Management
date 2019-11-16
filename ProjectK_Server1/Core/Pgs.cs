@@ -13,7 +13,7 @@ namespace ProjectK_Server1
         static NpgsqlConnection connection;
         static NpgsqlCommand cmd;
         static NpgsqlDataReader dataReader;
-        static readonly String databaseName = "universitydb3";
+        static readonly String databaseName = "universitydb";
 
         public static NpgsqlConnection Connection {get {return connection; } }
 
@@ -23,6 +23,28 @@ namespace ProjectK_Server1
             {
                 connection.Close();
             }
+        }
+
+        internal static List<string[]> GetEquipementsGroupedByAuditories()
+        {
+            List<String[]> equips = new List<string[]>();
+            Execute("SELECT * FROM (" +
+"SELECT ps.model, r.number, ps.type FROM printer_scanner ps JOIN rrsc_er_in_room psr ON ps.id=psr.prsc_er_id JOIN room r ON psr.audit_id=r.id " +
+"UNION SELECT p.model, r.number, 'Проектор' FROM projector p JOIN projector_in_room pr ON p.id=pr.projector_id JOIN room r ON pr.audit_id=r.id " +
+"UNION SELECT n.model, r.number, n.type FROM network_device n JOIN netdevice_in_room nr ON n.id=nr.netdevice_id JOIN room r ON nr.audit_id=r.id " +
+"UNION SELECT k.model, r.number, k.type FROM keyboard_mouse k JOIN keymse_in_room kr ON k.id=kr.keymse_id JOIN room r ON kr.audit_id=r.id " +
+"UNION SELECT c.type, r.number, 'Кабель' FROM cable c JOIN cable_in_room cr ON c.id=cr.cable_id JOIN room r ON cr.audit_id=r.id " +
+"UNION SELECT a.model, r.number, 'Бытовая техника' FROM appliances a JOIN appliances_in_room ar ON a.id=ar.appliances_id JOIN room r ON ar.audit_id=r.id) AS equps " +
+"ORDER BY 2, 3;");
+            while(dataReader.Read())
+            {
+                String[] line = new string[3];
+                line[0] = dataReader[0].ToString();
+                line[1] = dataReader[1].ToString();
+                line[2] = dataReader[2].ToString();
+                equips.Add(line);
+            }
+            return equips;
         }
 
         static private void _chkDataReader()
@@ -55,7 +77,7 @@ namespace ProjectK_Server1
             }
         }
 
-        internal static List<string> GetAllComponentsInAuditory()
+        internal static List<string> GetAllPcComponents()
         {
             List<String> items = new List<string>();
             //Execute($"select cp.model from computer c join component_in_computer cc on cc.computer_name=c.computer_name join room r on r.id=c.audit_id " +
@@ -68,7 +90,7 @@ namespace ProjectK_Server1
             return items;
         }
 
-        internal static List<string> GetNetEquipInAuditory()
+        internal static List<string> GetNetEquip()
         {
             List<String> items = new List<string>();
             //Execute($"select nd.model from netdevice_in_room ndr join room r on ndr.audit_id=r.id " +
@@ -81,7 +103,7 @@ namespace ProjectK_Server1
             return items;
         }
 
-        internal static List<string> GetKeyboardMousesInAuditory()
+        internal static List<string> GetKeyboardMouses()
         {
             List<String> items = new List<string>();
             //Execute($"select km.model from keymse_in_room kmr join room r on kmr.audit_id=r.id " +
@@ -94,7 +116,7 @@ namespace ProjectK_Server1
             return items;
         }
 
-        internal static List<string> GetPrinterScannerInAuditory()
+        internal static List<string> GetPrinterScanner()
         {
             List<String> items = new List<string>();
             //Execute($"select ps.model from rrsc_er_in_room psr join room r on psr.audit_id=r.id " +
@@ -107,7 +129,7 @@ namespace ProjectK_Server1
             return items;
         }
 
-        internal static List<string> GetBitovayaTehnikaInAuditory()
+        internal static List<string> GetBitovayaTehnika()
         {
             List<String> items = new List<string>();
             //Execute($"select a.model from appliances_in_room ar join room r on ar.audit_id=r.id join " +
@@ -171,7 +193,7 @@ namespace ProjectK_Server1
             }
         }
 
-        internal static List<string> GetProectorsInAuditory()
+        internal static List<string> GetProectors()
         {
             List<String> items = new List<string>();
             //Execute($"select p.model from projector_in_room pr join room r on pr.audit_id=r.id join " +
@@ -184,7 +206,7 @@ namespace ProjectK_Server1
             return items;
         }
 
-        internal static List<string> GetCabelsInAuditory()
+        internal static List<string> GetCabels()
         {
             List<String> items = new List<string>();
             //Execute($"select c.type from cable_in_room cr join room r on cr.audit_id=r.id " +

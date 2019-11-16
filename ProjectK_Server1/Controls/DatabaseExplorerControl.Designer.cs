@@ -42,7 +42,7 @@
             this.cbDbTable.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbDbTable.Font = new System.Drawing.Font("Segoe UI Light", 11F);
             this.cbDbTable.FormattingEnabled = true;
-            this.cbDbTable.Location = new System.Drawing.Point(359, 20);
+            this.cbDbTable.Location = new System.Drawing.Point(357, 20);
             this.cbDbTable.Name = "cbDbTable";
             this.cbDbTable.Size = new System.Drawing.Size(320, 28);
             this.cbDbTable.TabIndex = 19;
@@ -57,7 +57,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(15, 54);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(664, 412);
+            this.dataGridView1.Size = new System.Drawing.Size(662, 410);
             this.dataGridView1.TabIndex = 20;
             // 
             // btnSaveChanges
@@ -91,12 +91,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnSaveChanges);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cbDbTable);
             this.Name = "DatabaseExplorerControl";
-            this.Size = new System.Drawing.Size(694, 482);
+            this.Size = new System.Drawing.Size(692, 480);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

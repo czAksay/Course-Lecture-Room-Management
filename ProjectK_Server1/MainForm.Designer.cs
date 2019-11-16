@@ -32,15 +32,15 @@
             this.flpServerInfo = new System.Windows.Forms.FlowLayoutPanel();
             this.lblTitle = new System.Windows.Forms.Label();
             this.flpButtons = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblHello = new System.Windows.Forms.Label();
-            this.toolTipButtons = new System.Windows.Forms.ToolTip(this.components);
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnRefreshComputers = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnDatabase = new System.Windows.Forms.Button();
             this.btnReport = new System.Windows.Forms.Button();
             this.btnSignOut = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
+            this.lblHello = new System.Windows.Forms.Label();
+            this.toolTipButtons = new System.Windows.Forms.ToolTip(this.components);
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnRefreshComputers = new System.Windows.Forms.Button();
+            this.btnOpenWebStor = new System.Windows.Forms.Button();
             this.flpButtons.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -78,55 +78,6 @@
             this.flpButtons.Name = "flpButtons";
             this.flpButtons.Size = new System.Drawing.Size(329, 56);
             this.flpButtons.TabIndex = 10;
-            // 
-            // lblHello
-            // 
-            this.lblHello.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
-            this.lblHello.Font = new System.Drawing.Font("Segoe UI Light", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblHello.Location = new System.Drawing.Point(12, 12);
-            this.lblHello.Name = "lblHello";
-            this.lblHello.Size = new System.Drawing.Size(503, 36);
-            this.lblHello.TabIndex = 11;
-            this.lblHello.Text = "Здравствуйте, никто.";
-            this.lblHello.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
-            this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel1.Controls.Add(this.btnRefreshComputers);
-            this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 435);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(329, 127);
-            this.flowLayoutPanel1.TabIndex = 14;
-            this.flowLayoutPanel1.WrapContents = false;
-            // 
-            // btnRefreshComputers
-            // 
-            this.btnRefreshComputers.BackColor = System.Drawing.Color.White;
-            this.btnRefreshComputers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRefreshComputers.Font = new System.Drawing.Font("Segoe UI Light", 13F);
-            this.btnRefreshComputers.Location = new System.Drawing.Point(3, 3);
-            this.btnRefreshComputers.Name = "btnRefreshComputers";
-            this.btnRefreshComputers.Size = new System.Drawing.Size(321, 57);
-            this.btnRefreshComputers.TabIndex = 6;
-            this.btnRefreshComputers.Text = "Открыть список оборудования";
-            this.btnRefreshComputers.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI Light", 13F);
-            this.button1.Location = new System.Drawing.Point(3, 66);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(321, 56);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Перейти в файловое хранилище";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // btnDatabase
             // 
@@ -187,6 +138,57 @@
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
+            // lblHello
+            // 
+            this.lblHello.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(248)))), ((int)(((byte)(249)))));
+            this.lblHello.Font = new System.Drawing.Font("Segoe UI Light", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblHello.Location = new System.Drawing.Point(12, 12);
+            this.lblHello.Name = "lblHello";
+            this.lblHello.Size = new System.Drawing.Size(503, 36);
+            this.lblHello.TabIndex = 11;
+            this.lblHello.Text = "Здравствуйте, никто.";
+            this.lblHello.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
+            this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel1.Controls.Add(this.btnRefreshComputers);
+            this.flowLayoutPanel1.Controls.Add(this.btnOpenWebStor);
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 435);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(329, 127);
+            this.flowLayoutPanel1.TabIndex = 14;
+            this.flowLayoutPanel1.WrapContents = false;
+            // 
+            // btnRefreshComputers
+            // 
+            this.btnRefreshComputers.BackColor = System.Drawing.Color.White;
+            this.btnRefreshComputers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefreshComputers.Font = new System.Drawing.Font("Segoe UI Light", 13F);
+            this.btnRefreshComputers.Location = new System.Drawing.Point(3, 3);
+            this.btnRefreshComputers.Name = "btnRefreshComputers";
+            this.btnRefreshComputers.Size = new System.Drawing.Size(321, 57);
+            this.btnRefreshComputers.TabIndex = 6;
+            this.btnRefreshComputers.Text = "Открыть список оборудования";
+            this.btnRefreshComputers.UseVisualStyleBackColor = false;
+            this.btnRefreshComputers.Click += new System.EventHandler(this.BtnRefreshComputers_Click_1);
+            // 
+            // btnOpenWebStor
+            // 
+            this.btnOpenWebStor.BackColor = System.Drawing.Color.White;
+            this.btnOpenWebStor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenWebStor.Font = new System.Drawing.Font("Segoe UI Light", 13F);
+            this.btnOpenWebStor.Location = new System.Drawing.Point(3, 66);
+            this.btnOpenWebStor.Name = "btnOpenWebStor";
+            this.btnOpenWebStor.Size = new System.Drawing.Size(321, 56);
+            this.btnOpenWebStor.TabIndex = 7;
+            this.btnOpenWebStor.Text = "Перейти в файловое хранилище";
+            this.btnOpenWebStor.UseVisualStyleBackColor = false;
+            this.btnOpenWebStor.Click += new System.EventHandler(this.btnOpenWebStor_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -226,6 +228,6 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnRefreshComputers;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnOpenWebStor;
     }
 }
