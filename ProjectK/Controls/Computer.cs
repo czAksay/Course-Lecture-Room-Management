@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProjectK
@@ -39,6 +35,13 @@ namespace ProjectK
                 hs.AddRange(gpu);
                 hs.AddRange(hdd);
                 hs.Add(soundboard);
+                for (int i = hs.Count - 1; i >= 0; i --)
+                {
+                    if (hs[i] == null)
+                    {
+                        hs.RemoveAt(i);
+                    }
+                }
                 return hs;
                     } }
 

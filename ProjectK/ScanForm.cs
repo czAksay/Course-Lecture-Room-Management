@@ -1,20 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net;
-using System.Net.NetworkInformation;
-using Microsoft.Win32;
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.Devices;
-using System.Management;
 using System.Diagnostics;
-using System.Threading;
 using System.IO;
 
 namespace ProjectK
@@ -34,13 +21,18 @@ namespace ProjectK
 
         private void BtnStartScan_Click(object sender, EventArgs e)
         {
+            SetProgress(0);
             computerExplorer.Clear();
             try
             {
                 Notify("Извлечение ПО");
+                SetProgress(15);
                 FillSoftware();
+                SetProgress(40);
                 Notify("Извлечение комплектующих");
+                SetProgress(45);
                 FillHardware();
+                SetProgress(65);
             }
             catch(Exception ex)
             {
@@ -78,6 +70,7 @@ namespace ProjectK
                 }
             }
 
+            SetProgress(70);
             SendComputerToDb();
         }
 
@@ -102,12 +95,16 @@ namespace ProjectK
             currentComputer._AuditNumber = audnum;
             try
             {
+                SetProgress(72);
                 Notify("Отправка данных о компьютере");
                 Pgs.AddComputerAndOs(currentComputer);
+                SetProgress(75);
                 Notify("Отправка ПО компьютера");
                 Pgs.AddSoftwareToComputer(currentComputer);
+                SetProgress(85);
                 Notify("Отправка комплектующих компьютера");
                 Pgs.AddHardwareToComputer(currentComputer);
+                SetProgress(95);
             }
             catch(Exception ex)
             {
@@ -120,6 +117,7 @@ namespace ProjectK
         private void FinishScan()
         {
             btnSaveToTxt.Enabled = true;
+            SetProgress(100);
             Notify("Готово");
             MessageBox.Show("Сканирование успешно завершено.", "Завершение", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -163,22 +161,24 @@ namespace ProjectK
 
         private bool AskAudiotyNumber(out String number)
         {
-            NumberAssign na = new NumberAssign();
-            number = "";
-            var result = na.ShowDialog();
-            while (result == DialogResult.OK && !Pgs.CheckAuditoryNumber(na.Number))
+            using (NumberAssign na = new NumberAssign())
             {
-                MessageBox.Show("Аудитории с таким номером нет в базе данных. Пожалуйста, проверьте правильность введенных данных или обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                result = na.ShowDialog();
+                number = "";
+                var result = na.ShowDialog();
+                while (result == DialogResult.OK && !Pgs.CheckAuditoryNumber(na.Number))
+                {
+                    MessageBox.Show("Аудитории с таким номером нет в базе данных. Пожалуйста, проверьте правильность введенных данных или обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    result = na.ShowDialog();
+                }
+                if (result == DialogResult.OK)
+                {
+                    number = na.Number;
+                    DataManager.st.SetValue("auditory_number", number);
+                    return true;
+                }
+                else
+                    return false;
             }
-            if (result == DialogResult.OK)
-            {
-                number = na.Number;
-                DataManager.st.SetValue("auditory_number", number);
-                return true;
-            }
-            else
-                return false;
         }
 
         private void BtnSaveToTxt_Click(object sender, EventArgs e)
@@ -222,7 +222,7 @@ namespace ProjectK
         {
             if (User.Role != UserRole.Admin)
             {
-                MessageBox.Show("Невозможно изменить номер аудитории компьютера. Обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Невозможно изменить номер аудитории компьютера, не будучи администратором. Обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             String num;
@@ -250,6 +250,12 @@ namespace ProjectK
                     this.Controls.Remove(this.Controls[i]);
                 }
             }
+        }
+
+        private void SetProgress(int percent)
+        {
+            pbProgress.Value = percent;
+            pbProgress.Update();
         }
     }
 }

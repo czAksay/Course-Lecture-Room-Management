@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 
@@ -108,6 +104,7 @@ namespace ProjectK
         {
             ScanForm sf = new ScanForm();
             sf.ShowDialog();
+            sf.Dispose();
         }
 
         private void BtnExit_Click(object sender, EventArgs e)
@@ -149,6 +146,19 @@ namespace ProjectK
         {
             DatabaseExplorer de = new DatabaseExplorer();
             de.ShowDialog();
+            de.Dispose();
+        }
+
+        private void BtnReport_Click(object sender, EventArgs e)
+        {
+            if (User.Autonom || User.Role == UserRole.Guest)
+            {
+                MessageBox.Show("Отправка заявки на ремонт может быть осуществленна лишь при входе в учетную запись!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ReportForm rf = new ReportForm();
+            rf.ShowDialog();
+            rf.Dispose();
         }
     }
 }

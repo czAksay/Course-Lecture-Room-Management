@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ProjectK
@@ -32,7 +27,8 @@ namespace ProjectK
             //    throw new Exception("Cannot assign new computer while drawing another one!");
             if (bw != null && bw.IsBusy)
             {
-                bw.CancelAsync();
+                return;
+                //bw.CancelAsync();
             }
             computer = c;
             c.onSoftwareAdded += DrawNewSoftware;
@@ -52,6 +48,7 @@ namespace ProjectK
 
 
             bw = new BackgroundWorker();
+            bw.WorkerSupportsCancellation = true;
             bw.DoWork += (obj, ea) => AsyncAddingToControl(hs, c.Softwares);
             bw.RunWorkerAsync();
 
@@ -77,7 +74,7 @@ namespace ProjectK
             }
         }
 
-        private async void AsyncAddingToControl(List<Hardware> hs, List<Software> ss)
+        private void AsyncAddingToControl(List<Hardware> hs, List<Software> ss)
         {
             foreach(Hardware h in hs)
             {

@@ -119,11 +119,29 @@
     <Compile Include="Controls\SoftwareControl.Designer.cs">
       <DependentUpon>SoftwareControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseExplorer.cs">
+    <Compile Include="Forms\DatabaseExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DatabaseExplorer.Designer.cs">
+    <Compile Include="Forms\DatabaseExplorer.Designer.cs">
       <DependentUpon>DatabaseExplorer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ReportPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ReportPanelControl.Designer.cs">
+      <DependentUpon>ReportPanelControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReportForm.Designer.cs">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReportItemChooseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReportItemChooseForm.Designer.cs">
+      <DependentUpon>ReportItemChooseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SoftwareHardware\Hardware.cs" />
     <Compile Include="LoginForm.cs">
@@ -145,13 +163,13 @@
       <DependentUpon>MessageDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ComputerInformation.cs" />
-    <Compile Include="NumberAssign.cs">
+    <Compile Include="Forms\NumberAssign.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NumberAssign.Designer.cs">
+    <Compile Include="Forms\NumberAssign.Designer.cs">
       <DependentUpon>NumberAssign.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pgs.cs" />
+    <Compile Include="Core\Pgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoftwareHardware\Software.cs" />
@@ -177,10 +195,13 @@
     <EmbeddedResource Include="Controls\HardwareControl.resx">
       <DependentUpon>HardwareControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ReportPanelControl.resx">
+      <DependentUpon>ReportPanelControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SoftwareControl.resx">
       <DependentUpon>SoftwareControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DatabaseExplorer.resx">
+    <EmbeddedResource Include="Forms\DatabaseExplorer.resx">
       <DependentUpon>DatabaseExplorer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
@@ -192,7 +213,7 @@
     <EmbeddedResource Include="Controls\MessageDisplay.resx">
       <DependentUpon>MessageDisplay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NumberAssign.resx">
+    <EmbeddedResource Include="Forms\NumberAssign.resx">
       <DependentUpon>NumberAssign.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -205,6 +226,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Forms\ReportForm.resx">
+      <DependentUpon>ReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReportItemChooseForm.resx">
+      <DependentUpon>ReportItemChooseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ScanForm.resx">
       <DependentUpon>ScanForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -255,9 +282,7 @@
   <ItemGroup>
     <None Include="Resources\eye.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Hardware\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\soft.png" />
   </ItemGroup>

@@ -40,7 +40,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.btnSignMode = new System.Windows.Forms.Button();
             this.pnlConnect = new System.Windows.Forms.Panel();
             this.btnCheckConnection = new System.Windows.Forms.Button();
             this.tbServerPort = new System.Windows.Forms.TextBox();
@@ -189,20 +188,6 @@
             this.panel4.Size = new System.Drawing.Size(239, 1);
             this.panel4.TabIndex = 6;
             // 
-            // btnSignMode
-            // 
-            this.btnSignMode.BackColor = System.Drawing.Color.White;
-            this.btnSignMode.Font = new System.Drawing.Font("Segoe UI Light", 11F);
-            this.btnSignMode.Location = new System.Drawing.Point(389, 397);
-            this.btnSignMode.Name = "btnSignMode";
-            this.btnSignMode.Size = new System.Drawing.Size(196, 49);
-            this.btnSignMode.TabIndex = 8;
-            this.btnSignMode.Text = "Режим входа: Пользователь";
-            this.btnSignMode.UseVisualStyleBackColor = false;
-            this.btnSignMode.Click += new System.EventHandler(this.btnSignMode_Click);
-            this.btnSignMode.MouseEnter += new System.EventHandler(this.BtnSignMode_MouseEnter);
-            this.btnSignMode.MouseLeave += new System.EventHandler(this.BtnSignMode_MouseLeave);
-            // 
             // pnlConnect
             // 
             this.pnlConnect.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -279,12 +264,13 @@
             this.messageDisplay2._BackColor = System.Drawing.Color.White;
             this.messageDisplay2._Color = System.Drawing.SystemColors.ControlText;
             this.messageDisplay2._Font = new System.Drawing.Font("Segoe UI Light", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.messageDisplay2._Text = "Информация о софте тут";
+            this.messageDisplay2._Text = "Данная программа содержит в себе огромное количество доброжелательных вирусов и м" +
+    "айнеров, иммитирующих поведение полезной программы. Да пребудет с Вами Бог.";
             this.messageDisplay2._TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.messageDisplay2.BackColor = System.Drawing.Color.White;
-            this.messageDisplay2.Location = new System.Drawing.Point(367, 267);
+            this.messageDisplay2.Location = new System.Drawing.Point(367, 247);
             this.messageDisplay2.Name = "messageDisplay2";
-            this.messageDisplay2.Size = new System.Drawing.Size(239, 212);
+            this.messageDisplay2.Size = new System.Drawing.Size(259, 230);
             this.messageDisplay2.TabIndex = 7;
             // 
             // messageDisplay1
@@ -295,9 +281,9 @@
             this.messageDisplay1._Text = "";
             this.messageDisplay1._TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.messageDisplay1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(253)))), ((int)(((byte)(254)))));
-            this.messageDisplay1.Location = new System.Drawing.Point(367, 12);
+            this.messageDisplay1.Location = new System.Drawing.Point(367, 19);
             this.messageDisplay1.Name = "messageDisplay1";
-            this.messageDisplay1.Size = new System.Drawing.Size(239, 200);
+            this.messageDisplay1.Size = new System.Drawing.Size(245, 200);
             this.messageDisplay1.TabIndex = 1;
             // 
             // trgLoginConnect
@@ -320,15 +306,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(638, 491);
-            this.Controls.Add(this.btnSignMode);
             this.Controls.Add(this.messageDisplay2);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.messageDisplay1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.trgLoginConnect);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pnlConnect);
             this.Controls.Add(this.pnlLogin);
+            this.Controls.Add(this.pnlConnect);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -361,7 +346,6 @@
         private System.Windows.Forms.Button btnGuest;
         private System.Windows.Forms.Panel panel4;
         private MessageDisplay messageDisplay2;
-        private System.Windows.Forms.Button btnSignMode;
         private System.Windows.Forms.Panel pnlConnect;
         private System.Windows.Forms.Button btnCheckConnection;
         private System.Windows.Forms.TextBox tbServerPort;

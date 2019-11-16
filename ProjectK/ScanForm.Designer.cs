@@ -37,6 +37,7 @@
             this.btnChangeAuditoryNumber = new System.Windows.Forms.Button();
             this.currentComputer = new ProjectK.Computer();
             this.computerExplorer = new ProjectK.ComputerExplorer();
+            this.pbProgress = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // lblState
@@ -156,12 +157,20 @@
             this.computerExplorer.Size = new System.Drawing.Size(579, 361);
             this.computerExplorer.TabIndex = 7;
             // 
+            // pbProgress
+            // 
+            this.pbProgress.Location = new System.Drawing.Point(12, 119);
+            this.pbProgress.Name = "pbProgress";
+            this.pbProgress.Size = new System.Drawing.Size(760, 3);
+            this.pbProgress.TabIndex = 13;
+            // 
             // ScanForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(784, 500);
+            this.Controls.Add(this.pbProgress);
             this.Controls.Add(this.btnChangeAuditoryNumber);
             this.Controls.Add(this.btnSaveToTxt);
             this.Controls.Add(this.btnBack);
@@ -193,5 +202,6 @@
         private System.Windows.Forms.Button btnSaveToTxt;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Button btnChangeAuditoryNumber;
+        private System.Windows.Forms.ProgressBar pbProgress;
     }
 }

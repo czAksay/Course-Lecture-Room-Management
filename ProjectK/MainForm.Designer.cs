@@ -125,6 +125,7 @@
             this.btnReport.Size = new System.Drawing.Size(50, 50);
             this.btnReport.TabIndex = 13;
             this.btnReport.UseVisualStyleBackColor = false;
+            this.btnReport.Click += new System.EventHandler(this.BtnReport_Click);
             // 
             // btnScan
             // 

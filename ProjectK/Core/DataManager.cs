@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace ProjectK
 {
-    static class DataManager
+    static public class DataManager
     {
         public static SettingsAP.Settings st;
 

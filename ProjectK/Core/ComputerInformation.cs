@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using System.Net.NetworkInformation;
 using System.Management;
 using Microsoft.Win32;
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.Devices;
 using System.IO;
 using System.Diagnostics;
 using System.Threading;

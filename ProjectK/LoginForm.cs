@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SettingsAP;
 
@@ -72,7 +66,7 @@ namespace ProjectK
             }
             String ip = DataManager.st.GetValue("server");
             String port = DataManager.st.GetValue("port");
-            if (!Pgs.SetUniversityDbConnection(ip, port, account_role))
+            if (!Pgs.SetDatabaseConnectionWithRole(ip, port, account_role))
             {
                 MessageBox.Show("Неизвестная ошибка подключения к серверу. Обратитесь к администратору.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -85,6 +79,9 @@ namespace ProjectK
 
         private void BtnGuest_Click(object sender, EventArgs e)
         {
+            String ip = DataManager.st.GetValue("server");
+            String port = DataManager.st.GetValue("port");
+            Pgs.SetDatabaseConnectionWithRole(ip, port, "guest");
             User.Autonom = false;
             if (!Pgs.CheckConnection())
             {
@@ -124,21 +121,6 @@ namespace ProjectK
             messageDisplay1.Clear();
         }
 
-        private void btnSignMode_Click(object sender, EventArgs e)
-        {
-            if (Program.StartMode == EStartMode.Autostart)
-            {
-                Program.StartMode = EStartMode.UserStart;
-                btnSignMode.Text = "Режим входа: Пользователь";
-            }
-            else
-            {
-                Program.StartMode = EStartMode.Autostart;
-                btnSignMode.Text = "Режим входа: Автозапуск";
-            }
-            BtnSignMode_MouseEnter(null, null);
-        }
-
         private void BtnSignMode_MouseEnter(object sender, EventArgs e)
         {
             if (Program.StartMode == EStartMode.Autostart)
@@ -156,7 +138,7 @@ namespace ProjectK
         {
             tbLogin.Clear();
             tbPassword.Clear();
-            Pgs.SetUsersDbConnection(tbServerIp.Text, tbServerPort.Text);
+            Pgs.SetUserCheckConnection(tbServerIp.Text, tbServerPort.Text);
         }
 
         private void ChangePanel()
@@ -181,7 +163,7 @@ namespace ProjectK
             port = DataManager.st.GetValue("port");
             tbServerIp.Text = ip;
             tbServerPort.Text = port;
-            if (String.IsNullOrEmpty(ip) || String.IsNullOrEmpty(port) || !Pgs.SetUsersDbConnection(ip, port))
+            if (String.IsNullOrEmpty(ip) || String.IsNullOrEmpty(port) || !Pgs.SetUserCheckConnection(ip, port))
             {
                 trgLoginConnect._CurrentState = false;
                 trgLoginConnect._Color2 = Color.Red;
@@ -195,7 +177,7 @@ namespace ProjectK
                 MessageBox.Show("Заполните все поля!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            if (!Pgs.SetUsersDbConnection(tbServerIp.Text, tbServerPort.Text))
+            if (!Pgs.SetUserCheckConnection(tbServerIp.Text, tbServerPort.Text))
             {
                 MessageBox.Show("Ошибка соединения с сервером БД!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 trgLoginConnect._Color2 = Color.Red;

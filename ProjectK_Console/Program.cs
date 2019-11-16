@@ -34,7 +34,7 @@ namespace ProjectK_Console
             String ip = st.GetValue("server");
             String port = st.GetValue("port");
             lm.Log("Запуск программы.");
-            if (!Pgs.SetUniversityDbConnection(ip, port, "guest"))
+            if (!Pgs.SetDatabaseConnectionWithRole(ip, port, "guest"))
             {
                 lm.Log($"Ошибка подключения к базе с параметрами [{ip}] [{port}].");
                 return;
