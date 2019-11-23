@@ -59,6 +59,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 13F);
@@ -78,6 +79,7 @@
             // 
             // pnlReportType
             // 
+            this.pnlReportType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlReportType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(253)))), ((int)(((byte)(253)))));
             this.pnlReportType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlReportType.Controls.Add(this.rbRepairComponent);
@@ -135,6 +137,8 @@
             // 
             // pnlAuditory
             // 
+            this.pnlAuditory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlAuditory.AutoScroll = true;
             this.pnlAuditory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(253)))), ((int)(((byte)(253)))));
             this.pnlAuditory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -158,6 +162,8 @@
             // 
             // tbFio
             // 
+            this.tbFio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFio.Font = new System.Drawing.Font("Segoe UI Light", 11F);
             this.tbFio.Location = new System.Drawing.Point(26, 259);
             this.tbFio.Name = "tbFio";
@@ -205,6 +211,7 @@
             // 
             // btnChoose
             // 
+            this.btnChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChoose.BackColor = System.Drawing.Color.White;
             this.btnChoose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnChoose.Enabled = false;
@@ -221,6 +228,8 @@
             // 
             // lblResult
             // 
+            this.lblResult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblResult.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.lblResult.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lblResult.Cursor = System.Windows.Forms.Cursors.Default;

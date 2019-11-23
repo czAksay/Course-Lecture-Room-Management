@@ -37,7 +37,8 @@
             // 
             // cbDbTable
             // 
-            this.cbDbTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbDbTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbDbTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDbTable.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbDbTable.Font = new System.Drawing.Font("Segoe UI Light", 11F);

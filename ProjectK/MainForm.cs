@@ -56,6 +56,7 @@ namespace ProjectK
             List<Computer> computers = Pgs.GetNetworkComputerList();
             computerExplorer1.Clear();
             flpComputers.Controls.Clear();
+            rtbPcInfo.Clear();
             foreach (Computer c in computers)
             {
                 c.onComputerSelect += ComputerSelected;
@@ -78,7 +79,16 @@ namespace ProjectK
             if (computerExplorer1.SelectedComputer != computer)
             {
                 computerExplorer1.SetComputer(computer);
-                rtbPcInfo.Text = $"{computer._Name}\n{computer._Ip}\n{computer._MAC}\n{computer._AuditNumber}";
+                String[] titles = { "Имя:", "IP:", "MAC:", "Номер аудитории:"};
+                rtbPcInfo.Text = $"{titles[0]} {computer._Name}\n{titles[1]} {computer._Ip}\n{titles[2]} {computer._MAC}\n{titles[3]} {computer._AuditNumber}";
+
+                foreach(string title in titles)
+                {
+                    rtbPcInfo.SelectionStart = rtbPcInfo.Text.IndexOf(title);
+                    rtbPcInfo.SelectionLength = title.Length;
+                    rtbPcInfo.SelectionFont = new Font(rtbPcInfo.Font, FontStyle.Bold);
+                }
+                rtbPcInfo.SelectionLength = 0;
             }
         }
 

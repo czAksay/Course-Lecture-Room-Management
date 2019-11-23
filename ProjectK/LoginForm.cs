@@ -194,11 +194,13 @@ namespace ProjectK
 
         private void LoginForm_KeyDown(object sender, KeyEventArgs e)
         {
+#if DEBUG 
             if (e.KeyCode == Keys.F5)
             {
                 tbLogin.Text = "cinezad";
                 tbPassword.Text = "1234";
             }
+#endif
         }
 
         private void PbVisiblePass_Click(object sender, EventArgs e)

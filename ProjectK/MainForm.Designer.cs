@@ -50,6 +50,8 @@
             // 
             // flpComputers
             // 
+            this.flpComputers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.flpComputers.AutoScroll = true;
             this.flpComputers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
             this.flpComputers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -85,7 +87,6 @@
             // 
             // flpButtons
             // 
-            this.flpButtons.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.flpButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.flpButtons.Controls.Add(this.btnDatabase);
             this.flpButtons.Controls.Add(this.btnReport);
@@ -209,16 +210,20 @@
             this.btnComputerFilter.Size = new System.Drawing.Size(30, 30);
             this.btnComputerFilter.TabIndex = 7;
             this.btnComputerFilter.UseVisualStyleBackColor = false;
+            this.btnComputerFilter.Visible = false;
             this.btnComputerFilter.Click += new System.EventHandler(this.BtnComputerFilter_Click);
             // 
             // rtbPcInfo
             // 
-            this.rtbPcInfo.BackColor = System.Drawing.Color.White;
+            this.rtbPcInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbPcInfo.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.rtbPcInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbPcInfo.Font = new System.Drawing.Font("Segoe UI Light", 13F);
             this.rtbPcInfo.Location = new System.Drawing.Point(351, 65);
             this.rtbPcInfo.Name = "rtbPcInfo";
             this.rtbPcInfo.ReadOnly = true;
-            this.rtbPcInfo.Size = new System.Drawing.Size(593, 499);
+            this.rtbPcInfo.Size = new System.Drawing.Size(593, 98);
             this.rtbPcInfo.TabIndex = 14;
             this.rtbPcInfo.Text = "";
             // 
@@ -235,15 +240,18 @@
             this.trgCurrentPc.Name = "trgCurrentPc";
             this.trgCurrentPc.Size = new System.Drawing.Size(167, 32);
             this.trgCurrentPc.TabIndex = 13;
+            this.trgCurrentPc.Visible = false;
             // 
             // computerExplorer1
             // 
+            this.computerExplorer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.computerExplorer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.computerExplorer1.Location = new System.Drawing.Point(351, 65);
+            this.computerExplorer1.Location = new System.Drawing.Point(351, 166);
             this.computerExplorer1.Name = "computerExplorer1";
-            this.computerExplorer1.Size = new System.Drawing.Size(594, 499);
+            this.computerExplorer1.Size = new System.Drawing.Size(594, 398);
             this.computerExplorer1.TabIndex = 12;
-            this.computerExplorer1.Visible = false;
             // 
             // MainForm
             // 
@@ -261,7 +269,6 @@
             this.Controls.Add(this.rtbPcInfo);
             this.Controls.Add(this.computerExplorer1);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

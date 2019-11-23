@@ -63,10 +63,12 @@ namespace ProjectK
                     items = Pgs.GetKeyboardMousesInAuditory();
                     break;
             }
+            FillPanel(items);
         }
 
         private void FillPanel(List<String> items)
         {
+            flowLayoutPanel1.Controls.Clear();
             List<RadioButton> rbs = new List<RadioButton>();
             foreach(String s in items)
             {

@@ -187,7 +187,7 @@ namespace ProjectK
             List<String> items = new List<string>();
             //Execute($"select c.type from cable_in_room cr join room r on cr.audit_id=r.id " +
             //    $"join cable c on c.id=cr.cable_id where r.number ILIKE '{auditoryNumber}';");
-            Execute($"select model from cable;");
+            Execute($"select type from cable;");
             while (dataReader.Read())
             {
                 items.Add(dataReader[0].ToString());
@@ -282,13 +282,13 @@ namespace ProjectK
         public static List<Computer> GetNetworkComputerList()
         {
             List<Computer> computers = new List<Computer>();
-            Execute($"SELECT * FROM computer;");
+            Execute($"SELECT c.*, r.* FROM computer c JOIN room r ON r.id=c.audit_id;");
             while (dataReader.Read())
             {
                 Computer c = new Computer()
                 {
                     _Name = dataReader[0].ToString(),
-                    _AuditNumber = dataReader[2].ToString(),
+                    _AuditNumber = dataReader[7].ToString(),
                     _Ip = dataReader[3].ToString(),
                     _MAC = dataReader[4].ToString()
                 };

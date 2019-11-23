@@ -66,7 +66,7 @@
             this.Controls.Add(this.lblTitle);
             this.Name = "EquipementObserverForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "EquipementObserverForm";
+            this.Text = " ";
             this.ResumeLayout(false);
             this.PerformLayout();
 

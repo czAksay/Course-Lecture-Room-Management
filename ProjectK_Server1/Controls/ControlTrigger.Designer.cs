@@ -50,6 +50,7 @@
             // pbArrow
             // 
             this.pbArrow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbArrow.Image = global::ProjectK_Server1.Properties.Resources.right;
             this.pbArrow.Location = new System.Drawing.Point(132, 0);
             this.pbArrow.Name = "pbArrow";
             this.pbArrow.Size = new System.Drawing.Size(33, 30);

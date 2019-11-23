@@ -13,6 +13,7 @@ namespace ProjectK
         String mac;
         Color mouseEnterColor;
         List<Software> programs;
+        string audit_num;
         public String os;
 
         Hardware cpu, motherboard, soundboard;
@@ -25,7 +26,7 @@ namespace ProjectK
         public List<Hardware> Ram { get => ram; }
         public List<Hardware> Hdd { get => hdd; }
         public List<Software> Softwares { get => programs; }
-        public String _AuditNumber { get; set; }
+        public String _AuditNumber { get { return audit_num; } set { audit_num = value; lblAuditNumber.Text = audit_num; lblAuditNumber.Visible = true; } }
         public List<Hardware> Hardwares { get
             {
                 List<Hardware> hs = new List<Hardware>();

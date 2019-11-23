@@ -34,6 +34,7 @@
             this.flpButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnDatabase = new System.Windows.Forms.Button();
             this.btnReport = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.btnSignOut = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.lblHello = new System.Windows.Forms.Label();
@@ -47,6 +48,8 @@
             // 
             // flpServerInfo
             // 
+            this.flpServerInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.flpServerInfo.AutoScroll = true;
             this.flpServerInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
             this.flpServerInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -72,6 +75,7 @@
             this.flpButtons.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.flpButtons.Controls.Add(this.btnDatabase);
             this.flpButtons.Controls.Add(this.btnReport);
+            this.flpButtons.Controls.Add(this.btnSettings);
             this.flpButtons.Controls.Add(this.btnSignOut);
             this.flpButtons.Controls.Add(this.btnExit);
             this.flpButtons.Location = new System.Drawing.Point(12, 54);
@@ -108,6 +112,21 @@
             this.btnReport.UseVisualStyleBackColor = false;
             this.btnReport.Click += new System.EventHandler(this.BtnReport_Click);
             // 
+            // btnSettings
+            // 
+            this.btnSettings.BackColor = System.Drawing.Color.White;
+            this.btnSettings.BackgroundImage = global::ProjectK_Server1.Properties.Resources.settings;
+            this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSettings.Font = new System.Drawing.Font("Segoe UI Light", 11F);
+            this.btnSettings.Location = new System.Drawing.Point(109, 3);
+            this.btnSettings.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(50, 50);
+            this.btnSettings.TabIndex = 15;
+            this.btnSettings.UseVisualStyleBackColor = false;
+            this.btnSettings.Click += new System.EventHandler(this.BtnSettings_Click_1);
+            // 
             // btnSignOut
             // 
             this.btnSignOut.BackColor = System.Drawing.Color.White;
@@ -115,7 +134,7 @@
             this.btnSignOut.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSignOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSignOut.Font = new System.Drawing.Font("Segoe UI Light", 11F);
-            this.btnSignOut.Location = new System.Drawing.Point(109, 3);
+            this.btnSignOut.Location = new System.Drawing.Point(162, 3);
             this.btnSignOut.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnSignOut.Name = "btnSignOut";
             this.btnSignOut.Size = new System.Drawing.Size(50, 50);
@@ -130,7 +149,7 @@
             this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Segoe UI Light", 11F);
-            this.btnExit.Location = new System.Drawing.Point(162, 3);
+            this.btnExit.Location = new System.Drawing.Point(215, 3);
             this.btnExit.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(50, 50);
@@ -151,6 +170,7 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(251)))), ((int)(((byte)(251)))));
             this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -187,7 +207,7 @@
             this.btnOpenWebStor.TabIndex = 7;
             this.btnOpenWebStor.Text = "Перейти в файловое хранилище";
             this.btnOpenWebStor.UseVisualStyleBackColor = false;
-            this.btnOpenWebStor.Click += new System.EventHandler(this.btnOpenWebStor_Click);
+            this.btnOpenWebStor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.BtnOpenWebStor_MouseUp);
             // 
             // MainForm
             // 
@@ -201,7 +221,6 @@
             this.Controls.Add(this.flpServerInfo);
             this.Controls.Add(this.lblHello);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -229,5 +248,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnRefreshComputers;
         private System.Windows.Forms.Button btnOpenWebStor;
+        private System.Windows.Forms.Button btnSettings;
     }
 }

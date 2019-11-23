@@ -26,6 +26,7 @@ namespace ProjectK_Server1
             toolTipButtons.SetToolTip(btnSignOut, "Выйти из учетной записи и перейти к окну авторизации.");
             toolTipButtons.SetToolTip(btnDatabase, "Просмотр записей базы данных.");
             toolTipButtons.SetToolTip(btnReport, "Отправить заявку о неисправности.");
+            toolTipButtons.SetToolTip(btnOpenWebStor, "Открыть сетевое хранилище. Правая кнопка вызывает окно смены пути к хранилищу.");
             lblHello.Text = $"Здравствуйте, {User.Name} ({User.Role})";
             toolTipButtons.SetToolTip(lblTitle, lblTitle.Text);
             toolTipButtons.SetToolTip(btnExit, "Закрыть приложение.");
@@ -128,25 +129,15 @@ namespace ProjectK_Server1
             }
         }
 
-        private void BtnSettings_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Process.Start("settings.ini");
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Error: " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void BtnDatabase_Click(object sender, EventArgs e)
         {
             ClearPanels();
             dec = new DatabaseExplorerControl();
             dec.RefreshGrid();
-            dec.Size = new Size(695, 510);
+            //695
             dec.Location = new Point(347, 54);
+            dec.Size = new Size(this.Width - dec.Location.X - 22, this.Height - dec.Location.Y - 55);
+            dec.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             //dec.onReportFinished += FinishReport;
             this.Controls.Add(dec);
         }
@@ -164,9 +155,10 @@ namespace ProjectK_Server1
             ClearPanels();
             rpc = new ReportPanelControl();
             rpc.FillComputers();
-            rpc.Size = new Size(695, 510);
             rpc.Location = new Point(347, 54);
+            rpc.Size = new Size(this.Width - rpc.Location.X - 22, this.Height - rpc.Location.Y - 55);
             rpc.onReportFinished += FinishReport;
+            rpc.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.Controls.Add(rpc);
         }
 
@@ -183,24 +175,47 @@ namespace ProjectK_Server1
             eo.Dispose();
         }
 
-        private void btnOpenWebStor_Click(object sender, EventArgs e)
+        private void BtnSettings_Click_1(object sender, EventArgs e)
         {
-            String path = DataManager.st.GetValue("webstore");
-            if (Directory.Exists(path))
+            try
             {
-                Process.Start("explorer.exe", path);
+                Process.Start("settings.ini");
             }
-            else
+            catch (Exception ex)
             {
-                if (MessageBox.Show("Путь к сетевому диску не установлен или не верен. Желаете ввести путь?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                MessageBox.Show("Error: " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnOpenWebStor_MouseUp(object sender, MouseEventArgs e)
+        {
+            InputFolderPath ifp = null;
+            if (e.Button == MouseButtons.Left)
+            {
+                String path = DataManager.st.GetValue("webstore");
+                if (Directory.Exists(path))
                 {
-                    InputFolderPath ifp = new InputFolderPath();
-                    if (ifp.ShowDialog() == DialogResult.OK && Directory.Exists(ifp.Path))
+                    Process.Start("explorer.exe", path);
+                }
+                else
+                {
+                    if (MessageBox.Show("Путь к сетевому диску не установлен или не верен. Желаете ввести путь?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                     {
-                        Process.Start("explorer.exe", path);
+                        ifp = new InputFolderPath();
+                        if (ifp.ShowDialog() == DialogResult.OK && Directory.Exists(ifp.Path))
+                        {
+                            Process.Start("explorer.exe", path);
+                        }
                     }
                 }
             }
+            else if (e.Button == MouseButtons.Right)
+            {
+                ifp = new InputFolderPath();
+                ifp.ShowDialog();
+            }
+            if (ifp != null)
+                ifp.Dispose();
         }
     }
 }

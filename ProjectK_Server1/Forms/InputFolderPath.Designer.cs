@@ -92,6 +92,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label3);
             this.Name = "InputFolderPath";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Путь к сетевому диску";
             this.ResumeLayout(false);
             this.PerformLayout();
