@@ -15,7 +15,7 @@ namespace ProjectK
             lblState.Text = "Ожидание.";
             CreateComputer();
             currentComputer.onComputerSelect += (computer) => Process.Start("control.exe", "System");
-            computerExplorer.SetComputer(currentComputer);
+            
             //StartScan();
         }
 
@@ -28,6 +28,7 @@ namespace ProjectK
                 Notify("Извлечение ПО");
                 SetProgress(15);
                 FillSoftware();
+                computerExplorer.SetComputer(currentComputer);
                 SetProgress(40);
                 Notify("Извлечение комплектующих");
                 SetProgress(45);
@@ -209,13 +210,13 @@ namespace ProjectK
                         sw.WriteLine(wrt);
                     }
                     sw.Close();
+                    MessageBox.Show("Успешно сохранено по пути:\n" + saveFileDialog1.FileName + ".", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Ошибка сохранения отчета:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            MessageBox.Show("Успешно сохранено по пути:\n" + saveFileDialog1.FileName + ".", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnChangeAuditoryNumber_Click(object sender, EventArgs e)

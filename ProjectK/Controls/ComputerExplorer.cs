@@ -30,11 +30,10 @@ namespace ProjectK
                 return;
                 //bw.CancelAsync();
             }
+            Clear();
             computer = c;
             c.onSoftwareAdded += DrawNewSoftware;
             c.onHardwareAdded += DrawNewHardware;
-            flpComputerHardware.Controls.Clear();
-            flpComputerSoftware.Controls.Clear();
             //DrawNewHardware(c.Cpu);
             //DrawNewHardware(c.Motherboard);
             //DrawNewHardware(c.Soundboard);
@@ -84,14 +83,18 @@ namespace ProjectK
                 hc.Width = flpComputerHardware.Width - 25;
                 AddControlToFlow(flpComputerHardware, hc);
             }
+            String soft = "";
             foreach (Software s in ss)
             {
                 if (s == null)
-                    break;
-                SoftwareControl sc = new SoftwareControl(s);
-                sc.Width = flpComputerHardware.Width - 25;
-                AddControlToFlow(flpComputerSoftware, sc);
+                    continue;
+                soft += s.Name + "\n";
+                //SoftwareControl sc = new SoftwareControl(s);
+                //sc.Width = flpComputerHardware.Width - 25;
+                //AddControlToFlow(flpComputerSoftware, sc);
             }
+            //lblSoftware.Text = soft;
+            rtbSoftware.Text = soft;
         }
 
 
@@ -102,13 +105,15 @@ namespace ProjectK
             if (trgHardSowt._CurrentState)
             {
                 lblCount.Show();
-                flpComputerSoftware.Show();
+                //flpComputerSoftware.Show();
                 flpComputerHardware.Hide();
+                rtbSoftware.Show();
             }
             else
             {
                 lblCount.Hide();
-                flpComputerSoftware.Hide();
+                //flpComputerSoftware.Hide();
+                rtbSoftware.Hide();
                 flpComputerHardware.Show();
             }
         }
@@ -117,11 +122,12 @@ namespace ProjectK
         {
             if (software == null)
                 return;
+            //lblSoftware.Text += software.Name + "\n";
 
-            SoftwareControl sc = new SoftwareControl(software);
-            sc.Width = flpComputerHardware.Width - 25;
+            //SoftwareControl sc = new SoftwareControl(software);
+            //sc.Width = flpComputerHardware.Width - 25;
             //flpComputerSoftware.Controls.Add(sc);
-            AddControlToFlow(flpComputerSoftware, sc);
+            //AddControlToFlow(flpComputerSoftware, sc);
 
             //flpComputerSoftware.Update();
             this.Update();
@@ -144,12 +150,14 @@ namespace ProjectK
         {
             computer = null;
             flpComputerHardware.Controls.Clear();
-            flpComputerSoftware.Controls.Clear();
+            //flpComputerSoftware.Controls.Clear();
+            //lblSoftware.Text = "";
+            rtbSoftware.Clear();
         }
 
         private void FlpComputerSoftware_ControlAdded(object sender, ControlEventArgs e)
         {
-            lblCount.Text = "Количество: " + flpComputerSoftware.Controls.Count;
+            lblCount.Text = "Количество: " + computer.Softwares.Count;//flpComputerSoftware.Controls.Count;
         }
     }
 }

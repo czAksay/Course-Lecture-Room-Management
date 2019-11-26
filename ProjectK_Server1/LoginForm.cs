@@ -63,6 +63,7 @@ namespace ProjectK_Server1
             try
             {
                 Process.Start("ProjectK.exe");
+                Application.Exit();
             }
             catch
             {

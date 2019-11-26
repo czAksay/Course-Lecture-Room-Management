@@ -124,10 +124,10 @@
             // lblAuditNumber
             // 
             this.lblAuditNumber.BackColor = System.Drawing.Color.Transparent;
-            this.lblAuditNumber.Font = new System.Drawing.Font("Segoe UI Light", 11F, System.Drawing.FontStyle.Bold);
+            this.lblAuditNumber.Font = new System.Drawing.Font("Segoe UI Light", 10F, System.Drawing.FontStyle.Bold);
             this.lblAuditNumber.Location = new System.Drawing.Point(-4, 6);
             this.lblAuditNumber.Name = "lblAuditNumber";
-            this.lblAuditNumber.Size = new System.Drawing.Size(70, 51);
+            this.lblAuditNumber.Size = new System.Drawing.Size(72, 51);
             this.lblAuditNumber.TabIndex = 1;
             this.lblAuditNumber.Text = "38";
             this.lblAuditNumber.TextAlign = System.Drawing.ContentAlignment.TopCenter;

@@ -41,9 +41,19 @@ namespace ProjectK_Server1
             }
             cbDbTable.SelectedIndex = 0;
             dataGridView1.Font = new Font("Arial", 10);
+            dataGridView1.DefaultValuesNeeded += DataGridView1_DefaultValuesNeeded;
         }
 
-
+        private void DataGridView1_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            foreach(DataGridViewCell cell in e.Row.Cells)
+            {
+                if (cell is DataGridViewCheckBoxCell && cell.Value == null)
+                {
+                    cell.Value = false;
+                }
+            }
+        }
 
         private void FillComboBox(string header, string datapropertyname, string table_name, string value_member, string display_member)
         {
@@ -58,10 +68,11 @@ namespace ProjectK_Server1
             c.ValueMember = value_member;
             c.DisplayMember = display_member;
             c.DataSource = dt;
+            c.FlatStyle = FlatStyle.Popup;
             dataGridView1.Columns.Add(c);
         }
 
-        private void FillComboBox_Simple(string[] items, string header, string datapropertyname, string table_name, string value_member, string display_member)
+        private void FillComboBox_Simple(string[] items, string header, string datapropertyname)
         {
             DataGridViewComboBoxColumn c = new DataGridViewComboBoxColumn();
             c.HeaderText = header;
@@ -84,6 +95,7 @@ namespace ProjectK_Server1
             DataGridViewCheckBoxColumn c = new DataGridViewCheckBoxColumn();
             c.HeaderText = header;
             c.DataPropertyName = datapropertyname;
+            
             dataGridView1.Columns.Add(c);
         }
 
@@ -119,7 +131,8 @@ namespace ProjectK_Server1
                 //Кабель 
                 case 2:
                     FillTextBox("Id", "id");
-                    //тип
+                    FillTextBox("Тип", "type");
+                    //FillComboBox_Simple(new string[] { "Schuko", "VGA", "HDMI", "DVI", "USB" }, "Тип", "type");
                     break;
                 //Кабель ММ
                 case 3:
@@ -140,7 +153,7 @@ namespace ProjectK_Server1
                 case 6:
                     FillTextBox("Id", "id");
                     FillTextBox("Модель", "model");
-                    //тип
+                    FillComboBox_Simple(new string[] { "CPU", "GPU", "Motherboard", "RAM", "Soundcard", "HDD" }, "Тип", "type");
                     FillTextBox("Объем", "capacity");
                     break;
                 //Компьютер
@@ -169,7 +182,7 @@ namespace ProjectK_Server1
                 case 10:
                     FillTextBox("Id", "id");
                     FillTextBox("Модель", "model");
-                    //тип
+                    FillComboBox_Simple(new string[] { "Keyboard", "Mouse" }, "Тип", "type");
                     break;
                 //Клавомыш ММ
                 case 11:
@@ -183,7 +196,7 @@ namespace ProjectK_Server1
                 case 12:
                     FillTextBox("Серийный номер", "serial_number");
                     FillTextBox("Модель", "model");
-                    //матрица
+                    FillComboBox_Simple(new string[] { "TFT TN", "TFT VA", "TFT IPS", "OLED"}, "Матрица", "matrix");
                     FillTextBox("Диагональ", "diagonal");
                     FillTextBox("Разрешение", "resolution");
                     FillBoolBox("Статус", "status");
@@ -212,12 +225,14 @@ namespace ProjectK_Server1
                     FillTextBox("Id", "id");
                     FillTextBox("Модель", "model");
                     FillTextBox("Всего портов", "total_ports");
+                    FillComboBox_Simple(new string[] { "Router", "Switch", "Hub", "Repeater" }, "Тип", "type");
                     break;
                 //ОС
                 case 16:
                     FillTextBox("Id", "id");
                     FillComboBox("ОС", "os_id", "os", "id", "name");
                     FillTextBox("Серийный номер", "serial_os");
+                    FillComboBox_Simple(new string[] { "Windows", "Linux" }, "Семейство", "type");
                     break;
                 //ОС на ПК
                 case 17:
@@ -231,7 +246,7 @@ namespace ProjectK_Server1
                 case 18:
                     FillTextBox("Id", "id");
                     FillTextBox("Модель", "model");
-                    //FillComboBox_Simple();
+                    FillComboBox_Simple(new string[] { "Printer", "Scanner" }, "Тип", "type");
                     break;
                 //Проектор
                 case 19:
@@ -285,6 +300,11 @@ namespace ProjectK_Server1
                     FillTextBox("Фамилия", "second_name");
                     FillTextBox("Отчество", "patronymic");
                     FillComboBox("Кафедра", "cathedra_id", "cathedra", "id", "name");
+                    break;
+                case 27:
+                    FillTextBox("Логин", "login");
+                    FillTextBox("Пароль", "password");
+                    FillComboBox_Simple(new string[] { "admin", "lecturer" }, "Роль", "role");
                     break;
 
             }
