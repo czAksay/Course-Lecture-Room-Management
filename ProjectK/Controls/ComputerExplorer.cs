@@ -23,20 +23,17 @@ namespace ProjectK
         {
             if (c == null)
                 throw new Exception("Set computer must be not null!");
-            //if (IsDrawing)
-            //    throw new Exception("Cannot assign new computer while drawing another one!");
+
             if (bw != null && bw.IsBusy)
             {
                 return;
-                //bw.CancelAsync();
             }
+
             Clear();
             computer = c;
             c.onSoftwareAdded += DrawNewSoftware;
             c.onHardwareAdded += DrawNewHardware;
-            //DrawNewHardware(c.Cpu);
-            //DrawNewHardware(c.Motherboard);
-            //DrawNewHardware(c.Soundboard);
+            
             List<Hardware> hs = new List<Hardware>();
             hs.Add(c.Cpu);
             hs.Add(c.Motherboard);
@@ -51,14 +48,8 @@ namespace ProjectK
             bw.DoWork += (obj, ea) => AsyncAddingToControl(hs, c.Softwares);
             bw.RunWorkerAsync();
 
-            //AsyncAddingToControl(hs, c.Softwares);
-            //foreach (Hardware h in hs)
-            //    DrawNewHardware(h);
-            //foreach (Software s in c.Softwares)
-            //    DrawNewSoftware(s);
+            DataManager.log.Log(@"Клиент: компьютер успешно установлен в качестве обозреваемого.");
         }
-
-
 
 
         private void AddControlToFlow(FlowLayoutPanel flow, Control control)
@@ -78,7 +69,7 @@ namespace ProjectK
             foreach(Hardware h in hs)
             {
                 if (h == null)
-                    break;
+                    continue;
                 HardwareControl hc = new HardwareControl(h);
                 hc.Width = flpComputerHardware.Width - 25;
                 AddControlToFlow(flpComputerHardware, hc);
@@ -89,11 +80,7 @@ namespace ProjectK
                 if (s == null)
                     continue;
                 soft += s.Name + "\n";
-                //SoftwareControl sc = new SoftwareControl(s);
-                //sc.Width = flpComputerHardware.Width - 25;
-                //AddControlToFlow(flpComputerSoftware, sc);
             }
-            //lblSoftware.Text = soft;
             rtbSoftware.Text = soft;
         }
 
@@ -105,14 +92,12 @@ namespace ProjectK
             if (trgHardSowt._CurrentState)
             {
                 lblCount.Show();
-                //flpComputerSoftware.Show();
                 flpComputerHardware.Hide();
                 rtbSoftware.Show();
             }
             else
             {
                 lblCount.Hide();
-                //flpComputerSoftware.Hide();
                 rtbSoftware.Hide();
                 flpComputerHardware.Show();
             }
@@ -122,14 +107,7 @@ namespace ProjectK
         {
             if (software == null)
                 return;
-            //lblSoftware.Text += software.Name + "\n";
-
-            //SoftwareControl sc = new SoftwareControl(software);
-            //sc.Width = flpComputerHardware.Width - 25;
-            //flpComputerSoftware.Controls.Add(sc);
-            //AddControlToFlow(flpComputerSoftware, sc);
-
-            //flpComputerSoftware.Update();
+            rtbSoftware.Text += software.Name + "\n";
             this.Update();
         }
 

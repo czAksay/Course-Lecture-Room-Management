@@ -38,7 +38,7 @@ namespace ProjectK_Server1
                 }
                 Label l2 = new Label()
                 {
-                    Text = eq[0] + " [" + eq[2] + "]",
+                    Text = eq[0] + " [" + eq[2] + "] x" + eq[3] + " $" + eq[4],
                     AutoSize = true,
                     Font = new Font("Arial", 12),
                     Margin = new Padding(15, 3, 3, 3)

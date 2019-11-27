@@ -139,7 +139,8 @@ namespace ProjectK
         public void AddSoftware(Software software)
         {
             if (software == null)
-                throw new Exception("Software is null!");
+                return;
+                //throw new Exception("Software is null!");
             programs.Add(software);
             if (onSoftwareAdded != null)
                 onSoftwareAdded(software);
@@ -148,7 +149,8 @@ namespace ProjectK
         public void AddHardware(Hardware hardware)
         {
             if (hardware == null)
-                throw new Exception("Hardware is null!");
+                return;
+                //throw new Exception("Hardware is null!");
 
             switch (hardware.Type)
             {

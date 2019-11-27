@@ -48,7 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flpEquips.AutoScroll = true;
-            this.flpEquips.BackColor = System.Drawing.Color.Snow;
+            this.flpEquips.BackColor = System.Drawing.Color.WhiteSmoke;
             this.flpEquips.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flpEquips.Location = new System.Drawing.Point(11, 51);
             this.flpEquips.Name = "flpEquips";

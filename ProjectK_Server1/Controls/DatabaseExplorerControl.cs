@@ -301,6 +301,7 @@ namespace ProjectK_Server1
                     FillTextBox("Отчество", "patronymic");
                     FillComboBox("Кафедра", "cathedra_id", "cathedra", "id", "name");
                     break;
+                //Пользователи
                 case 27:
                     FillTextBox("Логин", "login");
                     FillTextBox("Пароль", "password");
@@ -321,9 +322,10 @@ namespace ProjectK_Server1
             try
             {
                 NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(da);
+                da.UpdateCommand = commandBuilder.GetUpdateCommand();
                 //da.Update(ds);
                 da.Update(dt);
-                Debug.WriteLine(ds.Tables.Count);
+                
                 MessageBox.Show("Успешно.", "Хорошо", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch(Exception ex)

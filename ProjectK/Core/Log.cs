@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace ProjectK_Console
+namespace ProjectK
 {
-    class LogMaker
+    public class LogMaker
     {
         static String fileName = "Log.txt";
         StreamWriter sw;

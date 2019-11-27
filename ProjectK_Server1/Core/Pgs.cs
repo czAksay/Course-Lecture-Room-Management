@@ -28,20 +28,21 @@ namespace ProjectK_Server1
         internal static List<string[]> GetEquipementsGroupedByAuditories()
         {
             List<String[]> equips = new List<string[]>();
-            Execute("SELECT * FROM (" +
-"SELECT ps.model, r.number, ps.type FROM printer_scanner ps JOIN rrsc_er_in_room psr ON ps.id=psr.prsc_er_id JOIN room r ON psr.audit_id=r.id " +
-"UNION SELECT p.model, r.number, 'Проектор' FROM projector p JOIN projector_in_room pr ON p.id=pr.projector_id JOIN room r ON pr.audit_id=r.id " +
-"UNION SELECT n.model, r.number, n.type FROM network_device n JOIN netdevice_in_room nr ON n.id=nr.netdevice_id JOIN room r ON nr.audit_id=r.id " +
-"UNION SELECT k.model, r.number, k.type FROM keyboard_mouse k JOIN keymse_in_room kr ON k.id=kr.keymse_id JOIN room r ON kr.audit_id=r.id " +
-"UNION SELECT c.type, r.number, 'Кабель' FROM cable c JOIN cable_in_room cr ON c.id=cr.cable_id JOIN room r ON cr.audit_id=r.id " +
-"UNION SELECT a.model, r.number, 'Бытовая техника' FROM appliances a JOIN appliances_in_room ar ON a.id=ar.appliances_id JOIN room r ON ar.audit_id=r.id) AS equps " +
-"ORDER BY 2, 3;");
+            Execute("SELECT * FROM (SELECT ps.model, r.number, ps.type, psr.count, psr.price FROM printer_scanner ps JOIN rrsc_er_in_room psr ON ps.id = psr.prsc_er_id JOIN room r ON psr.audit_id = r.id " +
+                "UNION SELECT p.model, r.number, 'Проектор', pr.count, pr.price FROM projector p JOIN projector_in_room pr ON p.id = pr.projector_id JOIN room r ON pr.audit_id = r.id " +
+                "UNION SELECT n.model, r.number, n.type, nr.count, nr.price FROM network_device n JOIN netdevice_in_room nr ON n.id = nr.netdevice_id JOIN room r ON nr.audit_id = r.id " +
+                "UNION SELECT k.model, r.number, k.type, kr.count, kr.price FROM keyboard_mouse k JOIN keymse_in_room kr ON k.id = kr.keymse_id JOIN room r ON kr.audit_id = r.id " +
+                "UNION SELECT c.type, r.number, 'Кабель', cr.count, cr.price FROM cable c JOIN cable_in_room cr ON c.id = cr.cable_id JOIN room r ON cr.audit_id = r.id " +
+                "UNION SELECT a.model, r.number, 'Бытовая техника', ar.count, ar.price FROM appliances a JOIN appliances_in_room ar ON a.id = ar.appliances_id JOIN room r ON ar.audit_id = r.id) " +
+                "AS equps ORDER BY 2, 3; ");
             while(dataReader.Read())
             {
-                String[] line = new string[3];
+                String[] line = new string[5];
                 line[0] = dataReader[0].ToString();
                 line[1] = dataReader[1].ToString();
                 line[2] = dataReader[2].ToString();
+                line[3] = dataReader[3].ToString();
+                line[4] = dataReader[4].ToString();
                 equips.Add(line);
             }
             return equips;

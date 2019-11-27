@@ -349,6 +349,8 @@ namespace ProjectK
                 }
             }
 
+            DataManager.log.Log(@"Клиент: раздел реестра CU SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall просканирован успешно.");
+
             //using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", false))
             using (var localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
             {
@@ -365,6 +367,8 @@ namespace ProjectK
                 }
             }
 
+            DataManager.log.Log(@"Клиент: раздел реестра LM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall просканирован успешно.");
+
             using (var localMachine = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
             {
                 var key = localMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", false);
@@ -380,6 +384,8 @@ namespace ProjectK
                 }
             }
 
+            DataManager.log.Log(@"Клиент: раздел реестра LM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall просканирован успешно.");
+
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall", false))
             {
                 foreach (String keyName in key.GetSubKeyNames())
@@ -394,13 +400,18 @@ namespace ProjectK
                 }
             }
 
+            DataManager.log.Log(@"Клиент: раздел реестра LM SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall просканирован успешно.");
+
             //List<Software> distinct = view.Distinct().ToList();
             var DistinctItems = view.GroupBy(x => x.Name).Select(y => y.First());
             List<Software> distinct = new List<Software>();
             foreach (var item in DistinctItems)
             {
-                distinct.Add(item);
+                if (item != null)
+                    distinct.Add(item);
             }
+
+            DataManager.log.Log(@"Клиент: список ПО успешно извлечен из реестра.");
             return distinct;
         }
     }

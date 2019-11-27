@@ -22,16 +22,19 @@ namespace ProjectK
         private void BtnStartScan_Click(object sender, EventArgs e)
         {
             SetProgress(0);
+            DataManager.log.Log("Клиент: начало сканирования.");
             computerExplorer.Clear();
             try
             {
                 Notify("Извлечение ПО");
                 SetProgress(15);
+                DataManager.log.Log("Клиент: начало извлечения ПО.");
                 FillSoftware();
                 computerExplorer.SetComputer(currentComputer);
                 SetProgress(40);
                 Notify("Извлечение комплектующих");
                 SetProgress(45);
+                DataManager.log.Log("Клиент: начало извлечения железа.");
                 FillHardware();
                 SetProgress(65);
             }
@@ -77,9 +80,10 @@ namespace ProjectK
 
         private void CanselScan(String message)
         {
+            DataManager.log.Log("Клиент: завершение сканирования с ошибками.");
             MessageBox.Show(message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Error);
             Notify("Завершение сканирования");
-            FinishScan();
+            FinishScan(false);
         }
 
         private void CreateComputer()
@@ -94,6 +98,7 @@ namespace ProjectK
         private void SendComputerToDb()
         {
             currentComputer._AuditNumber = audnum;
+            DataManager.log.Log("Клиент: начало отправки данных на сервер.");
             try
             {
                 SetProgress(72);
@@ -117,10 +122,19 @@ namespace ProjectK
 
         private void FinishScan()
         {
+            DataManager.log.Log("Клиент: успешное завершение сканирования.");
+            FinishScan(true);
+        }
+
+        private void FinishScan(bool success)
+        {
             btnSaveToTxt.Enabled = true;
             SetProgress(100);
             Notify("Готово");
-            MessageBox.Show("Сканирование успешно завершено.", "Завершение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (success)
+                MessageBox.Show("Сканирование успешно завершено.", "Завершение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            else
+                MessageBox.Show("Сканирование завершено с ошибкой.", "Завершение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void FillSoftware()

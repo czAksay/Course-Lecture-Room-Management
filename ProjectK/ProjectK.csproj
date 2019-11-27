@@ -119,6 +119,7 @@
     <Compile Include="Controls\SoftwareControl.Designer.cs">
       <DependentUpon>SoftwareControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Log.cs" />
     <Compile Include="Forms\DatabaseExplorer.cs">
       <SubType>Form</SubType>
     </Compile>

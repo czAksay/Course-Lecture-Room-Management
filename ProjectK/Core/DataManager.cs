@@ -10,6 +10,7 @@ namespace ProjectK
     static public class DataManager
     {
         public static SettingsAP.Settings st;
+        public static LogMaker log = new LogMaker();
 
         public static string getHashSha256(string text)
         {
