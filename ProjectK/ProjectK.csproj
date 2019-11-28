@@ -283,7 +283,9 @@
   <ItemGroup>
     <None Include="Resources\eye.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\wizzard.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\soft.png" />
   </ItemGroup>

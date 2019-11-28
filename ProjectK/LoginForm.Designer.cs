@@ -49,9 +49,11 @@
             this.messageDisplay2 = new ProjectK.MessageDisplay();
             this.messageDisplay1 = new ProjectK.MessageDisplay();
             this.trgLoginConnect = new ProjectK.ControlTrigger();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbVisiblePass)).BeginInit();
             this.pnlConnect.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -173,12 +175,12 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Segoe Print", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(12, 25);
+            this.label1.Location = new System.Drawing.Point(12, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(374, 89);
+            this.label1.Size = new System.Drawing.Size(333, 83);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Turbo Edvard";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Text = "ECCU";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel4
             // 
@@ -264,13 +266,12 @@
             this.messageDisplay2._BackColor = System.Drawing.Color.White;
             this.messageDisplay2._Color = System.Drawing.SystemColors.ControlText;
             this.messageDisplay2._Font = new System.Drawing.Font("Segoe UI Light", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.messageDisplay2._Text = "Данная программа содержит в себе огромное количество доброжелательных вирусов и м" +
-    "айнеров, иммитирующих поведение полезной программы. Да пребудет с Вами Бог.";
+            this.messageDisplay2._Text = "Программа контроля оборудования.";
             this.messageDisplay2._TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.messageDisplay2.BackColor = System.Drawing.Color.White;
             this.messageDisplay2.Location = new System.Drawing.Point(367, 247);
             this.messageDisplay2.Name = "messageDisplay2";
-            this.messageDisplay2.Size = new System.Drawing.Size(259, 230);
+            this.messageDisplay2.Size = new System.Drawing.Size(259, 77);
             this.messageDisplay2.TabIndex = 7;
             // 
             // messageDisplay1
@@ -300,12 +301,23 @@
             this.trgLoginConnect.Size = new System.Drawing.Size(158, 32);
             this.trgLoginConnect.TabIndex = 10;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ProjectK.Properties.Resources.wizzard;
+            this.pictureBox1.Location = new System.Drawing.Point(425, 318);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(146, 144);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(638, 491);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.messageDisplay2);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.messageDisplay1);
@@ -327,6 +339,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pbVisiblePass)).EndInit();
             this.pnlConnect.ResumeLayout(false);
             this.pnlConnect.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -354,6 +367,7 @@
         private System.Windows.Forms.Label label5;
         private ControlTrigger trgLoginConnect;
         private System.Windows.Forms.PictureBox pbVisiblePass;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

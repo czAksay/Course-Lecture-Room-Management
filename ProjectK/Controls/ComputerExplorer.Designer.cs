@@ -69,8 +69,6 @@
             this.flpComputerSoftware.TabIndex = 15;
             this.flpComputerSoftware.Visible = false;
             this.flpComputerSoftware.WrapContents = false;
-            this.flpComputerSoftware.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.FlpComputerSoftware_ControlAdded);
-            this.flpComputerSoftware.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.FlpComputerSoftware_ControlAdded);
             // 
             // lblCount
             // 

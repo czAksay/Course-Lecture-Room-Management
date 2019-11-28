@@ -57,6 +57,16 @@ namespace ProjectK
             computerExplorer1.Clear();
             flpComputers.Controls.Clear();
             rtbPcInfo.Clear();
+            if (computers.Count == 0)
+            {
+                Label l = new Label();
+                l.TextAlign = ContentAlignment.MiddleCenter;
+                l.Width = flpComputers.Width - 15;
+                l.Height = 40;
+                l.Font = btnRefreshComputers.Font;
+                l.Text = "Нет компьютеров в базе";
+                flpComputers.Controls.Add(l);
+            }
             foreach (Computer c in computers)
             {
                 c.onComputerSelect += ComputerSelected;

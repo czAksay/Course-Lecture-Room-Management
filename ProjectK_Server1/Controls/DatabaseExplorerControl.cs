@@ -230,7 +230,7 @@ namespace ProjectK_Server1
                 //ОС
                 case 16:
                     FillTextBox("Id", "id");
-                    FillComboBox("ОС", "os_id", "os", "id", "name");
+                    FillTextBox("Название", "name");
                     FillTextBox("Серийный номер", "serial_os");
                     FillComboBox_Simple(new string[] { "Windows", "Linux" }, "Семейство", "type");
                     break;

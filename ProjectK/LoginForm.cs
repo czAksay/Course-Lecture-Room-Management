@@ -28,7 +28,7 @@ namespace ProjectK
 
         private void BtnGuest_MouseEnter(object sender, EventArgs e)
         {
-            messageDisplay1.SetText("Вход в приложение с правами гостя. Вы можете только смотреть. Вы - куколд.");
+            messageDisplay1.SetText("Вход в приложение с правами гостя. Можно просматривать компьютеры и оборудование в аудиториях.");
         }
 
         private void BtnGuest_MouseLeave(object sender, EventArgs e)
@@ -79,8 +79,10 @@ namespace ProjectK
 
         private void BtnGuest_Click(object sender, EventArgs e)
         {
-            String ip = DataManager.st.GetValue("server");
-            String port = DataManager.st.GetValue("port");
+            //String ip = DataManager.st.GetValue("server");
+            String ip = tbLogin.Text;
+            //String port = DataManager.st.GetValue("port");
+            String port = tbPassword.Text;
             Pgs.SetDatabaseConnectionWithRole(ip, port, "guest");
             User.Autonom = false;
             if (!Pgs.CheckConnection())

@@ -53,9 +53,9 @@
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI Light", 24F, System.Drawing.FontStyle.Bold);
             this.lblTitle.Location = new System.Drawing.Point(18, 11);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(138, 45);
+            this.lblTitle.Size = new System.Drawing.Size(135, 45);
             this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "РЕПОРТ";
+            this.lblTitle.Text = "ЗАЯВКА";
             // 
             // label1
             // 

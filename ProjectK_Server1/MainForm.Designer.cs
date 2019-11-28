@@ -221,7 +221,6 @@
             this.Controls.Add(this.flpServerInfo);
             this.Controls.Add(this.lblHello);
             this.DoubleBuffered = true;
-            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Кабинет";

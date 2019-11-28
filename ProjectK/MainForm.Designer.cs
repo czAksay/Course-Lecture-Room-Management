@@ -269,7 +269,6 @@
             this.Controls.Add(this.rtbPcInfo);
             this.Controls.Add(this.computerExplorer1);
             this.DoubleBuffered = true;
-            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Кабинет";

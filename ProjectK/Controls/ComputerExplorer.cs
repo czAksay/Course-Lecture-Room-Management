@@ -81,6 +81,7 @@ namespace ProjectK
                     continue;
                 soft += s.Name + "\n";
             }
+            lblCount.Text = "Количество: " + computer.Softwares.Count;//flpComputerSoftware.Controls.Count;
             rtbSoftware.Text = soft;
         }
 
@@ -109,6 +110,7 @@ namespace ProjectK
                 return;
             rtbSoftware.Text += software.Name + "\n";
             this.Update();
+            lblCount.Text = "Количество: " + computer.Softwares.Count;//flpComputerSoftware.Controls.Count;
         }
 
         private void DrawNewHardware(Hardware hardware)
@@ -131,11 +133,6 @@ namespace ProjectK
             //flpComputerSoftware.Controls.Clear();
             //lblSoftware.Text = "";
             rtbSoftware.Clear();
-        }
-
-        private void FlpComputerSoftware_ControlAdded(object sender, ControlEventArgs e)
-        {
-            lblCount.Text = "Количество: " + computer.Softwares.Count;//flpComputerSoftware.Controls.Count;
         }
     }
 }
