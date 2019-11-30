@@ -19,7 +19,12 @@ namespace ProjectK
 
         ~LogMaker()
         {
-            sw.Close();
+            try
+            {
+                if (sw != null)
+                    sw.Close();
+            }
+            catch { }
         }
 
         public void Log(String message)

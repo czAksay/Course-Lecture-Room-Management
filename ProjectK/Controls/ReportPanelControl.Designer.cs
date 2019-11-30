@@ -59,6 +59,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 13F);
@@ -78,6 +79,7 @@
             // 
             // pnlReportType
             // 
+            this.pnlReportType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlReportType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(253)))), ((int)(((byte)(253)))));
             this.pnlReportType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlReportType.Controls.Add(this.rbRepairComponent);
@@ -135,6 +137,8 @@
             // 
             // pnlAuditory
             // 
+            this.pnlAuditory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlAuditory.AutoScroll = true;
             this.pnlAuditory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(253)))), ((int)(((byte)(253)))));
             this.pnlAuditory.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -158,6 +162,8 @@
             // 
             // tbFio
             // 
+            this.tbFio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFio.Font = new System.Drawing.Font("Segoe UI Light", 11F);
             this.tbFio.Location = new System.Drawing.Point(26, 259);
             this.tbFio.Name = "tbFio";
@@ -177,21 +183,25 @@
             // 
             // rtbComment
             // 
+            this.rtbComment.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbComment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.rtbComment.Font = new System.Drawing.Font("Segoe UI Light", 11F);
             this.rtbComment.Location = new System.Drawing.Point(26, 377);
             this.rtbComment.Name = "rtbComment";
-            this.rtbComment.Size = new System.Drawing.Size(519, 92);
+            this.rtbComment.Size = new System.Drawing.Size(517, 90);
             this.rtbComment.TabIndex = 15;
             this.rtbComment.Text = "";
             // 
             // btnSend
             // 
+            this.btnSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSend.BackColor = System.Drawing.Color.White;
             this.btnSend.Enabled = false;
             this.btnSend.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSend.Font = new System.Drawing.Font("Segoe UI Light", 13F);
-            this.btnSend.Location = new System.Drawing.Point(551, 427);
+            this.btnSend.Location = new System.Drawing.Point(549, 425);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(122, 42);
             this.btnSend.TabIndex = 16;
@@ -201,6 +211,7 @@
             // 
             // btnChoose
             // 
+            this.btnChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChoose.BackColor = System.Drawing.Color.White;
             this.btnChoose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnChoose.Enabled = false;
@@ -217,6 +228,8 @@
             // 
             // lblResult
             // 
+            this.lblResult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblResult.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.lblResult.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lblResult.Cursor = System.Windows.Forms.Cursors.Default;
@@ -233,6 +246,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.btnChoose);
             this.Controls.Add(this.btnSend);
@@ -247,7 +261,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTitle);
             this.Name = "ReportPanelControl";
-            this.Size = new System.Drawing.Size(696, 484);
+            this.Size = new System.Drawing.Size(694, 482);
             this.pnlReportType.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

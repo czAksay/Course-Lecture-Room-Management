@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using ProjectK;
 using ProjectK.Controls;
 using SettingsAP;
+using ProjectK.Core;
 
 namespace ProjectK_Console
 {

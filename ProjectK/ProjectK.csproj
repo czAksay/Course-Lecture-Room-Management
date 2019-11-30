@@ -112,6 +112,12 @@
     <Compile Include="Controls\HardwareControl.Designer.cs">
       <DependentUpon>HardwareControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ReportPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ReportPanelControl.Designer.cs">
+      <DependentUpon>ReportPanelControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\DataManager.cs" />
     <Compile Include="Controls\SoftwareControl.cs">
       <SubType>UserControl</SubType>
@@ -120,17 +126,12 @@
       <DependentUpon>SoftwareControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Log.cs" />
+    <Compile Include="Core\Pgs.cs" />
     <Compile Include="Forms\DatabaseExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\DatabaseExplorer.Designer.cs">
       <DependentUpon>DatabaseExplorer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ReportPanelControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ReportPanelControl.Designer.cs">
-      <DependentUpon>ReportPanelControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ReportForm.cs">
       <SubType>Form</SubType>
@@ -170,7 +171,6 @@
     <Compile Include="Forms\NumberAssign.Designer.cs">
       <DependentUpon>NumberAssign.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Pgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoftwareHardware\Software.cs" />
@@ -205,6 +205,9 @@
     <EmbeddedResource Include="Forms\DatabaseExplorer.resx">
       <DependentUpon>DatabaseExplorer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReportItemChooseForm.resx">
+      <DependentUpon>ReportItemChooseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -229,9 +232,6 @@
     </Compile>
     <EmbeddedResource Include="Forms\ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ReportItemChooseForm.resx">
-      <DependentUpon>ReportItemChooseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ScanForm.resx">
       <DependentUpon>ScanForm.cs</DependentUpon>

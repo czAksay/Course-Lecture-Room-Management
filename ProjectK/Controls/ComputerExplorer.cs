@@ -42,7 +42,6 @@ namespace ProjectK
             hs.AddRange(c.Hdd);
             hs.Add(c.Soundboard);
 
-
             bw = new BackgroundWorker();
             bw.WorkerSupportsCancellation = true;
             bw.DoWork += (obj, ea) => AsyncAddingToControl(hs, c.Softwares);
@@ -64,6 +63,28 @@ namespace ProjectK
             }
         }
 
+        private void UpdateLabelText()
+        {
+            if (InvokeRequired)
+                Invoke((Action)UpdateLabelText);
+            else
+            {
+                lblCount.Text = "Количество: " + computer.Softwares.Count;
+                lblCount.Update();
+            }
+        }
+
+        private void UpdateRtbText(string text)
+        {
+            if (InvokeRequired)
+                Invoke((Action<string>)UpdateRtbText, text);
+            else
+            {
+                rtbSoftware.Text = text;
+                rtbSoftware.Update();
+            }
+        }
+
         private void AsyncAddingToControl(List<Hardware> hs, List<Software> ss)
         {
             foreach(Hardware h in hs)
@@ -81,11 +102,10 @@ namespace ProjectK
                     continue;
                 soft += s.Name + "\n";
             }
-            lblCount.Text = "Количество: " + computer.Softwares.Count;//flpComputerSoftware.Controls.Count;
-            rtbSoftware.Text = soft;
+            //flpComputerSoftware.Controls.Count;
+            UpdateRtbText(soft);
+            UpdateLabelText();
         }
-
-
 
 
         private void PanelChanged()
@@ -110,7 +130,7 @@ namespace ProjectK
                 return;
             rtbSoftware.Text += software.Name + "\n";
             this.Update();
-            lblCount.Text = "Количество: " + computer.Softwares.Count;//flpComputerSoftware.Controls.Count;
+            UpdateLabelText();
         }
 
         private void DrawNewHardware(Hardware hardware)

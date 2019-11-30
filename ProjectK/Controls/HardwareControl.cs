@@ -47,6 +47,10 @@ namespace ProjectK
                     lblModel.Text = hardware.Model;
                     break;
             }
+            if (hardware.Count > 1)
+            {
+                lblTitle.Text += $" x{hardware.Count}";
+            }
         }
     }
 }

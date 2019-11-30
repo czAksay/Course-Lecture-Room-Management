@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Npgsql;
 using System.Windows.Forms;
 
-namespace ProjectK
+namespace ProjectK.Core
 {
     public static class Pgs
     {
@@ -15,12 +15,36 @@ namespace ProjectK
         static NpgsqlDataReader dataReader;
         static readonly String databaseName = "universitydb";
 
+        public static NpgsqlConnection Connection {get {return connection; } }
+
         static private void _chkConnection()
         {
             if (connection != null && connection.State == System.Data.ConnectionState.Open)
             {
                 connection.Close();
             }
+        }
+
+        public static List<string[]> GetEquipementsGroupedByAuditories()
+        {
+            List<String[]> equips = new List<string[]>();
+            Execute("SELECT * FROM (SELECT ps.model, r.number, ps.type, psr.count, psr.price, psr.status FROM printer_scanner ps JOIN rrsc_er_in_room psr ON ps.id = psr.prsc_er_id JOIN room r ON psr.audit_id = r.id " +
+                "UNION SELECT p.model, r.number, 'Проектор', pr.count, pr.price, pr.status FROM projector p JOIN projector_in_room pr ON p.id = pr.projector_id JOIN room r ON pr.audit_id = r.id " +
+                "UNION SELECT n.model, r.number, n.type, nr.count, nr.price, nr.status FROM network_device n JOIN netdevice_in_room nr ON n.id = nr.netdevice_id JOIN room r ON nr.audit_id = r.id " +
+                "UNION SELECT k.model, r.number, k.type, kr.count, kr.price, kr.status FROM keyboard_mouse k JOIN keymse_in_room kr ON k.id = kr.keymse_id JOIN room r ON kr.audit_id = r.id " +
+                "UNION SELECT a.model, r.number, 'Бытовая техника', ar.count, ar.price, ar.status FROM appliances a JOIN appliances_in_room ar ON a.id = ar.appliances_id JOIN room r ON ar.audit_id = r.id) AS equps ORDER BY 2, 3; ");
+            while(dataReader.Read())
+            {
+                String[] line = new string[6];
+                line[0] = dataReader[0].ToString();
+                line[1] = dataReader[1].ToString();
+                line[2] = dataReader[2].ToString();
+                line[3] = dataReader[3].ToString();
+                line[4] = dataReader[4].ToString();
+                line[5] = dataReader[5].ToString();
+                equips.Add(line);
+            }
+            return equips;
         }
 
         static private void _chkDataReader()
@@ -53,7 +77,7 @@ namespace ProjectK
             }
         }
 
-        internal static List<string> GetAllComponentsInAuditory()
+        public static List<string> GetAllPcComponents()
         {
             List<String> items = new List<string>();
             //Execute($"select cp.model from computer c join component_in_computer cc on cc.computer_name=c.computer_name join room r on r.id=c.audit_id " +
@@ -66,7 +90,7 @@ namespace ProjectK
             return items;
         }
 
-        internal static List<string> GetNetEquipInAuditory()
+        public static List<string> GetNetEquip()
         {
             List<String> items = new List<string>();
             //Execute($"select nd.model from netdevice_in_room ndr join room r on ndr.audit_id=r.id " +
@@ -79,7 +103,7 @@ namespace ProjectK
             return items;
         }
 
-        internal static List<string> GetKeyboardMousesInAuditory()
+        public static List<string> GetKeyboardMouses()
         {
             List<String> items = new List<string>();
             //Execute($"select km.model from keymse_in_room kmr join room r on kmr.audit_id=r.id " +
@@ -92,7 +116,7 @@ namespace ProjectK
             return items;
         }
 
-        internal static List<string> GetPrinterScannerInAuditory()
+        public static List<string> GetPrinterScanner()
         {
             List<String> items = new List<string>();
             //Execute($"select ps.model from rrsc_er_in_room psr join room r on psr.audit_id=r.id " +
@@ -105,7 +129,7 @@ namespace ProjectK
             return items;
         }
 
-        internal static List<string> GetBitovayaTehnikaInAuditory()
+        public static List<string> GetBitovayaTehnika()
         {
             List<String> items = new List<string>();
             //Execute($"select a.model from appliances_in_room ar join room r on ar.audit_id=r.id join " +
@@ -118,12 +142,13 @@ namespace ProjectK
             return items;
         }
 
-        internal static void SendReport(string osName, string chosenComputerName, ReportType reporttype, string selectedItem, int selectedEquipementType, string fio, string comment)
+        public static void SendReport(string osName, string chosenComputerName, ReportType reporttype, string selectedItem, int selectedEquipementType, string fio, string comment)
         {
             Execute($"SELECT id FROM os WHERE name ILIKE '{osName}'");
             if (!dataReader.Read())
                 throw new Exception("Отсутствует данная ОС в базе!");
             short os_id = (short)dataReader[0];
+            string a = User.Role.ToString();
             switch (reporttype)
             {
                 case ReportType.None:
@@ -169,7 +194,7 @@ namespace ProjectK
             }
         }
 
-        internal static List<string> GetProectorsInAuditory()
+        public static List<string> GetProectors()
         {
             List<String> items = new List<string>();
             //Execute($"select p.model from projector_in_room pr join room r on pr.audit_id=r.id join " +
@@ -182,7 +207,7 @@ namespace ProjectK
             return items;
         }
 
-        internal static List<string> GetCabelsInAuditory()
+        public static List<string> GetCabels()
         {
             List<String> items = new List<string>();
             //Execute($"select c.type from cable_in_room cr join room r on cr.audit_id=r.id " +
@@ -269,26 +294,28 @@ namespace ProjectK
 
         static public void AddSoftwareToComputer(Computer c)
         {
-            String soft_string = DataManager.GetSoftwareString(c.Softwares);
-            Execute($"SELECT AddSoftwareToPc('{c._Name}', ARRAY[{soft_string}], '{c._Os}' );");
+            String soft_string, soft_path_string;
+            DataManager.GetSoftwareString(c.Softwares, out soft_string, out soft_path_string);
+            Execute($"SELECT AddSoftwareToPc('{c._Name}', ARRAY[{soft_string}], '{c._Os}', ARRAY[{soft_path_string}]);");
         }
 
         static public void AddHardwareToComputer(Computer c)
         {
-            String hard_string = DataManager.GetHardwareString(c.Hardwares);
-            Execute($"SELECT AddHardwareToPc('{c._Name}', ARRAY[{hard_string}]);");
+            String models, types, capacity;
+            DataManager.GetHardwareString(c.Hardwares, out models, out types, out capacity);
+            Execute($"SELECT AddHardwareToPc('{c._Name}', ARRAY[{models}], ARRAY[{types}], ARRAY[{capacity}]);");
         }
 
         public static List<Computer> GetNetworkComputerList()
         {
             List<Computer> computers = new List<Computer>();
-            Execute($"SELECT c.*, r.* FROM computer c JOIN room r ON r.id=c.audit_id;");
+            Execute($"SELECT c.*,r.number FROM computer c JOIN room r ON r.id=c.audit_id;");
             while (dataReader.Read())
             {
                 Computer c = new Computer()
                 {
                     _Name = dataReader[0].ToString(),
-                    _AuditNumber = dataReader[7].ToString(),
+                    _AuditNumber = dataReader[6].ToString(),
                     _Ip = dataReader[3].ToString(),
                     _MAC = dataReader[4].ToString()
                 };
@@ -303,7 +330,7 @@ namespace ProjectK
                     Software s = new Software() { Name = dataReader[0].ToString() };
                     c.AddSoftware(s);
                 }
-                Execute($"SELECT cp.* FROM component_in_computer cc JOIN component_parts cp ON cp.id=cc.component_id WHERE computer_name = '{c._Name}';");
+                Execute($"SELECT cp.*, cc.count FROM component_in_computer cc JOIN component_parts cp ON cp.id=cc.component_id WHERE computer_name = '{c._Name}';");
                 HardwareType ht;
                 while (dataReader.Read())
                 {
@@ -312,12 +339,19 @@ namespace ProjectK
                     {
                         Model = dataReader[1].ToString(),
                         Type = ht,
-                        Memory = dataReader[3].ToString() == "" ? 0 : (short)dataReader[3]
+                        Memory = dataReader[3].ToString() == "" ? 0 : (short)dataReader[3],
+                        Count = Int32.Parse(dataReader[4].ToString())
                     };
                     c.AddHardware(h);
                 }
             }
             return computers;
+        }
+
+        public static NpgsqlDataAdapter GetDataAdapter(String command)
+        {
+            _chkDataReader();
+            return new NpgsqlDataAdapter(command, Pgs.Connection);
         }
 
         public static NpgsqlDataAdapter GetDataAdapter(int tableIndex)
@@ -341,7 +375,7 @@ namespace ProjectK
                     cmd = "SELECT name \"Название\" FROM software";
                     break;
                 case 5:
-                    cmd = "SELECT name \"Название\", type \"Семейство\", serial_os \"Серийный номер\" FROM os";
+                    cmd = "SELECT name \"Название\", type \"Семейство\" FROM os";
                     break;
                 case 6:
                     cmd = "SELECT model \"Модель\", type \"Тип\", capacity \"Объем\" FROM component_parts";

@@ -99,16 +99,8 @@
     <Compile Include="Controls\HardwareControl.Designer.cs">
       <DependentUpon>HardwareControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ReportPanelControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\ReportPanelControl.Designer.cs">
-      <DependentUpon>ReportPanelControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\ComputerInformation.cs" />
     <Compile Include="Core\DataManager.cs" />
-    <Compile Include="Core\Pgs.cs" />
-    <Compile Include="Core\UserRole.cs" />
     <Compile Include="Controls\DatabaseExplorerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -120,12 +112,6 @@
     </Compile>
     <Compile Include="Forms\EquipementObserverForm.Designer.cs">
       <DependentUpon>EquipementObserverForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ReportItemChooseForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ReportItemChooseForm.Designer.cs">
-      <DependentUpon>ReportItemChooseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\InputFolderPath.cs">
       <SubType>Form</SubType>
@@ -158,17 +144,11 @@
     <EmbeddedResource Include="Controls\HardwareControl.resx">
       <DependentUpon>HardwareControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\ReportPanelControl.resx">
-      <DependentUpon>ReportPanelControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\DatabaseExplorerControl.resx">
       <DependentUpon>DatabaseExplorerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EquipementObserverForm.resx">
       <DependentUpon>EquipementObserverForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ReportItemChooseForm.resx">
-      <DependentUpon>ReportItemChooseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InputFolderPath.resx">
       <DependentUpon>InputFolderPath.cs</DependentUpon>
@@ -250,6 +230,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectK\ProjectK.csproj">
+      <Project>{7ac5204b-8512-401b-9957-7ead5cef8479}</Project>
+      <Name>ProjectK</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

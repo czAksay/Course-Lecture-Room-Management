@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using SettingsAP;
+using ProjectK.Core;
 
 namespace ProjectK
 {
@@ -80,9 +81,9 @@ namespace ProjectK
         private void BtnGuest_Click(object sender, EventArgs e)
         {
             //String ip = DataManager.st.GetValue("server");
-            String ip = tbLogin.Text;
+            String ip = tbServerIp.Text;
             //String port = DataManager.st.GetValue("port");
-            String port = tbPassword.Text;
+            String port = tbServerPort.Text;
             Pgs.SetDatabaseConnectionWithRole(ip, port, "guest");
             User.Autonom = false;
             if (!Pgs.CheckConnection())
@@ -200,6 +201,11 @@ namespace ProjectK
             if (e.KeyCode == Keys.F5)
             {
                 tbLogin.Text = "cinezad";
+                tbPassword.Text = "1234";
+            }
+            else if (e.KeyCode == Keys.F6)
+            {
+                tbLogin.Text = "uchilka";
                 tbPassword.Text = "1234";
             }
 #endif

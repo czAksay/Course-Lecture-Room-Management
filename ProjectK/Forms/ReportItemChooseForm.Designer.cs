@@ -1,5 +1,5 @@
 ﻿namespace ProjectK
-{
+{ 
     partial class ReportItemChooseForm
     {
         /// <summary>

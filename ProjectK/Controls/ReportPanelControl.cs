@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using ProjectK.Core;
 
 namespace ProjectK
 {
@@ -106,7 +107,24 @@ namespace ProjectK
             {
                 ComputerInformation ci = new ComputerInformation();
                 Pgs.SendReport(ci.GetOs(), chosenComputerName, reporttype, selectedItem, selectedEquipementType, tbFio.Text, rtbComment.Text);
-                MessageBox.Show("Заявка успешно отправлена!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var result = MessageBox.Show("Заявка успешно отправлена! Желаете сохранить ее в виде текстового файла?", "Успех", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    SaveFileDialog sv = new SaveFileDialog();
+                    sv.FileName = "result";
+                    sv.Filter = "Тексовый файл|*.txt";
+                    result = sv.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        System.IO.StreamWriter sw = new System.IO.StreamWriter(sv.FileName, false);
+                        sw.WriteLine("ФИО: " + tbFio.Text);
+                        sw.WriteLine("Компьютер: " + chosenComputerName);
+                        sw.WriteLine("Тип заявки: " + reporttype.ToString());
+                        sw.WriteLine("Комментарий:" + rtbComment.Text);
+                        sw.Close();
+                        MessageBox.Show("Успешно сохранено.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
                 if (onReportFinished != null)
                     onReportFinished();
             }

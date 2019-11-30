@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using ProjectK.Core;
 
 namespace ProjectK
 {
@@ -98,17 +99,21 @@ namespace ProjectK
         private void SendComputerToDb()
         {
             currentComputer._AuditNumber = audnum;
+
             DataManager.log.Log("Клиент: начало отправки данных на сервер.");
             try
             {
                 SetProgress(72);
                 Notify("Отправка данных о компьютере");
+                DataManager.log.Log("Клиент: отправка данных о компьютере на сервер.");
                 Pgs.AddComputerAndOs(currentComputer);
                 SetProgress(75);
                 Notify("Отправка ПО компьютера");
+                DataManager.log.Log("Клиент: отправка данных о ПО компьютера на сервер.");
                 Pgs.AddSoftwareToComputer(currentComputer);
                 SetProgress(85);
                 Notify("Отправка комплектующих компьютера");
+                DataManager.log.Log("Клиент: отправка данных о комплектующих компьютера на сервер.");
                 Pgs.AddHardwareToComputer(currentComputer);
                 SetProgress(95);
             }

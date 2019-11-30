@@ -25,30 +25,36 @@ namespace ProjectK
             return hashString;
         }
 
-        public static string GetSoftwareString(List<Software> softwares)
+        public static void GetSoftwareString(List<Software> softwares, out string soft_string, out string soft_path_string)
         {
             if (softwares.Count == 0)
                 throw new Exception("Не найдено ни одной программы на компьютере!");
-            String str = "";
-            for(int i = 0; i < softwares.Count; i++)
+            soft_string = "";
+            soft_path_string = "";
+            for (int i = 0; i < softwares.Count; i++)
             {
                 Software s = softwares[i];
                 s.Name = s.Name.Replace('\'', ' ');
                 s.Name = RemoveSpaces(s.Name);
                 s.ExePath = s.ExePath.Replace('\'', ' ');
                 s.ExePath = RemoveSpaces(s.ExePath);
-                str += $"['{s.Name}', '{s.ExePath}']";
+                soft_string += $"'{s.Name}'";
+                soft_path_string += $"'{s.ExePath}'";
                 if (i != softwares.Count - 1)
-                    str += ", ";
+                {
+                    soft_string += ", ";
+                    soft_path_string += ", ";
+                }
             }
-            return str;
         }
 
-        public static string GetHardwareString(List<Hardware> hardwares)
+        public static void GetHardwareString(List<Hardware> hardwares, out string models, out string types, out string capacity)
         {
             if (hardwares.Count == 0)
                 throw new Exception("Не найдено ни одного оборудования на компьютере!");
-            String str = "";
+            models = "";
+            types = "";
+            capacity = "";
             int reallyAdded = 0;
             for (int i = 0; i < hardwares.Count; i++)
             {
@@ -56,27 +62,29 @@ namespace ProjectK
                 if (h == null)
                     continue;
                 if (reallyAdded > 0)
-                    str += ", ";
+                {
+                    models += ", ";
+                    types += ", ";
+                    capacity += ", ";
+                }
                 h.Model = RemoveSpaces(h.Model);
-                String capacity = "";
+                //String capacity = "";
                 switch (h.Type)
                 {
                     case HardwareType.RAM:
-                        capacity = "'" + h.Memory.ToString() + "'";
+                        capacity += "'" + h.Memory.ToString() + "'";
                         break;
                     case HardwareType.HDD:
-                        capacity = "'" + h.Memory.ToString() + "'";
+                        capacity += "'" + h.Memory.ToString() + "'";
                         break;
                     default:
-                        capacity = "NULL";
+                        capacity += "NULL";
                         break;
                 }
-                String type = h.Type.ToString();
-                str += $"['{h.Model}', '{type}', {capacity}]";
-                reallyAdded++;
-                
+                models += $"'{h.Model}'";
+                types += $"'{h.Type.ToString()}'";
+                reallyAdded++;   
             }
-            return str;
         }
 
         public static string RemoveSpaces(String str)

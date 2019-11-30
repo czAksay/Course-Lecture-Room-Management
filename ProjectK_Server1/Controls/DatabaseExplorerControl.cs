@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 using System.Diagnostics;
+using ProjectK.Core;
+using ProjectK;
 
 namespace ProjectK_Server1
 {
@@ -62,7 +64,8 @@ namespace ProjectK_Server1
             c.DataPropertyName = datapropertyname;
 
             //string table_name = tables[cbDbTable.SelectedIndex];
-            da = Pgs.GetDataAdapter("SELECT * FROM " + table_name);
+            da = Pgs.GetDataAdapter($"SELECT {value_member}, {display_member} FROM " + table_name);
+            //da = Pgs.GetDataAdapter($"SELECT * FROM " + table_name);
             dt = new DataTable();
             da.Fill(dt);
             c.ValueMember = value_member;
@@ -102,7 +105,17 @@ namespace ProjectK_Server1
         private void FillGridView()
         {
             string table_name = tables[cbDbTable.SelectedIndex];
-            da = Pgs.GetDataAdapter("SELECT * FROM " + table_name);
+            if (User.Role != UserRole.Admin)
+            {
+                if (cbDbTable.SelectedIndex == 16)
+                    da = Pgs.GetDataAdapter("SELECT id, name, type FROM " + table_name);
+                else if (cbDbTable.SelectedIndex == 17)
+                    da = Pgs.GetDataAdapter("SELECT computer_name, program_id, os_id, path_exe, locked FROM " + table_name);
+                else
+                    da = Pgs.GetDataAdapter("SELECT * FROM " + table_name);
+            }
+            else
+                da = Pgs.GetDataAdapter("SELECT * FROM " + table_name);
             dt = new DataTable();
             da.Fill(dt);
             dataGridView1.DataSource = dt;
@@ -111,205 +124,234 @@ namespace ProjectK_Server1
 
         public void RefreshGrid()
         {
-            dataGridView1.Columns.Clear();
-
-            switch(cbDbTable.SelectedIndex)
+            try
             {
-                //Бытовая техника
-                case 0:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Модель", "model");
-                    break;
-                //Бытовая техника ММ
-                case 1:
-                    FillComboBox("Бытовая техника", "appliances_id", "appliances", "id", "model");
-                    FillComboBox("Аудитория", "audit_id", "room", "id", "number");
-                    FillBoolBox("Статус", "status");
-                    FillTextBox("Количество", "count");
-                    FillTextBox("Цена", "price");
-                    break;
-                //Кабель 
-                case 2:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Тип", "type");
-                    //FillComboBox_Simple(new string[] { "Schuko", "VGA", "HDMI", "DVI", "USB" }, "Тип", "type");
-                    break;
-                //Кабель ММ
-                case 3:
-                    FillComboBox("Кабель", "cable_id", "cable", "id", "type");
-                    FillComboBox("Аудитория", "audit_id", "room", "id", "number");
-                    FillTextBox("Длина", "length");
-                    FillTextBox("Количество", "count");
-                    FillTextBox("Цена", "price");
-                    break;
-                //Компонент ПК
-                case 5:
-                    FillTextBox("Id", "id");
-                    FillComboBox("Компьютер", "computer_name", "computer", "computer_name", "computer_name");
-                    FillComboBox("Компонент", "component_id", "component_parts", "id", "model");
-                    FillBoolBox("Locked", "locked");
-                    break;
-                //Компонент ПК
-                case 6:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Модель", "model");
-                    FillComboBox_Simple(new string[] { "CPU", "GPU", "Motherboard", "RAM", "Soundcard", "HDD" }, "Тип", "type");
-                    FillTextBox("Объем", "capacity");
-                    break;
-                //Компьютер
-                case 7:
-                    FillTextBox("Имя", "computer_name");
-                    FillTextBox("Серийный номер", "serial_number");
-                    FillComboBox("Аудитория", "audit_id", "room", "id", "number");
-                    FillTextBox("IP", "ip");
-                    FillTextBox("MAC", "mac");
-                    FillBoolBox("Статус", "status");
-                    break;
-                //Курс
-                case 8:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Название", "course_name");
-                    break;
-                //ОС на курсе
-                case 9:
-                    FillTextBox("Id", "id");
-                    FillComboBox("Аудитория", "audit_id", "room", "id", "number");
-                    FillComboBox("Курс", "course_id", "course", "id", "course_name");
-                    FillComboBox("Программа", "program_id", "software", "id", "name");
-                    FillComboBox("Преподаватель", "teacher_id", "teacher", "id", "second_name");
-                    break;
-                //Клавомыш
-                case 10:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Модель", "model");
-                    FillComboBox_Simple(new string[] { "Keyboard", "Mouse" }, "Тип", "type");
-                    break;
-                //Клавомыш ММ
-                case 11:
-                    FillComboBox("Клавиатура/мышь", "keymse_id", "keyboard_mouse", "id", "model");
-                    FillComboBox("Аудитория", "audit_id", "room", "id", "number");
-                    FillTextBox("Количество", "count");
-                    FillTextBox("Стоимость", "price");
-                    FillBoolBox("Статус", "status");
-                    break;
-                //Монитор
-                case 12:
-                    FillTextBox("Серийный номер", "serial_number");
-                    FillTextBox("Модель", "model");
-                    FillComboBox_Simple(new string[] { "TFT TN", "TFT VA", "TFT IPS", "OLED"}, "Матрица", "matrix");
-                    FillTextBox("Диагональ", "diagonal");
-                    FillTextBox("Разрешение", "resolution");
-                    FillBoolBox("Статус", "status");
-                    break;
-                //Монитор компьютер ММ
-                case 13:
-                    FillComboBox("Компьютер", "computer_name", "computer", "computer_name", "computer_name");
-                    FillComboBox("Монитор", "monitor_id", "monitor", "serial_number", "model");
-                    FillTextBox("Количество", "count");
-                    FillTextBox("Стоимость", "price");
-                    break;
-                //Сетевое устройство ММ
-                case 14:
-                    FillComboBox("Сетевое устройство", "netdevice_id", "network_device", "id", "model");
-                    FillComboBox("Аудитория", "audit_id", "room", "id", "number");
-                    FillTextBox("Занятых портов", "busy_ports");
-                    FillTextBox("Свободных портов", "free_ports");
-                    FillTextBox("IP", "ip");
-                    FillTextBox("MAC", "mac");
-                    FillBoolBox("Статус", "status");
-                    FillTextBox("Количество", "count");
-                    FillTextBox("Стоимость", "price");
-                    break;
-                //Сетевое устройство
-                case 15:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Модель", "model");
-                    FillTextBox("Всего портов", "total_ports");
-                    FillComboBox_Simple(new string[] { "Router", "Switch", "Hub", "Repeater" }, "Тип", "type");
-                    break;
-                //ОС
-                case 16:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Название", "name");
-                    FillTextBox("Серийный номер", "serial_os");
-                    FillComboBox_Simple(new string[] { "Windows", "Linux" }, "Семейство", "type");
-                    break;
-                //ОС на ПК
-                case 17:
-                    FillComboBox("Компьютер", "computer_name", "computer", "computer_name", "computer_name");
-                    FillComboBox("Программа", "program_id", "software", "id", "name");
-                    FillComboBox("ОС", "os_id", "os", "id", "name");
-                    FillTextBox("Путь", "path_exe");
-                    FillBoolBox("Locked", "locked");
-                    break;
-                //Принтер/Сканер
-                case 18:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Модель", "model");
-                    FillComboBox_Simple(new string[] { "Printer", "Scanner" }, "Тип", "type");
-                    break;
-                //Проектор
-                case 19:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Модель", "model");
-                    break;
-                //Проектор ММ
-                case 20:
-                    FillComboBox("Проектор", "projector_id", "projector", "id", "model");
-                    FillComboBox("Аудитория", "audit_id", "room", "id", "number");
-                    FillBoolBox("Статус", "status");
-                    FillTextBox("Количество", "count");
-                    FillTextBox("Стоимость", "price");
-                    break;
-                case 21:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Дата", "date");
-                    FillTextBox("ФИО", "fio");
-                    FillTextBox("Комментарий", "commentary");
-                    FillTextBox("Имя компьютера", "computer_name");
-                    FillComboBox("Компонент", "component_id", "component_parts", "id", "model");
-                    FillComboBox("Монитор", "monitor_id", "monitor", "serial_number", "model");
-                    FillComboBox("Сетевое устройство", "netdevice_id", "network_device", "id", "model");
-                    FillComboBox("Клавиатура/мышь", "keymse_id", "keyboard_mouse", "id", "model");
-                    FillComboBox("Принтер/сканер", "prsc_er_id", "printer_scanner", "id", "model");
-                    FillComboBox("Проектор", "projector_id", "projector", "id", "model");
-                    FillComboBox("Бытовая техника", "appliances_id", "appliances", "id", "model");
-                    FillComboBox("Кабель", "cable_id", "cable", "id", "type");
-                    break;
-                case 22:
-                    FillTextBox("Id", "id");
-                    FillTextBox("ФИО", "fio");
-                    FillTextBox("Комментарий", "commentary");
-                    FillComboBox("Компьютер", "computer_name", "computer", "computer_name", "computer_name");
-                    FillComboBox("ОС", "os_id", "os", "id", "name");
-                    FillComboBox("Программа", "program_id", "software", "id", "name");
-                    FillTextBox("Дата", "date");
-                    break;
-                //Принтер сканер ММ
-                case 24:
-                    FillComboBox("Принтер/сканер", "prsc_er_id", "printer_scanner", "id", "model");
-                    FillComboBox("Аудитория", "audit_id", "room", "id", "number");
-                    FillBoolBox("Статус", "status");
-                    FillTextBox("Количество", "count");
-                    FillTextBox("Стоимость", "price");
-                    break;
-                //Преподаватель
-                case 26:
-                    FillTextBox("Id", "id");
-                    FillTextBox("Имя", "first_name");
-                    FillTextBox("Фамилия", "second_name");
-                    FillTextBox("Отчество", "patronymic");
-                    FillComboBox("Кафедра", "cathedra_id", "cathedra", "id", "name");
-                    break;
-                //Пользователи
-                case 27:
-                    FillTextBox("Логин", "login");
-                    FillTextBox("Пароль", "password");
-                    FillComboBox_Simple(new string[] { "admin", "lecturer" }, "Роль", "role");
-                    break;
+                dataGridView1.Columns.Clear();
 
+                switch (cbDbTable.SelectedIndex)
+                {
+                    //Бытовая техника
+                    case 0:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Модель", "model");
+                        break;
+                    //Бытовая техника ММ
+                    case 1:
+                        FillTextBox("Id", "id");
+                        FillComboBox("Бытовая техника", "appliances_id", "appliances", "id", "model");
+                        FillComboBox("Аудитория", "audit_id", "room", "id", "number");
+                        FillBoolBox("Статус", "status");
+                        FillTextBox("Количество", "count");
+                        FillTextBox("Цена", "price");
+                        break;
+                    //Кабель 
+                    case 2:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Тип", "type");
+                        //FillComboBox_Simple(new string[] { "Schuko", "VGA", "HDMI", "DVI", "USB" }, "Тип", "type");
+                        break;
+                    //Кабель ММ
+                    case 3:
+                        FillTextBox("Id", "id");
+                        FillComboBox("Кабель", "cable_id", "cable", "id", "type");
+                        FillComboBox("Аудитория", "audit_id", "room", "id", "number");
+                        FillTextBox("Длина", "length");
+                        FillTextBox("Количество", "count");
+                        FillTextBox("Цена", "price");
+                        break;
+                    case 4:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Название", "name");
+                        break;
+                    //Компонент ПК
+                    case 5:
+                        FillComboBox("Компьютер", "computer_name", "computer", "computer_name", "computer_name");
+                        FillComboBox("Компонент", "component_id", "component_parts", "id", "model");
+                        FillTextBox("Количество", "count");
+                        FillBoolBox("Locked", "locked");
+                        break;
+                    //Компонент ПК
+                    case 6:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Модель", "model");
+                        FillComboBox_Simple(new string[] { "CPU", "GPU", "Motherboard", "RAM", "Soundcard", "HDD" }, "Тип", "type");
+                        FillTextBox("Объем", "capacity");
+                        break;
+                    //Компьютер
+                    case 7:
+                        FillTextBox("Имя", "computer_name");
+                        FillTextBox("Серийный номер", "serial_number");
+                        FillComboBox("Аудитория", "audit_id", "room", "id", "number");
+                        FillTextBox("IP", "ip");
+                        FillTextBox("MAC", "mac");
+                        FillBoolBox("Статус", "status");
+                        break;
+                    //Курс
+                    case 8:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Название", "course_name");
+                        break;
+                    //ОС на курсе
+                    case 9:
+                        FillTextBox("Id", "id");
+                        FillComboBox("Аудитория", "audit_id", "room", "id", "number");
+                        FillComboBox("Курс", "course_id", "course", "id", "course_name");
+                        FillComboBox("Программа", "program_id", "software", "id", "name");
+                        FillComboBox("Преподаватель", "teacher_id", "teacher", "id", "second_name");
+                        break;
+                    //Клавомыш
+                    case 10:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Модель", "model");
+                        FillComboBox_Simple(new string[] { "Keyboard", "Mouse" }, "Тип", "type");
+                        break;
+                    //Клавомыш ММ
+                    case 11:
+                        FillTextBox("Id", "id");
+                        FillComboBox("Клавиатура/мышь", "keymse_id", "keyboard_mouse", "id", "model");
+                        FillComboBox("Аудитория", "audit_id", "room", "id", "number");
+                        FillTextBox("Количество", "count");
+                        FillTextBox("Стоимость", "price");
+                        FillBoolBox("Статус", "status");
+                        break;
+                    //Монитор
+                    case 12:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Модель", "model");
+                        FillComboBox_Simple(new string[] { "TFT TN", "TFT VA", "TFT IPS", "OLED" }, "Матрица", "matrix");
+                        FillTextBox("Диагональ", "diagonal");
+                        FillTextBox("Разрешение", "resolution");
+                        break;
+                    //Монитор компьютер ММ
+                    case 13:
+                        FillTextBox("Id", "id");
+                        FillComboBox("Компьютер", "computer_name", "computer", "computer_name", "computer_name");
+                        FillComboBox("Монитор", "monitor_id", "monitor", "id", "model");
+                        FillTextBox("Количество", "count");
+                        FillTextBox("Стоимость", "price");
+                        FillBoolBox("Статус", "status");
+                        break;
+                    //Сетевое устройство ММ
+                    case 14:
+                        FillTextBox("Id", "id");
+                        FillComboBox("Сетевое устройство", "netdevice_id", "network_device", "id", "model");
+                        FillComboBox("Аудитория", "audit_id", "room", "id", "number");
+                        FillTextBox("Занятых портов", "busy_ports");
+                        FillTextBox("Свободных портов", "free_ports");
+                        FillTextBox("IP", "ip");
+                        FillTextBox("MAC", "mac");
+                        FillBoolBox("Статус", "status");
+                        FillTextBox("Количество", "count");
+                        FillTextBox("Стоимость", "price");
+                        break;
+                    //Сетевое устройство
+                    case 15:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Модель", "model");
+                        FillTextBox("Всего портов", "total_ports");
+                        FillComboBox_Simple(new string[] { "Router", "Switch", "Hub", "Repeater" }, "Тип", "type");
+                        break;
+                    //ОС
+                    case 16:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Название", "name");
+                        FillTextBox("Серийный номер", "serial_os");
+                        FillComboBox_Simple(new string[] { "Windows", "Linux" }, "Семейство", "type");
+                        break;
+                    //ОС на ПК
+                    case 17:
+                        FillComboBox("Компьютер", "computer_name", "computer", "computer_name", "computer_name");
+                        FillComboBox("Программа", "program_id", "software", "id", "name");
+                        FillComboBox("ОС", "os_id", "os", "id", "name");
+                        FillTextBox("Путь", "path_exe");
+                        FillBoolBox("Locked", "locked");
+                        break;
+                    //Принтер/Сканер
+                    case 18:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Модель", "model");
+                        FillComboBox_Simple(new string[] { "Printer", "Scanner" }, "Тип", "type");
+                        break;
+                    //Проектор
+                    case 19:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Модель", "model");
+                        break;
+                    //Проектор ММ
+                    case 20:
+                        FillTextBox("Id", "id");
+                        FillComboBox("Проектор", "projector_id", "projector", "id", "model");
+                        FillComboBox("Аудитория", "audit_id", "room", "id", "number");
+                        FillBoolBox("Статус", "status");
+                        FillTextBox("Количество", "count");
+                        FillTextBox("Стоимость", "price");
+                        break;
+                    case 21:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Дата", "date");
+                        FillTextBox("ФИО", "fio");
+                        FillTextBox("Комментарий", "commentary");
+                        FillTextBox("Имя компьютера", "computer_name");
+                        FillComboBox("Компонент", "component_id", "component_parts", "id", "model");
+                        FillComboBox("Монитор", "monitor_id", "monitor", "id", "model");
+                        FillComboBox("Сетевое устройство", "netdevice_id", "network_device", "id", "model");
+                        FillComboBox("Клавиатура/мышь", "keymse_id", "keyboard_mouse", "id", "model");
+                        FillComboBox("Принтер/сканер", "prsc_er_id", "printer_scanner", "id", "model");
+                        FillComboBox("Проектор", "projector_id", "projector", "id", "model");
+                        FillComboBox("Бытовая техника", "appliances_id", "appliances", "id", "model");
+                        FillComboBox("Кабель", "cable_id", "cable", "id", "type");
+                        break;
+                    case 22:
+                        FillTextBox("Id", "id");
+                        FillTextBox("ФИО", "fio");
+                        FillTextBox("Комментарий", "commentary");
+                        FillComboBox("Компьютер", "computer_name", "computer", "computer_name", "computer_name");
+                        FillComboBox("ОС", "os_id", "os", "id", "name");
+                        FillComboBox("Программа", "program_id", "software", "id", "name");
+                        FillTextBox("Дата", "date");
+                        break;
+                    //Принтер сканер ММ
+                    case 24:
+                        FillTextBox("Id", "id");
+                        FillComboBox("Принтер/сканер", "prsc_er_id", "printer_scanner", "id", "model");
+                        FillComboBox("Аудитория", "audit_id", "room", "id", "number");
+                        FillBoolBox("Статус", "status");
+                        FillTextBox("Количество", "count");
+                        FillTextBox("Стоимость", "price");
+                        break;
+                    //ПО
+                    case 25:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Название", "name");
+                        FillTextBox("Стоимость", "cost");
+                        break;
+                    //Преподаватель
+                    case 26:
+                        FillTextBox("Id", "id");
+                        FillTextBox("Имя", "first_name");
+                        FillTextBox("Фамилия", "second_name");
+                        FillTextBox("Отчество", "patronymic");
+                        FillComboBox("Кафедра", "cathedra_id", "cathedra", "id", "name");
+                        break;
+                    //Пользователи
+                    case 27:
+                        FillTextBox("Логин", "login");
+                        FillTextBox("Пароль", "password");
+                        FillComboBox_Simple(new string[] { "admin", "lecturer" }, "Роль", "role");
+                        break;
+
+                }
+                FillGridView();
             }
-            FillGridView();
+            catch(Exception ex)
+            {
+                if (ex is Npgsql.PostgresException)
+                {
+                    dataGridView1.Columns.Clear();
+                    dt.Clear();
+                }
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CbDbTable_SelectedIndexChanged(object sender, EventArgs e)
@@ -319,6 +361,11 @@ namespace ProjectK_Server1
 
         private void BtnSaveChanges_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.Rows.Count == 0)
+            {
+                MessageBox.Show("Нечего сохранять!", "0", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             try
             {
                 NpgsqlCommandBuilder commandBuilder = new NpgsqlCommandBuilder(da);

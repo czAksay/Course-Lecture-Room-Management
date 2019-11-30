@@ -9,5 +9,6 @@ namespace ProjectK
         public int Memory { get; set; }
         public Hardware() { }
         public HardwareType Type { get; set; }
+        public int Count { get; set; }
     }
 }
