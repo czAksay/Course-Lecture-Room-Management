@@ -127,35 +127,47 @@
     </Compile>
     <Compile Include="Core\Log.cs" />
     <Compile Include="Core\Pgs.cs" />
-    <Compile Include="Forms\DatabaseExplorer.cs">
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MainModel.cs" />
+    <Compile Include="Models\ScanModel.cs" />
+    <Compile Include="Presenter\ILoginPresenter.cs" />
+    <Compile Include="Presenter\IMainPresenter.cs" />
+    <Compile Include="Presenter\IScanPresenter.cs" />
+    <Compile Include="Presenter\MainPresenter.cs" />
+    <Compile Include="Presenter\ScanPresenter.cs" />
+    <Compile Include="View\ILoginView.cs" />
+    <Compile Include="Presenter\LoginPresenter.cs" />
+    <Compile Include="View\DatabaseExplorer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DatabaseExplorer.Designer.cs">
+    <Compile Include="View\DatabaseExplorer.Designer.cs">
       <DependentUpon>DatabaseExplorer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ReportForm.cs">
+    <Compile Include="View\IMainView.cs" />
+    <Compile Include="View\IScanView.cs" />
+    <Compile Include="View\ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ReportForm.Designer.cs">
+    <Compile Include="View\ReportForm.Designer.cs">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ReportItemChooseForm.cs">
+    <Compile Include="View\ReportItemChooseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ReportItemChooseForm.Designer.cs">
+    <Compile Include="View\ReportItemChooseForm.Designer.cs">
       <DependentUpon>ReportItemChooseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SoftwareHardware\Hardware.cs" />
-    <Compile Include="LoginForm.cs">
+    <Compile Include="View\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="View\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\MessageDisplay.cs">
@@ -165,19 +177,19 @@
       <DependentUpon>MessageDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\ComputerInformation.cs" />
-    <Compile Include="Forms\NumberAssign.cs">
+    <Compile Include="View\NumberAssign.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\NumberAssign.Designer.cs">
+    <Compile Include="View\NumberAssign.Designer.cs">
       <DependentUpon>NumberAssign.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoftwareHardware\Software.cs" />
-    <Compile Include="ScanForm.cs">
+    <Compile Include="View\ScanForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ScanForm.Designer.cs">
+    <Compile Include="View\ScanForm.Designer.cs">
       <DependentUpon>ScanForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\UserRole.cs" />
@@ -202,22 +214,22 @@
     <EmbeddedResource Include="Controls\SoftwareControl.resx">
       <DependentUpon>SoftwareControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DatabaseExplorer.resx">
+    <EmbeddedResource Include="View\DatabaseExplorer.resx">
       <DependentUpon>DatabaseExplorer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ReportItemChooseForm.resx">
+    <EmbeddedResource Include="View\ReportItemChooseForm.resx">
       <DependentUpon>ReportItemChooseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
+    <EmbeddedResource Include="View\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\MessageDisplay.resx">
       <DependentUpon>MessageDisplay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NumberAssign.resx">
+    <EmbeddedResource Include="View\NumberAssign.resx">
       <DependentUpon>NumberAssign.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -230,12 +242,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Forms\ReportForm.resx">
+    <EmbeddedResource Include="View\ReportForm.resx">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScanForm.resx">
+    <EmbeddedResource Include="View\ScanForm.resx">
       <DependentUpon>ScanForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -312,6 +325,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

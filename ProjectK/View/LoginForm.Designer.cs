@@ -187,7 +187,7 @@
             this.panel4.BackColor = System.Drawing.Color.Black;
             this.panel4.Location = new System.Drawing.Point(367, 242);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(239, 1);
+            this.panel4.Size = new System.Drawing.Size(252, 1);
             this.panel4.TabIndex = 6;
             // 
             // pnlConnect

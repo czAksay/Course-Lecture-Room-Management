@@ -4,20 +4,24 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using ProjectK.Core;
+using ProjectK.SoftwareHardware;
+using ProjectK.View;
+using ProjectK.Presenter;
 
 namespace ProjectK
 {
-    public partial class ScanForm : Form
+    public partial class ScanForm : Form, IScanView
     {
         String audnum;
+        IScanPresenter presenter;
+
         public ScanForm()
         {
             InitializeComponent();
             lblState.Text = "Ожидание.";
             CreateComputer();
+            presenter = new ScanPresenter(this);
             currentComputer.onComputerSelect += (computer) => Process.Start("control.exe", "System");
-            
-            //StartScan();
         }
 
         private void BtnStartScan_Click(object sender, EventArgs e)
@@ -171,6 +175,12 @@ namespace ProjectK
             {
                 currentComputer.AddHardware(h);
             }
+            //currentComputer.AddHardware(new Hardware()
+            //{
+            //    Model = currentComputer.Hardwares[2].Model,
+            //    Memory = currentComputer.Hardwares[2].Memory,
+            //    Type = currentComputer.Hardwares[2].Type
+            //});
         }
 
         private void BtnBack_Click(object sender, EventArgs e)

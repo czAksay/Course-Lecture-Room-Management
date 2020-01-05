@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectK
+namespace ProjectK.SoftwareHardware
 {
     public class Software
     {

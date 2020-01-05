@@ -9,6 +9,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading;
 using System.Text.RegularExpressions;
+using ProjectK.SoftwareHardware;
 
 namespace ProjectK
 {

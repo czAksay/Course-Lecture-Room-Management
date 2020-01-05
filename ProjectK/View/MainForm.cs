@@ -5,13 +5,16 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
 using ProjectK.Core;
+using ProjectK.View;
+using ProjectK.Presenter;
 
 namespace ProjectK
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IMainView
     {
         LoginForm lf;
         bool closeApplication;
+        IMainPresenter presenter;
 
         public MainForm(LoginForm _lf)
         {
@@ -23,16 +26,11 @@ namespace ProjectK
             toolTipButtons.SetToolTip(btnSignOut, "Выйти из учетной записи и перейти к окну авторизации.");
             toolTipButtons.SetToolTip(btnDatabase, "Просмотр записей базы данных.");
             toolTipButtons.SetToolTip(btnReport, "Отправить заявку о неисправности.");
-            if (User.Role == UserRole.Guest)
-            {
-                String auto_mode = User.Autonom ? " (offline)" : "";
-                lblHello.Text = "Здравствуйте, Гость" + auto_mode + ".";
-            }
-            else
-                lblHello.Text = $"Здравствуйте, {User.Name} ({User.Role})";
-            toolTipButtons.SetToolTip(lblTitle, lblTitle.Text);
             toolTipButtons.SetToolTip(btnExit, "Закрыть приложение.");
             trgCurrentPc.onTriggered += PcViewChanged;
+
+            presenter = new MainPresenter(this);
+            presenter.CheckUserName();
         }
 
         private void PcViewChanged()
@@ -49,31 +47,7 @@ namespace ProjectK
 
         private void btnRefreshComputers_Click(object sender, EventArgs e)
         {
-            if (User.Autonom)
-            {
-                MessageBox.Show(User.AutonomWarning, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            List<Computer> computers = Pgs.GetNetworkComputerList();
-            computerExplorer1.Clear();
-            flpComputers.Controls.Clear();
-            rtbPcInfo.Clear();
-            if (computers.Count == 0)
-            {
-                Label l = new Label();
-                l.TextAlign = ContentAlignment.MiddleCenter;
-                l.Width = flpComputers.Width - 15;
-                l.Height = 40;
-                l.Font = btnRefreshComputers.Font;
-                l.Text = "Нет компьютеров в базе";
-                flpComputers.Controls.Add(l);
-            }
-            foreach (Computer c in computers)
-            {
-                c.onComputerSelect += ComputerSelected;
-                flpComputers.Controls.Add(c);
-            }
-            ResizeComputers();
+            presenter.RefreshComputers();
         }
 
         private void ResizeComputers()
@@ -87,20 +61,7 @@ namespace ProjectK
 
         private void ComputerSelected(Computer computer)
         {
-            if (computerExplorer1.SelectedComputer != computer)
-            {
-                computerExplorer1.SetComputer(computer);
-                String[] titles = { "Имя:", "IP:", "MAC:", "Номер аудитории:"};
-                rtbPcInfo.Text = $"{titles[0]} {computer._Name}\n{titles[1]} {computer._Ip}\n{titles[2]} {computer._MAC}\n{titles[3]} {computer._AuditNumber}";
-
-                foreach(string title in titles)
-                {
-                    rtbPcInfo.SelectionStart = rtbPcInfo.Text.IndexOf(title);
-                    rtbPcInfo.SelectionLength = title.Length;
-                    rtbPcInfo.SelectionFont = new Font(rtbPcInfo.Font, FontStyle.Bold);
-                }
-                rtbPcInfo.SelectionLength = 0;
-            }
+            presenter.ComputerSelected(computer, computerExplorer1, rtbPcInfo);
         }
 
         private void BtnComputerFilter_Click(object sender, EventArgs e)
@@ -180,6 +141,35 @@ namespace ProjectK
             ReportForm rf = new ReportForm();
             rf.ShowDialog();
             rf.Dispose();
+        }
+
+        public void SetHelloLabel(string Text)
+        {
+            lblHello.Text = Text;
+            toolTipButtons.SetToolTip(lblTitle, lblTitle.Text);
+        }
+
+        public void RefreshComputers(List<Computer> computers)
+        {
+            computerExplorer1.Clear();
+            flpComputers.Controls.Clear();
+            rtbPcInfo.Clear();
+            if (computers.Count == 0)
+            {
+                Label l = new Label();
+                l.TextAlign = ContentAlignment.MiddleCenter;
+                l.Width = flpComputers.Width - 15;
+                l.Height = 40;
+                l.Font = btnRefreshComputers.Font;
+                l.Text = "Нет компьютеров в базе";
+                flpComputers.Controls.Add(l);
+            }
+            foreach (Computer c in computers)
+            {
+                c.onComputerSelect += ComputerSelected;
+                flpComputers.Controls.Add(c);
+            }
+            ResizeComputers();
         }
     }
 }

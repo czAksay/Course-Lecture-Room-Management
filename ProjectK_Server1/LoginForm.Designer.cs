@@ -70,6 +70,7 @@
             // pbVisiblePass
             // 
             this.pbVisiblePass.BackColor = System.Drawing.Color.White;
+            this.pbVisiblePass.Image = global::ProjectK_Server1.Properties.Resources.eye;
             this.pbVisiblePass.Location = new System.Drawing.Point(261, 132);
             this.pbVisiblePass.Name = "pbVisiblePass";
             this.pbVisiblePass.Size = new System.Drawing.Size(20, 21);

@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using ProjectK.SoftwareHardware;
 
 namespace ProjectK
 {
@@ -49,7 +50,7 @@ namespace ProjectK
             }
             if (hardware.Count > 1)
             {
-                lblTitle.Text += $" x{hardware.Count}";
+                lblTitle.Text += $"    (x{hardware.Count})";
             }
         }
     }

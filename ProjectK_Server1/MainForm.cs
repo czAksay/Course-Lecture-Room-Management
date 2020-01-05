@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.IO;
 using ProjectK;
+using ProjectK.SoftwareHardware;
 
 namespace ProjectK_Server1
 {

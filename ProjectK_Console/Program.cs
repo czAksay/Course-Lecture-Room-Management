@@ -8,6 +8,7 @@ using ProjectK;
 using ProjectK.Controls;
 using SettingsAP;
 using ProjectK.Core;
+using ProjectK.SoftwareHardware;
 
 namespace ProjectK_Console
 {

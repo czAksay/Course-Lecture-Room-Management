@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ProjectK.LoginForm" Collapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <AssociationLine Name="presenter" Type="ProjectK.Presenter.ILoginPresenter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="4.812" />
+        <Point X="7.571" Y="4.812" />
+        <Point X="7.571" Y="3.781" />
+        <Point X="8" Y="3.781" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.448" Y="-0.975" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAVRAIAAiEACBANAIKCEAACACAxASBCoREACaFEEIQ=</HashCode>
+      <FileName>View\LoginForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="presenter" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectK.MainForm" Collapsed="true">
+    <Position X="5.25" Y="7.25" Width="1.5" />
+    <AssociationLine Name="presenter" Type="ProjectK.Presenter.IMainPresenter" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="7.625" />
+        <Point X="7.257" Y="7.625" />
+        <Point X="7.257" Y="6.636" />
+        <Point X="8" Y="6.636" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.19" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>gACAcwAAGCBhBQAAEACAEAACACBgcBAARgEWEACBAIA=</HashCode>
+      <FileName>View\MainForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="presenter" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectK.ScanForm" Collapsed="true">
+    <Position X="5.25" Y="10.5" Width="1.5" />
+    <AssociationLine Name="presenter" Type="ProjectK.Presenter.IScanPresenter" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.75" Y="10.812" />
+        <Point X="7.125" Y="10.812" />
+        <Point X="7.125" Y="9.886" />
+        <Point X="8" Y="9.886" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>BAjCIAAEAKAoAAABAACCAhACAAFoAABAAAAAIIABRAA=</HashCode>
+      <FileName>View\ScanForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="presenter" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ProjectK.Models.LoginModel" Collapsed="true">
+    <Position X="10.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACABAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAACAA=</HashCode>
+      <FileName>Models\LoginModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectK.Models.MainModel" Collapsed="true">
+    <Position X="10.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAACAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\MainModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectK.Models.ScanModel" Collapsed="true">
+    <Position X="10.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ScanModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectK.Presenter.ScanPresenter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="10.5" Width="1.5" />
+    <AssociationLine Name="view" Type="ProjectK.View.IScanView" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="11.062" />
+        <Point X="8.75" Y="11.437" />
+        <Point X="4.875" Y="11.437" />
+        <Point X="4.875" Y="9.75" />
+        <Point X="5.25" Y="9.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAIAAA=</HashCode>
+      <FileName>Presenter\ScanPresenter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="model" />
+      <Field Name="view" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ProjectK.Presenter.LoginPresenter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <AssociationLine Name="view" Type="ProjectK.ILoginView" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="5.062" />
+        <Point X="8.75" Y="5.437" />
+        <Point X="4.875" Y="5.437" />
+        <Point X="4.875" Y="3.812" />
+        <Point X="5.25" Y="3.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-3.352" Y="-1.539" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAACABAAAAAAAAAAAAAAAAAAAAAAAQQAAAAAICAA=</HashCode>
+      <FileName>Presenter\LoginPresenter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="view" />
+      <Field Name="model" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.211" />
+  </Class>
+  <Class Name="ProjectK.Presenter.MainPresenter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="7.25" Width="1.5" />
+    <AssociationLine Name="view" Type="ProjectK.View.IMainView" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="7.812" />
+        <Point X="8.75" Y="8.187" />
+        <Point X="4.875" Y="8.187" />
+        <Point X="4.875" Y="6.5" />
+        <Point X="5.25" Y="6.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-3.375" Y="-1.597" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAACAAAAAAAAAABAAAAAAQAAAAAIAAA=</HashCode>
+      <FileName>Presenter\MainPresenter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="model" />
+      <Field Name="view" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="ProjectK.ILoginView" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAQAAAAEAAAAAEAA=</HashCode>
+      <FileName>View\ILoginView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ProjectK.View.IMainView" Collapsed="true">
+    <Position X="5.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IMainView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ProjectK.View.IScanView" Collapsed="true">
+    <Position X="5.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IScanView.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ProjectK.Presenter.ILoginPresenter" Collapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACABAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAACAA=</HashCode>
+      <FileName>Presenter\ILoginPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ProjectK.Presenter.IMainPresenter" Collapsed="true">
+    <Position X="8" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAACAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Presenter\IMainPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ProjectK.Presenter.IScanPresenter" Collapsed="true">
+    <Position X="8" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Presenter\IScanPresenter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -47,7 +47,7 @@
             "Компьютеры",
             "ПО",
             "ОС",
-            "Оборудование",
+            "Комплектующие",
             "Аудитории"});
             this.cbSelect.Location = new System.Drawing.Point(12, 20);
             this.cbSelect.Name = "cbSelect";

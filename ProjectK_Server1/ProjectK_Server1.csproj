@@ -133,8 +133,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoftwareHardware\Hardware.cs" />
-    <Compile Include="SoftwareHardware\Software.cs" />
     <EmbeddedResource Include="Controls\Computer.resx">
       <DependentUpon>Computer.cs</DependentUpon>
     </EmbeddedResource>

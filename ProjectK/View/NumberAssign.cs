@@ -13,7 +13,7 @@ namespace ProjectK
     public partial class NumberAssign : Form
     {
         String number;
-        public String Number { get => number; }
+        public String Number { get => number; } 
         public NumberAssign()
         {
             InitializeComponent();

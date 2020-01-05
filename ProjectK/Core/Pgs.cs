@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
 using System.Windows.Forms;
+using ProjectK.SoftwareHardware;
 
 namespace ProjectK.Core
 {
@@ -303,7 +304,8 @@ namespace ProjectK.Core
         {
             String models, types, capacity;
             DataManager.GetHardwareString(c.Hardwares, out models, out types, out capacity);
-            Execute($"SELECT AddHardwareToPc('{c._Name}', ARRAY[{models}], ARRAY[{types}], ARRAY[{capacity}]);");
+            string cmd = $"SELECT AddHardwareToPc('{c._Name}', ARRAY[{models}], ARRAY[{types}], ARRAY[{capacity}]);";
+            Execute(cmd);
         }
 
         public static List<Computer> GetNetworkComputerList()

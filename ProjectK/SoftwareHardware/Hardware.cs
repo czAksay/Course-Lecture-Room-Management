@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProjectK
+namespace ProjectK.SoftwareHardware
 {
     public enum HardwareType { CPU, RAM, GPU, HDD, Soundcard, Motherboard};
     public class Hardware
