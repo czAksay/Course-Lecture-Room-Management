@@ -1,0 +1,379 @@
+CREATE TABLE Room (
+	id smallserial PRIMARY KEY,
+	number varchar (100) UNIQUE NOT NULL 
+);
+
+CREATE TABLE Computer (
+	computer_name varchar (100) PRIMARY KEY,
+	serial_number varchar (100) UNIQUE NOT NULL,
+	audit_id smallint REFERENCES Room (id) NOT NULL,
+	ip inet NOT NULL,
+	mac macaddr UNIQUE NOT NULL,
+	status boolean DEFAULT true NOT NULL,
+	UNIQUE (audit_id, ip)
+);
+
+CREATE TYPE matrix_m AS ENUM ('TFT TN', 'TFT VA', 'TFT IPS', 'OLED');
+
+CREATE TABLE Monitor (
+	id serial PRIMARY KEY,
+	model varchar (100) UNIQUE NOT NULL,
+	matrix matrix_m NOT NULL,
+	diagonal double precision CHECK (diagonal > 0) NOT NULL,
+	resolution varchar (30) NOT NULL
+	status boolean DEFAULT true NOT NULL,
+);
+
+CREATE TABLE Monitor_And_Computer (
+	serial_number varchar (100) PRIMARY KEY,
+	computer_name varchar (100) REFERENCES Computer (computer_name) NOT NULL,
+	monitor_id integer REFERENCES Monitor (id) NOT NULL,
+	status boolean DEFAULT true NOT NULL,
+	count integer CHECK (count >= 0) NOT NULL,
+	price integer CHECK (price >= 0) NOT NULL
+);
+
+CREATE DOMAIN type_cp VARCHAR(50)
+DEFAULT 'CPU'
+CONSTRAINT type_check
+CHECK (VALUE IN ('CPU', 'GPU', 'Motherboard', 'RAM', 'Soundcard', 'HDD'));
+
+CREATE TABLE Component_Parts (
+	id serial PRIMARY KEY,
+	model varchar (100) UNIQUE NOT NULL,
+	type type_cp NOT NULL,
+	capacity smallint NULL
+);
+
+CREATE TABLE Component_In_Computer (
+	computer_name varchar (100) REFERENCES Computer (computer_name),
+	component_id int REFERENCES Component_Parts (id),
+	count smallint CHECK (count >= 0) DEFAULT 1 NOT NULL,
+	locked boolean DEFAULT false NOT NULL, --поле для запрета изменения/удаления
+	Primary key (computer_name, component_id)
+);
+
+CREATE DOMAIN type_os VARCHAR(50)
+DEFAULT 'Windows'
+CONSTRAINT type_check
+CHECK (VALUE IN ('Windows', 'Linux'));
+
+
+CREATE TABLE OS (
+	id smallserial PRIMARY KEY,
+	name varchar (100) NOT NULL,
+	serial_os varchar (100) NOT NULL,
+	type type_os NOT NULL
+);
+
+CREATE TABLE Software (
+	id serial PRIMARY KEY,
+	name varchar (300) UNIQUE NOT NULL,
+	cost integer CHECK (cost >= 0) DEFAULT 0 NOT NULL
+);
+
+CREATE TABLE Request_For_Software_Installation (
+	id  PRIMARY KEY,
+	fio varchar(120) NOT NULL,
+	commentary Text NOT NULL,
+	computer_name varchar (100) REFERENCES Computer (computer_name) NOT NULL,
+	os_id smallint REFERENCES OS (id) NOT NULL,
+	program_id integer REFERENCES Software (id) NOT NULL,
+	date Date NOT NULL
+);
+
+CREATE TABLE Cathedra (
+	id smallserial PRIMARY KEY,
+	name varchar (100) NOT NULL
+);
+
+CREATE TABLE Teacher (
+	id smallserial PRIMARY KEY,
+	first_name varchar (100) NOT NULL,
+	second_name varchar (100) NOT NULL,
+	patronymic varchar (100) NOT NULL,
+	cathedra_id smallint REFERENCES Cathedra (id) NOT NULL
+);
+
+CREATE TABLE Course (
+	id smallserial PRIMARY KEY,
+	course_name varchar (100) NOT NULL
+);
+
+CREATE TABLE Course_And_Software (
+	id smallserial PRIMARY KEY,
+	audit_id smallint REFERENCES Room (id) NOT NULL,
+	course_id smallint REFERENCES Course (id) NOT NULL,
+	program_id integer REFERENCES Software (id) NOT NULL,
+	teacher_id smallint REFERENCES TEACHER (id) NOT NULL
+);
+
+CREATE DOMAIN type_netd VARCHAR(50)
+DEFAULT 'Router'
+CONSTRAINT type_check
+CHECK (VALUE IN ('Router', 'Switch', 'Hub', 'Repeater'));
+
+CREATE TABLE Network_Device (
+	id serial PRIMARY KEY,
+	model varchar (100) NOT NULL,
+	total_ports smallint NOT NULL,
+	type type_netd NOT NULL
+);
+
+CREATE TABLE NetDevice_In_Room (
+	id serial primary key,
+	netdevice_id integer REFERENCES Network_Device (id) NOT NULL,
+	audit_id smallint REFERENCES Room (id) NOT NULL,
+	busy_ports smallint NOT NULL,
+	free_ports smallint NOT NULL,
+	ip inet NOT NULL,
+	mac macaddr NOT NULL,
+	status boolean NOT NULL,
+	count integer CHECK (count >= 0) NOT NULL,
+	price integer CHECK (price >= 0) NOT NULL
+);
+
+CREATE DOMAIN type_prcs VARCHAR(50)
+DEFAULT 'Printer'
+CONSTRAINT type_check
+CHECK (VALUE IN ('Printer', 'Scanner'));
+
+CREATE TABLE Printer_Scanner (
+	id serial PRIMARY KEY,
+	model varchar (100) NOT NULL,
+	type type_prcs NOT NULL
+);
+
+CREATE TABLE RrSc_er_In_Room (
+	id serial PRIMARY KEY,
+	prsc_er_id integer REFERENCES Printer_Scanner (id) NOT NULL,
+	audit_id smallint REFERENCES Room (id) NOT NULL,
+	status boolean NOT NULL,
+	count integer CHECK (count >= 0) NOT NULL,
+	price integer CHECK (price >= 0) NOT NULL
+);
+
+CREATE TABLE Projector (
+	id serial PRIMARY KEY,
+	model varchar (100) NOT NULL
+);
+
+CREATE TABLE Projector_In_Room (
+	id serial PRIMARY KEY,
+	projector_id integer REFERENCES Projector (id) NOT NULL,
+	audit_id smallint REFERENCES Room (id) NOT NULL,
+	status boolean NOT NULL,
+	count integer CHECK (count >= 0) NOT NULL,
+	price integer CHECK (price >= 0) NOT NULL
+);
+
+CREATE TABLE Appliances (
+	id serial PRIMARY KEY,
+	model varchar (100) NOT NULL
+);
+
+CREATE TABLE Appliances_In_Room (
+	id serial PRIMARY KEY,
+	appliances_id integer REFERENCES Appliances (id) NOT NULL,
+	audit_id smallint REFERENCES Room (id) NOT NULL,
+	status boolean,
+	count integer CHECK (count >= 0) NOT NULL,
+	price integer CHECK (price >= 0) NOT NULL
+);
+
+CREATE DOMAIN type_keymse VARCHAR(50)
+DEFAULT 'Keyboard'
+CONSTRAINT type_check
+CHECK (VALUE IN ('Keyboard', 'Mouse'));
+
+CREATE TABLE Keyboard_Mouse (
+	id serial PRIMARY KEY,
+	model varchar (100) NOT NULL,
+	type type_keymse NOT NULL
+);
+
+CREATE TABLE KeyMse_In_Room (
+	id serial PRIMARY KEY,
+	keymse_id integer REFERENCES Keyboard_Mouse (id) NOT NULL,
+	audit_id smallint REFERENCES Room (id) NOT NULL,
+	status boolean NOT NULL,
+	count integer CHECK (count >= 0) NOT NULL,
+	price integer CHECK (price >= 0) NOT NULL
+);
+
+CREATE DOMAIN type_cab VARCHAR(50)
+DEFAULT 'Schuko'
+CONSTRAINT type_check
+CHECK (VALUE IN ('Schuko', 'VGA', 'HDMI', 'DVI', 'USB'));
+
+CREATE TABLE Cable (
+	id serial PRIMARY KEY,
+	type varchar(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE Cable_In_Room (
+	id serial PRIMARY KEY,
+	cable_id integer REFERENCES Cable (id) NOT NULL,
+	audit_id smallint REFERENCES Room (id) NOT NULL,
+	length smallint CHECK (length >= 0) NOT NULL,
+	count integer CHECK (count >= 0) NOT NULL,
+	price integer CHECK (price >= 0) NOT NULL
+);
+
+CREATE TABLE Request_For_Repair (
+	id smallserial PRIMARY KEY,
+	date Date NOT NULL,
+	fio varchar(120) NOT NULL,
+	commentary Text NOT NULL,
+	computer_name varchar (100) REFERENCES Computer (computer_name) NOT NULL,
+	component_id int REFERENCES Component_Parts (id) NOT NULL,
+	monitor_id integer REFERENCES Monitor (id) NOT NULL,
+	netdevice_id integer REFERENCES Network_Device (id) NOT NULL,
+	keymse_id integer REFERENCES Keyboard_Mouse (id) NOT NULL,
+	prsc_er_id integer REFERENCES Printer_Scanner (id) NOT NULL,
+	projector_id integer REFERENCES Projector (id) NOT NULL,
+	appliances_id integer REFERENCES Appliances (id) NOT NULL,
+	cable_id integer REFERENCES Cable (id) NOT NULL
+);
+
+CREATE TABLE OS_and_Software (
+	computer_name varchar (50) REFERENCES Computer (computer_name),
+	program_id integer REFERENCES Software (id) NOT NULL,
+	os_id smallint REFERENCES OS (id) NOT NULL,
+	path_exe varchar NOT NULL,
+	locked boolean DEFAULT false NOT NULL,
+	serial_key varchar(100) NOT NULL,
+	PRIMARY KEY (computer_name, program_id, os_id)
+);
+
+
+
+
+
+create or replace function AddOrUpdatePc (pcname1 varchar(100), ip1 inet, mac1 macaddr, audit_number1 varchar(100), osname1 varchar(100), os_type varchar(50))
+returns void as $$
+Declare 
+	aud_id smallint;
+begin
+	--выбираем id аудитории по ее номеру из базы. Если такой аудитории нет - вызываем исключение.
+	SELECT id INTO aud_id FROM room WHERE number ILIKE $4;
+	IF (aud_id IS NULL) THEN raise exception 'Wrong auditory number!'; END IF;
+
+	--Добавляем новый компьютер. Если компьютер с таким именем уже существует, просто обновляем данные о нем.
+	INSERT INTO computer (computer_name, audit_id, ip, mac) VALUES ($1, aud_id, $2, $3) ON CONFLICT (computer_name) DO UPDATE 
+	SET audit_id = aud_id, ip = $2, mac = $3;
+	
+	--Добавляем новую ОС, если ОС с таким названием нет в базе.
+	INSERT INTO os (name, type) 
+	SELECT $5, $6 WHERE NOT EXISTS 
+	(SELECT id FROM os WHERE name ILIKE $5);
+end;
+$$ language plpgsql;
+
+
+
+create or replace function AddSoftwareToPc (comp_name varchar(100), soft varchar[], os_name varchar(100), soft_path varchar[])
+returns void as $$
+Declare
+	osid smallint;
+begin
+	--Получаем id ОС по ее названию. Если такой ОС нет - вызываем исключение.
+	SELECT id INTO osid FROM os WHERE name ILIKE $3;
+	IF (osid IS NULL) THEN RAISE Exception 'Wring OS NAME!'; END IF;
+	--Удаляем все программы на выбранном компьютере выбранной ОС которых нет в новом списке.
+	DELETE FROM OS_and_Software WHERE computer_name = $1 AND os_id = osid AND locked = false AND program_id IN (SELECT id FROM software WHERE name = ANY ($2));
+	--Добавляем список новых программ в базу, если их там нет
+	INSERT INTO software(name) SELECT * FROM unnest($2) AS names WHERE NOT EXISTS (SELECT * FROM software WHERE name=ANY($2));
+	--Добавляем отсутствующие связи между ПК и Софтом
+	INSERT INTO OS_and_Software (computer_name, program_id, os_id, path_exe) SELECT $1, s.id, osid, unnest($4) FROM software s WHERE s.name =ANY($2) ON CONFLICT DO NOTHING;
+end;
+$$ language plpgsql;
+
+
+
+create or replace function AddHardwareToPc (comp_name varchar(50), hardware varchar[], htype varchar[], capacity varchar[])
+returns void as $$
+Declare 
+	hardware_count integer;
+	m   varchar;
+	i integer;
+begin
+	--удаляем все запчасти которых нет в переданном списке
+	DELETE FROM Component_In_Computer WHERE computer_name ILIKE $1 AND locked = false;
+	--добавляем запчасти если их нет
+	SELECT array_length($2, 1) INTO hardware_count;
+
+	i = 1;
+	FOREACH m IN ARRAY $2
+	LOOP
+		INSERT INTO component_parts (model, type, capacity) SELECT $2[i], $3[i], ($4[i])::smallint
+		WHERE NOT EXISTS (SELECT * FROM component_parts WHERE model=$2[i]);		
+		i = i + 1;
+		INSERT INTO component_in_computer (computer_name, component_id) SELECT $1, id FROM component_parts WHERE model = m
+		ON CONFLICT (computer_name, component_id) DO UPDATE SET count = component_in_computer.count + 1;
+	END LOOP;
+end;
+$$ language plpgsql;
+
+
+
+CREATE DOMAIN user_role
+  AS character varying(10)
+  COLLATE pg_catalog."default"
+  DEFAULT 'lecturer'::character varying
+  CONSTRAINT user_role_check CHECK (VALUE::text = ANY (ARRAY['admin'::character varying, 'lecturer'::character varying]::text[]));
+ALTER DOMAIN user_role
+  OWNER TO postgres;
+
+CREATE TABLE users
+(
+  login character varying(30) NOT NULL,
+  password character varying(150) NOT NULL,
+  role user_role NOT NULL,
+  CONSTRAINT users_pkey PRIMARY KEY (login),
+  CONSTRAINT users_login_check CHECK (char_length(login::text) > 0),
+  CONSTRAINT users_password_check CHECK (char_length(password::text) > 0)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE users
+  OWNER TO postgres;
+GRANT ALL ON TABLE public.users TO postgres;
+GRANT SELECT ON TABLE users TO user_check;
+
+CREATE EXTENSION pgcrypto;
+
+CREATE OR REPLACE FUNCTION hasg_password()
+  RETURNS trigger AS
+$BODY$
+BEGIN
+   IF (TG_OP = 'INSERT' OR NEW.password NOT LIKE OLD.password) THEN
+   NEW.password = encode(digest(NEW.password, 'sha256'), 'hex'); END IF;
+   RETURN NEW;
+END;
+$BODY$ language plpgsql;
+
+CREATE TRIGGER make_password_hash
+    BEFORE INSERT OR UPDATE ON users
+    FOR EACH ROW
+    EXECUTE PROCEDURE hasg_password();
+
+--INSERT INTO room (number) VALUES ('room1'), ('room2');
+--INSERT INTO users VALUES('edowado', '1234', 'admin'), ('cinezad', '1234', 'admin'), ('uchilka', '1234', 'lecturer');
+
+INSERT INTO room (number) VALUES ('38'), ('38a'), ('40');
+INSERT INTO users VALUES('Edward', '1234', 'admin'), ('cinezad', '1234', 'admin'), ('lecturer', '1234', 'lecturer');
+INSERT INTO Monitor VALUES (DEFAULT, 'Samsung E1920NW', 'TFT TN', 15.6, '1280x720'), (DEFAULT, 'SyncMaster E1920nw', 'TFT VA', 15.6, '1280x1024');
+INSERT INTO OS (id, name, type) VALUES (DEFAULT, 'Linux64', 'Linux'), (DEFAULT, 'Ubuntu64', 'Linux'), (DEFAULT, 'Fedora64', 'Linux');
+INSERT INTO Cathedra VALUES (DEFAULT, 'MOKS'), (DEFAULT, 'ADM');
+INSERT INTO Teacher VALUES (DEFAULT, 'Yevgeny', 'Malakhov', 'Valerievich', 1), (DEFAULT, 'Olga', 'Roznovets', 'Igorevna', 1), (DEFAULT, 'Edward', 'Mazurin', 'Andreevich', 1), (DEFAULT, 'Pavlo', 'Varbanets', 'Dmitrovich', 2);
+INSERT INTO Course VALUES (DEFAULT, 'Database'), (DEFAULT, 'System administration'), (DEFAULT, 'OS'), (DEFAULT, 'Information theory and coding');
+INSERT INTO Network_Device VALUES (DEFAULT, 'TP-LINK TL-WR841N', 4, 'Router'), (DEFAULT, 'Cisco Catalyst WS-C2950-24', 24, 'Switch'), (DEFAULT, 'Mercusys MW300RE', 0, 'Repeater'), (DEFAULT, 'Schneider Electric Asfora', 2, 'Hub');
+INSERT INTO Printer_Scanner VALUES (DEFAULT, 'HP Laser 107a', 'Printer'), (DEFAULT, 'Canon CanoScan LIDE 220', 'Scanner');
+INSERT INTO Projector VALUES (DEFAULT, 'Acer X118'), (DEFAULT, 'BenQ MS527');
+INSERT INTO Appliances VALUES (DEFAULT, 'Холодильник SHARP SJ-BB05DTXW1-UA'), (DEFAULT, 'Кофемашина SAECO Lirika');
+INSERT INTO Keyboard_Mouse VALUES (DEFAULT, 'Real-El 8700 Backlit USB', 'Keyboard'), (DEFAULT, 'Logitech G102 Prodigy USB Black', 'Mouse');
+INSERT INTO Cable VALUES (DEFAULT, 'Schuko'), (DEFAULT, 'VGA'), (DEFAULT, 'HDMI'), (DEFAULT, 'DVI'), (DEFAULT, 'USB');
+
+
